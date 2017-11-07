@@ -10,35 +10,7 @@ $(function() {
         search: true
     }, {
         field: 'nickname',
-        title: '昵称',
-    }, {
-        field: 'idNo',
-        title: '证件号码',
-        search: true
-    }, {
-        title: "推荐人",
-        field: "tj",
-        formatter: function(v, data) {
-            if (data.refereeUser) {
-                return data.refereeUser.mobile;
-            } else {
-                return "-"
-            }
-        }
-    }, {
-        title: "推荐人",
-        field: "userReferee",
-        type: "select",
-        pageCode: "805120",
-        params: {
-            kind: 'C',
-            updater: ""
-        },
-        keyName: "userId",
-        valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
-        searchName: "mobile",
-        search: true,
-        visible: false
+        title: '名称',
     }, {
         field: 'status',
         title: '状态',
@@ -57,6 +29,9 @@ $(function() {
         type2: 'date',
         twoDate: true,
         search: true,
+    },{
+        field: 'remark',
+        title: '备注',
     }];
     buildList({
         router: 'customer',
@@ -70,6 +45,8 @@ $(function() {
             window.location.href = "customer_addedit.html?v=1&userId=" + data.userId;
         }
     });
+    
+    
     //激活
     $('#activeBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
@@ -96,7 +73,7 @@ $(function() {
         }, function() {})
     });
 
-    //注销
+    //禁止登陆
     $('#rockBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
@@ -123,7 +100,8 @@ $(function() {
 
         }, function() {})
     });
-    //账户
+    
+    //账户查询
     $('#accountBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
