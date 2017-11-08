@@ -1,63 +1,36 @@
 $(function() {
-
-    var columns = [{
-        field: '',
-        title: '',
-        checkbox: true
-    }, {
-        field: 'realName',
-        title: '户名',
-        search: true
-    }, {
-        field: 'type',
-        title: '类型',
-        type: 'select',
-        key: 'account_type',
-        formatter: Dict.getNameForList('account_type'),
-    }, {
-        field: 'status',
-        title: '状态',
-        type: 'select',
-        key: 'account_status',
-        formatter: Dict.getNameForList('account_status'),
-        search: true
-    }, {
-        field: 'amount',
-        title: '余额',
-        formatter: moneyFormat
-    }, {
-        field: 'frozenAmount',
-        title: '冻结金额',
-        formatter: moneyFormat
-    }, {
-        field: 'currency',
-        title: '币种',
-        type: 'select',
-        key: 'currency',
-        formatter: Dict.getNameForList("currency"),
-        search: true
-    }, {
-        field: 'createDatetime',
-        title: '创建时间',
-        formatter: dateTimeFormat
-    }];
-    buildList({
-        router: 'breakBalance',
-        columns: columns,
-        pageCode: '802500',
-        searchParams: {
-            type: 'P',
-            companyCode: OSS.company
-        }
+    var accountNumberCNY;
+    var accountNumberJF;
+    var accountNumberTG;
+    reqApi({
+        code: '802500',
+        json: {
+            "start": 1,
+            "limit": 10,
+            "type": "P"
+        },
+        sync: true
+    }).done(function(data) {
+        var data = data.list;
+        $("#amount-CNY").text("￥" + moneyFormat(data[1].amount));
+        accountNumberCNY = data[1].accountNumber;
+        $("#amount-JF").text(moneyFormat(data[0].amount));
+        accountNumberJF = data[0].accountNumber;
+        $("#amount-TG").text("￥" + moneyFormat(data[2].amount));
+        accountNumberTG = data[2].accountNumber;
     });
 
-    $('#flowBtn').click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-        window.location.href = "ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
+    $("#CNYls-Btn").click(function() {
+        location.href = "ledger.html?accountNumber=" + accountNumberCNY + "&kind=CNY";
+    });
+    $("#JFls-Btn").click(function() {
+        location.href = "ledger.html?accountNumber=" + accountNumberJF + "&kind=JF";
+    });
+    $("#accoutGrantBtn").click(function() {
+        location.href = "ledger.html?accountNumber=" + accountNumberTG + "&kind=TG";
+    });
+    $("#accouBtn").click(function() {
+        window.location.href = 'account_enchashment.html?accountNumber=' + accountNumberTG;
     });
 
 });

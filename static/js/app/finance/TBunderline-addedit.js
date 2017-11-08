@@ -1,70 +1,66 @@
 $(function() {
+    var code = getQueryString('code');
     var view = !!getQueryString('v');
     var userId = getQueryString('userId') || '';
 
-
     var fields = [{
+        field: 'bizType',
+        type: 'hidden',
+        value: '-11'
+    }, {
         field: 'accountNumber',
         title: '用户账户',
         required: true,
         type: 'select',
-        pageCode: userId ? '802503' : '802500',
-        keyCode1: '625907',
+        pageCode: '802500',
+        keyCode1: '801907',
         dict: [
             ['currency', 'currency'],
             ['type', 'account_type']
         ],
         params: {
-            currency: '',
+            // currency: 'CNY',
+            // currencyList: ['CNY', "XJK"],
             userId: userId
         },
         keyName: 'accountNumber',
         valueName: '{{realName.DATA}} - {{currencyName.DATA}} - {{typeName.DATA}}',
         searchName: 'realName',
-        help: '支持户名查询',
-        onChange: function(v, data) {
-            var accountNumValue = $('#accountNumber option:selected').text();
-            if (accountNumValue.indexOf("人民币") != -1) {
-                $("#payCardInfo").parent().css("display", "block");
-                $("#payCardNo").parent().css("display", "block");
-            } else {
-                $("#payCardInfo").parent().css("display", "none");
-                $("#payCardNo").parent().css("display", "none");
-            }
-        }
+        help: '支持户名查询'
     }, {
-        title: "充值数量",
         field: 'amount',
+        title: '取现金额',
         required: true,
         amount: true,
         formatter: moneyFormat
     }, {
         field: 'payCardInfo',
-        title: '开户行',
+        title: '银行类型',
         required: true,
-        maxlength: 255
     }, {
         field: 'payCardNo',
         title: '银行卡号',
-        bankCard: true,
+        number: true,
+        minlength: 15,
         required: true,
     }, {
         field: 'applyNote',
-        title: '充值说明',
+        title: '申请说明',
         maxlength: 255
     }];
 
     var options = {
         fields: fields,
-        addCode: '802700',
+        code: code,
+        addCode: '802751',
+        detailCode: '802756',
         view: view,
         beforeSubmit: function(data) {
             data.applyUser = getUserId();
-            data.bizType = "11";
             return data;
         }
     };
 
     buildDetail(options);
 
-})
+});

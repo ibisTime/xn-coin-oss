@@ -13,7 +13,7 @@ $(function() {
         required: true,
         type: 'select',
         pageCode: '802500',
-        keyCode1: '801907',
+        keyCode1: '625907',
         dict: [
             ['currency', 'currency'],
             ['type', 'account_type']

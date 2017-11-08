@@ -11,7 +11,6 @@ $(function() {
 		title: '规则名称',
 		field: 'remark',
         readonly: true,
-		required: true,
 		maxlength: 250
 	},{
 		title : '参数',
@@ -29,8 +28,8 @@ $(function() {
 	buildDetail({
 		fields: fields,
 		code: code,
-		detailCode: '808916',
-		editCode: '808910',
+		detailCode: '615916',
+		editCode: '615910',
 		beforeSubmit: function(data){
 			data.remark = $('#remark').html();
 			data.type = type;
@@ -38,4 +37,5 @@ $(function() {
 			return data;
 		}
 	});
+	
 });

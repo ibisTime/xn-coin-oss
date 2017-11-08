@@ -1,7 +1,7 @@
 {
-    "name": "yaocheng-oss",
+    "name": "coin-oss",
     "version": "1.0.0",
-    "description": "xn-yc-oss",
+    "description": "xn-coin-oss",
     "main": "fis-conf.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
