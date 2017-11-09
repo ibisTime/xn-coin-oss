@@ -45,13 +45,13 @@ $(function() {
     }, {
         field: 'applyUser',
         title: '申请人',
-        formatter: function(v, data) {
-            if (data.user.kind == 'P') {
-                return data.user.loginName;
-            } else {
-                return data.user.mobile;
-            }
-        }
+        // formatter: function(v, data) {
+        //     if (data.user.kind == 'P') {
+        //         return data.user.loginName;
+        //     } else {
+        //         return data.user.mobile;
+        //     }
+        // }
     }, {
         field: 'applyDatetime',
         title: '申请时间',
@@ -83,7 +83,7 @@ $(function() {
         pageCode: '802705',
         singleSelect: false,
         searchParams: {
-            channelType: '90',
+            // channelType: '90',
             companyCode: OSS.company
         },
         beforeDetail: function(data) {

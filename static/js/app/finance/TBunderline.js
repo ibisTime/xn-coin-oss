@@ -44,8 +44,8 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'jour_status',
-        formatter: Dict.getNameForList('jour_status'),
+        key: 'withdraw_status',
+        formatter: Dict.getNameForList('withdraw_status'),
         search: true
     }, {
         field: 'approveUser',

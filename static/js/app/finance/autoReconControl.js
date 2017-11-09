@@ -5,9 +5,17 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'realName',
-        title: '户名',
+        field: 'code',
+        title: '订单编号',
         search: true
+    }, {
+        field: 'realName',
+        title: '充币人',
+        search: true
+    }, {
+        title: "金额",
+        field: "",
+        formatter: moneyFormat
     }, {
         field: 'currency',
         title: '币种',

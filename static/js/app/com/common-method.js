@@ -63,10 +63,10 @@ function moneyFormat(money, format) {
         flag = false;
     }
     if (format == '' || format == null || format == undefined || typeof format == 'object') {
-        format = 2;
+        format = 8;
     }
     //钱除以1000并保留两位小数
-    money = (money / 1000).toString();
+    money = (money / 1000000000000000000).toString();
     money = money.replace(/(\.\d\d)\d+/ig, "$1");
     money = parseFloat(money).toFixed(format);
     //千分位转化
