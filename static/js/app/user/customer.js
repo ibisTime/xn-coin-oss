@@ -10,7 +10,18 @@ $(function() {
         search: true
     }, {
         field: 'nickname',
-        title: '名称',
+        title: '昵称',
+    }, {
+        field: 'userReferee',
+        title: '推荐人',
+        formatter: function(v, data) {
+            if (data.refereeUser) {
+                return data.refereeUser.mobile;
+            } else {
+                return "无"
+            }
+        },
+        required: true
     }, {
         field: 'status',
         title: '状态',
@@ -29,7 +40,7 @@ $(function() {
         type2: 'date',
         twoDate: true,
         search: true,
-    },{
+    }, {
         field: 'remark',
         title: '备注',
     }];
@@ -45,8 +56,8 @@ $(function() {
             window.location.href = "customer_addedit.html?v=1&userId=" + data.userId;
         }
     });
-    
-    
+
+
     //激活
     $('#activeBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
@@ -100,7 +111,7 @@ $(function() {
 
         }, function() {})
     });
-    
+
     //账户查询
     $('#accountBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');

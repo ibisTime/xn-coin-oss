@@ -1,5 +1,6 @@
 $(function() {
-
+    // var accountCode = get
+    var accountCode = getQueryString('accountCode');
     var columns = [{
         field: '',
         title: '',
@@ -63,16 +64,14 @@ $(function() {
         columns: columns,
         pageCode: '802520',
         searchParams: {
-            userId: getUserId(),
+            accountNumber: accountCode,
             companyCode: OSS.company
         }
     });
-    $("#detailBtn").off("click").on("click", function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-        location.href = "ledger_addedit.html?v=1&code=" + selRecords[0].code;
+    $(".tools .toolbar").html('<li style="display:block;" id="goBackBtn"><span><img src="/static/images/t01.png"></span>返回</li>')
+
+    $("#goBackBtn").on("click", function() {
+        goBack();
     });
+
 });

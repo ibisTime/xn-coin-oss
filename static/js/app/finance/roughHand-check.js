@@ -105,6 +105,68 @@ $(function() {
             formatter: dateTimeFormat
         }]
     }, {
+        field: 'jourList2',
+        title: '区块链流水:',
+        readonly: true,
+        type: 'o2m',
+        pageCode: "802520",
+        o2mvalue: {
+            order: code
+        },
+        columns: [{
+            field: 'code',
+            title: '流水号',
+            formatter: function(v, data) {
+                return data.code
+            }
+        }, {
+            field: 'realName',
+            title: '户名',
+            formatter: function(v, data) {
+                return data.realName
+            }
+        }, {
+            field: 'currency',
+            title: '币种',
+            key: 'currency',
+            formatter: Dict.getNameForList('currency'),
+        }, {
+            field: 'channelType',
+            title: '渠道',
+            type: 'select',
+            key: 'channel_type',
+            formatter: Dict.getNameForList('channel_type')
+        }, {
+            field: 'bizType',
+            title: '业务类型',
+            type: 'select',
+            key: 'biz_type',
+            formatter: Dict.getNameForList('biz_type'),
+        }, {
+            field: 'transAmount',
+            title: '变动金额',
+            formatter: moneyFormat
+        }, {
+            field: 'preAmount',
+            title: '变动前金额',
+            formatter: moneyFormat
+        }, {
+            field: 'postAmount',
+            title: '变动后金额',
+            formatter: moneyFormat
+        }, {
+            field: 'status',
+            title: '状态',
+            type: 'select',
+            key: 'jour_status',
+            formatter: Dict.getNameForList('jour_status'),
+            search: true
+        }, {
+            field: 'createDatetime',
+            title: '创建时间',
+            formatter: dateTimeFormat
+        }]
+    }, {
         title: '意见说明',
         field: 'adjustNote',
         maxlength: 250,

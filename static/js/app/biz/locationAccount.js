@@ -5,46 +5,47 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: '',
+        field: 'accountNumber',
         title: '户名',
         search: true
     }, {
         title: "账号",
-        field: ""
+        field: "realName"
     }, {
-        title: "类型",
-        field: ""
+        field: "currency",
+        title: "币种"
     }, {
         title: '余额',
-        field: '',
+        field: 'amount',
         formatter: moneyFormat
     }, {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: '',
-        formatter: Dict.getNameForList(''),
+        key: 'account_status',
+        formatter: Dict.getNameForList('account_status'),
         search: true
     }, {
-        field: '',
+        field: 'createDatetime',
         title: '创建时间',
         formatter: dateTimeFormat
     }];
     buildList({
         columns: columns,
-        pageCode: '',
+        pageCode: '802500',
         searchParams: {
-            companyCode: OSS.company
+            companyCode: OSS.company,
+            type: "C"
         },
     });
 
-    $('#diviLedgerBtn').click(function() {
+    $('#ledgerBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
             return;
         }
-        window.location.href = "ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
+        window.location.href = "../finance/partner_ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
     });
 
 });

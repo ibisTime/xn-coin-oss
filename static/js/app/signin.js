@@ -1,4 +1,5 @@
 $('title').html(OSS.systemName);
+
 function getQueryString(name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
     var r = window.location.search.substr(1).match(reg);
@@ -10,8 +11,8 @@ function getQueryString(name) {
 sessionStorage.setItem('loginKind', getQueryString('kind') || 'P');
 sessionStorage.setItem('listSearchs', '');
 $(function() {
-	$('#hello-text').html(OSS.systemName);
-	$('#footer-system').html(OSS.companyName);
+    $('#hello-text').html(OSS.systemName);
+    $('#footer-system').html(OSS.companyName);
     window.sessionStorage.setItem('systemCode', OSS.system);
     // frameset框架嵌套，跳转到最外层
     if (top.location != self.location) {
@@ -40,23 +41,23 @@ $(function() {
             $.each(t, function() {
                 data[this.name] = this.value;
             });
-			
-			//获取七牛地址
-			reqApi({
-	            code: '805917',
-	            json: {
-	            	ckey:'qiniu_domain'
-	            },
-				sync: true
-	        }).then(function(data) {
-	            window.sessionStorage.setItem('qiniuUrl', 'http://'+data.cvalue);
-	        });
-			
-			//获取用户详情
+
+            //获取七牛地址
+            // reqApi({
+            //     code: '805917',
+            //     json: {
+            //     	ckey:'qiniu_domain'
+            //     },
+            // 	sync: true
+            // }).then(function(data) {
+            //     window.sessionStorage.setItem('qiniuUrl', 'http://'+data.cvalue);
+            // });
+
+            //获取用户详情
             reqApi({
                 code: '805050',
                 json: data,
-				sync: true
+                sync: true
             }).then(function(data) {
                 location.href = "main.html?timestamp=" + new Date().getTime();
                 window.sessionStorage.setItem('token', data.token || data.userId);
@@ -64,7 +65,7 @@ $(function() {
             });
         }
     }
-    
+
     // 登录
     $('#loginBtn').click(function() {
         login();

@@ -5,57 +5,44 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: '',
+        field: 'code',
         title: '编号',
         search: true
     }, {
-        field: '',
-        title: '账号',
-    }, {
         field: 'amount',
-        title: '金额',
+        title: '交易数量',
         formatter: moneyFormat
     }, {
-        title: "开户支行",
-        field: ""
+        field: 'fromAddress',
+        title: '来方归集',
     }, {
-        title: "银行卡号",
-        field: ""
+        title: "去方归集地址",
+        field: "toAddress"
     }, {
-        title: '业务类型',
-        field: "",
-        type: "select",
-        key: "",
-        formatter: Dict.getNameForList(""),
-        search: true
-    }, {
-        field: '',
-        title: '申请人'
-    }, {
-        field: '',
-        title: '申请时间',
-        formatter: dateTimeFormat
+        title: "交易HASH",
+        field: 'txHash'
     }, {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'account_status',
-        formatter: Dict.getNameForList('account_status'),
+        data: {
+            "0": "广播中",
+            "1": "广播成功",
+            "2": "广播失败"
+        },
+        // key: 'account_status',
+        // formatter: Dict.getNameForList('account_status'),
         search: true
     }, {
-        field: '',
-        title: '审核人'
-    }, {
-        field: '',
-        title: '审核时间',
+        field: 'createDatetime',
+        title: '归集时间',
         formatter: dateTimeFormat
     }, ];
     buildList({
         columns: columns,
-        pageCode: '',
-        // singleSelect: false, 
+        pageCode: '625105',
         searchParams: {
-            type: 'P',
+            // type: 'P',
             companyCode: OSS.company
         }
     });

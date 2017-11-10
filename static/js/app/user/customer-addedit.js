@@ -29,16 +29,6 @@ $(function() {
         readonly: view,
         maxlength: 10
     }, {
-        title: "性别",
-        field: "gender",
-        type: "select",
-        data: {
-            "0": "未知",
-            "1": "男",
-            "2": "女"
-        },
-        readonly: view,
-    }, {
         field: 'userReferee',
         title: '推荐人',
         formatter: function(v, data) {
@@ -55,31 +45,6 @@ $(function() {
         type: "select",
         key: "user_status",
         formatter: Dict.getNameForList("user_status"),
-    }, {
-        field: 'bankcardList',
-        title: '银行卡信息:',
-        type: 'o2m',
-        pageCode: '802015',
-        o2mvalue: {
-            'userId': userId
-        },
-        columns: [{
-            field: 'realName',
-            title: '真实名称',
-        }, {
-            field: 'bankName',
-            title: '银行类型',
-        }, {
-            field: 'bankcardNumber',
-            title: '银行卡号',
-        }, {
-            field: 'bindMobile',
-            title: '预留手机号',
-        }, {
-            field: 'createDatetime',
-            title: '创建时间',
-            formatter: dateTimeFormat
-        }]
     }, {
         field: 'remark',
         title: '备注',

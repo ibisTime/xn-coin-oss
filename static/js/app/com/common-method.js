@@ -63,17 +63,17 @@ function moneyFormat(money, format) {
         flag = false;
     }
     if (format == '' || format == null || format == undefined || typeof format == 'object') {
-        format = 8;
+        format = 18;
     }
     //钱除以1000并保留两位小数
     money = (money / 1000000000000000000).toString();
-    money = money.replace(/(\.\d\d)\d+/ig, "$1");
+    // money = money.replace(/(\.\d\d)\d+/ig, "$1");
     money = parseFloat(money).toFixed(format);
     //千分位转化
-    var re = /\d{1,3}(?=(\d{3})+$)/g;
-    money = money.replace(/^(\d+)((\.\d+)?)$/, function(s, s1, s2) {
-        return s1.replace(re, "$&,") + s2;
-    });
+    // var re = /\d{1,3}(?=(\d{3})+$)/g;
+    // money = money.replace(/^(\d+)((\.\d+)?)$/, function(s, s1, s2) {
+    //     return s1.replace(re, "$&,") + s2;
+    // });
     if (!flag) {
         money = "-" + money;
     }

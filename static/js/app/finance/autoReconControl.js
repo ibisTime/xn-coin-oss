@@ -81,9 +81,9 @@ $(function() {
     buildList({
         columns: columns,
         pageCode: '802520',
-        beforeDetail: function(data) {
-            location.href = "ledger_addedit.html?v=1&code=" + data.code;
-        },
+        // beforeDetail: function(data) {
+        //     location.href = "ledger_addedit.html?v=1&code=" + data.code;
+        // },
         beforeEdit: function(r) {
             if (r.status != '1') {
                 toastr.info('该记录不是待对账状态');

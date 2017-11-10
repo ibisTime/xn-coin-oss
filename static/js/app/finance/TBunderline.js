@@ -29,8 +29,15 @@ $(function() {
         title: "提现地址",
         field: "payCardNo"
     }, {
-        field: 'applyUser',
-        title: '申请人'
+        field: 'mobile',
+        title: '申请人',
+        formatter: function(v, data) {
+            if (data.user) {
+                return data.user.mobile;
+            } else {
+                return data.approveUser
+            }
+        }
     }, {
         field: 'applyDatetime',
         title: '申请时间',
@@ -72,7 +79,29 @@ $(function() {
             toastr.info("请选择记录");
             return;
         }
-        window.location.href = "ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
+        var dataCode = []
+
+        for (var i = 0; i < selRecords.length; i++) {
+            dataCode.push(selRecords[i].code)
+
+            if (selRecords[i].status != 3) {
+                toastr.info(selRecords[i].code + "状态不能广播!");
+                return;
+            }
+
+        }
+        confirm("确定进行广播？").then(function() {
+            reqApi({
+                code: '802754',
+                json: {
+                    codeList: dataCode,
+                    approveUser: getUserName()
+                }
+            }).then(function() {
+                sucList();
+            });
+
+        }, function() {});
     });
     //审核
     $('#multiCheckBtn').click(function() {
@@ -81,12 +110,6 @@ $(function() {
             toastr.info("请选择记录");
             return;
         }
-
-        // if (selRecords.length == 1 && selRecords[0].status == 1) {
-
-        //     window.location.href = "offlineRecharge_check.html?Code=" + selRecords[0].code;
-        // } else {
-
         var dataCode = []
 
         for (var i = 0; i < selRecords.length; i++) {
@@ -96,7 +119,6 @@ $(function() {
                 toastr.info(selRecords[i].code + "状态不能审核!");
                 return;
             }
-
         }
 
         var dw = dialog({

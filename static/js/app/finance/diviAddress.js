@@ -9,13 +9,20 @@ $(function() {
         title: '地址'
     }, {
         title: "拥有者",
-        field: "userId"
+        field: "userId",
+        formatter: function(v, data) {
+            if (data.user) {
+                return data.user.mobile;
+            }
+        }
     }, {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: '',
-        formatter: Dict.getNameForList(''),
+        data: {
+            "0": "启用",
+            "1": "弃用"
+        },
         search: true
     }, {
         field: '',
@@ -46,7 +53,14 @@ $(function() {
             toastr.info("请选择记录");
             return;
         }
-        window.location.href = "ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
+        window.location.href = "partner_ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
     });
-
+    // $('#ledgerBtn').click(function() {
+    //     var selRecords = $('#tableList').bootstrapTable('getSelections');
+    //     if (selRecords.length <= 0) {
+    //         toastr.info("请选择记录");
+    //         return;
+    //     }
+    //     window.location.href = "../finance/partner_ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
+    // });
 });

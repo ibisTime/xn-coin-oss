@@ -17,13 +17,13 @@ $(function() {
     }];
     buildList({
         columns: columns,
-        pageCode: '802025',
+        pageCode: '625915',
         searchParams: {
-            // type: '3',
+            type: 'withdraw_rule',
             companyCode: OSS.company
         },
         beforeEdit: function(r) {
-            location.href = 'rule2_addedit.html?code=' + r.id + "&t=" + r.type;
+            location.href = 'TBRule_addedit.html?code=' + r.id + "&t=" + r.type;
         }
     });
 });
