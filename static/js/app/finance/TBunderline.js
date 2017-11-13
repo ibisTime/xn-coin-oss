@@ -85,7 +85,7 @@ $(function() {
             dataCode.push(selRecords[i].code)
 
             if (selRecords[i].status != 3) {
-                toastr.info(selRecords[i].code + "状态不能广播!");
+                toastr.info(selRecords[i].code + "状态不能广播，只有审批通过才可以广播!");
                 return;
             }
 
@@ -111,7 +111,6 @@ $(function() {
             return;
         }
         var dataCode = []
-
         for (var i = 0; i < selRecords.length; i++) {
             dataCode.push(selRecords[i].code)
 
@@ -126,7 +125,6 @@ $(function() {
                 '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">批量支付</li></ul>' +
                 '</form>'
         });
-
         dw.showModal();
 
         buildDetail({
@@ -152,7 +150,6 @@ $(function() {
                             json: data
                         }).done(function(data) {
                             toastr.info("操作成功");
-
                             $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
                             dw.close().remove();
                         });
@@ -186,10 +183,7 @@ $(function() {
                 }
             }]
         });
-
         dw.__center();
-        // }
-
     });
 
 });

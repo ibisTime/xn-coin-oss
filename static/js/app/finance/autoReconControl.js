@@ -13,15 +13,10 @@ $(function() {
         title: '充币人',
         search: true
     }, {
-        title: "金额",
-        field: "",
-        formatter: moneyFormat
-    }, {
         field: 'currency',
         title: '币种',
         type: 'select',
         key: 'currency',
-
         formatter: Dict.getNameForList("currency"),
         search: true
     }, {
@@ -29,7 +24,6 @@ $(function() {
         title: '渠道',
         type: 'select',
         key: 'channel_type',
-
         formatter: Dict.getNameForList('channel_type'),
         search: true
     }, {
@@ -37,7 +31,6 @@ $(function() {
         title: '业务类型',
         type: 'select',
         key: 'biz_type',
-
         formatter: Dict.getNameForList('biz_type'),
         search: true
     }, {
@@ -57,7 +50,6 @@ $(function() {
         title: '状态',
         type: 'select',
         key: 'jour_status',
-
         formatter: Dict.getNameForList('jour_status'),
         search: true
     }, {
@@ -89,7 +81,8 @@ $(function() {
                 toastr.info('该记录不是待对账状态');
                 return false;
             }
-            return true;
+            window.location.href = "./autoReconControl_addedit.html?code=" + r.code + "&accountNumber=" + r.accountNumber;
+            // return true;
         },
         searchParams: {
             channelType: 'out',

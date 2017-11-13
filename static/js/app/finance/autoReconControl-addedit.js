@@ -1,6 +1,7 @@
 $(function() {
     var code = getQueryString('code');
     var view = !!getQueryString('v');
+    var accountNumber = getQueryString('accountNumber');
 
     var fields = [{
         title: '流水编号',
@@ -86,9 +87,9 @@ $(function() {
         title: '本地流水:',
         readonly: true,
         type: 'o2m',
-        pageCode: "802520",
+        pageCode: "802524",
         o2mvalue: {
-            order: code
+            accountNumber: accountNumber
         },
         columns: [{
             field: 'code',
@@ -150,9 +151,9 @@ $(function() {
         title: '区块链流水:',
         readonly: true,
         type: 'o2m',
-        pageCode: "802520",
+        pageCode: "802524",
         o2mvalue: {
-            order: code
+            accountNumber: accountNumber
         },
         columns: [{
             field: 'code',
@@ -210,8 +211,8 @@ $(function() {
     }, {
         title: '对账说明',
         field: 'checkNote',
-        type: "textarea",
-        normalArea: true,
+        // type: "textarea",
+        // normalArea: true,
         required: true,
         readonly: view,
         maxlength: 250
@@ -231,6 +232,7 @@ $(function() {
         title: "正确",
         handler: function() {
             var data = $('#jsForm').serializeObject();
+            // data.result="1";
             reqApi({
                 code: '802800',
                 json: data
@@ -242,6 +244,7 @@ $(function() {
         title: "不平账",
         handler: function() {
             var data = $('#jsForm').serializeObject();
+            // data.result="0";
             reqApi({
                 code: '802800',
                 json: data
