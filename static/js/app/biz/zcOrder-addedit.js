@@ -10,20 +10,10 @@ $(function() {
     }, {
         title: "买家",
         field: "buyUser",
-        formatter: function(v, data) {
-            if (data.buyUserInfo) {
-                return data.buyUserInfo.mobile + '(' + data.buyUserInfo.nickname + ')'
-            }
-        },
         search: true
     }, {
         title: "卖家",
         field: "sellUser",
-        formatter: function(v, data) {
-            if (data.sellUserInfo) {
-                return data.sellUserInfo.mobile + '(' + data.sellUserInfo.nickname + ')'
-            }
-        },
         search: true
     }, {
         title: "交易广告名称",
@@ -98,7 +88,7 @@ $(function() {
         fields: fields,
         code: code,
         view: true,
-        detailCode: '625251',
+        detailCode: '625266',
     };
     buildDetail(options);
 

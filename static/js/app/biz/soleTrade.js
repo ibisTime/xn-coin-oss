@@ -6,43 +6,82 @@ $(function() {
         checkbox: true
     }, {
         field: 'code',
-        title: '编号'
+        title: '编号',
     }, {
-        title: "卖家",
-        field: "userId"
+        title: '周几',
+        field: "week",
+        formatter: function(v, data) {
+            if (data.displayTime) {
+                return data.displayTime.week
+            }
+        }
     }, {
-        title: "溢价",
-        field: ""
+        title: "开始时间",
+        field: "startTime",
+        formatter: function(v, data) {
+            if (data.displayTime) {
+                return data.displayTime.startTime
+            }
+        }
     }, {
-        title: "最低价",
-        field: ""
+        title: "结束时间",
+        field: "endtime",
+        formatter: function(v, data) {
+            if (data.displayTime) {
+                return data.displayTime.endtime
+            }
+        }
     }, {
-        title: "最小量",
-        field: ""
+        title: "广告留言",
+        field: "leaveMessage"
     }, {
-        title: "最大量",
-        field: ""
+        title: "单笔最大交易额",
+        field: "maxTrade",
+        formatter: moneyFormat
     }, {
-        field: '',
-        title: '收款方式',
-        type: 'select',
-        key: '',
-        formatter: Dict.getNameForList(''),
+        title: "单笔最大交易额",
+        field: "minTrade",
+        formatter: moneyFormat
+    }, {
+        title: "溢价率",
+        field: "premiumRate"
+    }, {
+        title: "保护价",
+        field: "protectPrice",
+    }, {
+        title: "可交易的对象",
+        field: "onlyTrust",
+        type: "select",
+        data: {
+            "0": "任何人都可以交易",
+            "1": "只有受信任的人可以交易"
+        },
         search: true
     }, {
-        field: '',
-        title: '高级设置'
+        field: 'payType',
+        title: '支付方式',
+        type: 'select',
+        data: {
+            "0": "支付宝",
+            "1": "微信",
+            "2": "银行卡转账"
+        },
+        search: true
     }, {
-        field: '',
-        title: '广告留言'
+        field: 'tradeCurrency',
+        title: '交易币种'
+    }, {
+        title: "交易人",
+        field: 'userId'
     }];
     buildList({
         columns: columns,
-        pageCode: '',
+        pageCode: '625227',
         searchParams: {
-            // type: 'X',
+            coin: "ETH",
+            tradeType: '1',
             companyCode: OSS.company
-        },
+        }
     });
     //收买
     $('#buyBtn').click(function() {

@@ -42,16 +42,21 @@ $(function() {
                 data[this.name] = this.value;
             });
 
-            //获取七牛地址
-            // reqApi({
-            //     code: '805917',
-            //     json: {
-            //     	ckey:'qiniu_domain'
-            //     },
-            // 	sync: true
-            // }).then(function(data) {
-            //     window.sessionStorage.setItem('qiniuUrl', 'http://'+data.cvalue);
-            // });
+            // 获取七牛地址
+            reqApi({
+                code: '625915',
+                json: {
+                    ckey: 'qiniu_domain',
+                    limit: "10",
+                    orderColumn: "id",
+                    orderDir: "asc",
+                    start: "0"
+                },
+                sync: true
+            }).then(function(data) {
+                // console.log(data.list[0].cvalue);
+                window.sessionStorage.setItem('qiniuUrl', 'http://' + data.list[0].cvalue);
+            });
 
             //获取用户详情
             reqApi({

@@ -42,17 +42,14 @@ $(function() {
         field: 'name',
         required: true,
         readonly: view,
-        maxlength: 32 //
+        maxlength: 32
     }, {
         title: '位置',
         field: 'location',
         type: "select",
-        data: {
-            "index_banner": "首页"
-        },
-        value: "index_banner",
+        key: "banner_location",
         required: true,
-        readonly: view
+        readonly: view,
     }, {
         title: '顺序',
         field: 'orderNo',
@@ -64,15 +61,13 @@ $(function() {
         title: "banner图片",
         field: "pic",
         type: "img",
-		single: true,
+        single: true,
         required: true,
         readonly: view
     }, {
         title: 'url地址',
         field: "url",
-        //required: true,
-        readonly: view,
-        //maxlength: 255
+        readonly: view
     }, {
         title: '备注',
         field: 'remark',
