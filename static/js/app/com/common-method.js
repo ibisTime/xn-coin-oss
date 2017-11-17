@@ -1330,6 +1330,7 @@ function buildDetail(options) {
                 options.beforeSubmitAsync(data);
             } else {
                 request();
+
             }
 
         }

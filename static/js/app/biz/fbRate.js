@@ -20,9 +20,9 @@ $(function() {
     }];
     buildList({
         columns: columns,
-        pageCode: '',
+        pageCode: '625280',
         searchParams: {
-            // type: 'X',
+            currency: 'USD',
             companyCode: OSS.company
         },
     });
