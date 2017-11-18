@@ -13,8 +13,8 @@ $(function() {
         field: 'currency',
         title: '币种',
         type: 'select',
-        key: 'currency',
-        formatter: Dict.getNameForList("currency"),
+        key: 'coin',
+        formatter: Dict.getNameForList("coin"),
         search: true
     }, {
         field: 'channelType',
@@ -31,15 +31,15 @@ $(function() {
         formatter: Dict.getNameForList('biz_type'),
         search: true
     }, {
-        field: 'transAmount',
+        field: 'transAmountString',
         title: '变动金额',
         formatter: moneyFormat
     }, {
-        field: 'preAmount',
+        field: 'preAmountString',
         title: '变动前金额',
         formatter: moneyFormat
     }, {
-        field: 'postAmount',
+        field: 'postAmountString',
         title: '变动后金额',
         formatter: moneyFormat
     }, {

@@ -16,6 +16,15 @@ $(function() {
                 return data.buyUserInfo.mobile + '(' + data.buyUserInfo.nickname + ')'
             }
         },
+        type: "select",
+        pageCode: "805120",
+        params: {
+            updater: "",
+            kind: "C"
+        },
+        keyName: "userId",
+        valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
+        searchName: "mobile",
         search: true
     }, {
         title: "卖家",
@@ -25,6 +34,15 @@ $(function() {
                 return data.sellUserInfo.mobile + '(' + data.sellUserInfo.nickname + ')'
             }
         },
+        type: "select",
+        pageCode: "805120",
+        params: {
+            updater: "",
+            kind: "C"
+        },
+        keyName: "userId",
+        valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
+        searchName: "mobile",
         search: true
     }, {
         title: "交易价格",

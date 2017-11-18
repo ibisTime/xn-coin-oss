@@ -47,7 +47,7 @@ $(function() {
         field: "tradeCoin",
         type: "select",
         key: "coin",
-        formatter: Dict.getNameForList("tradeCoin"),
+        formatter: Dict.getNameForList("coin"),
         search: true
     }, {
         title: "交易法币币种",
@@ -90,6 +90,9 @@ $(function() {
     }, {
         title: "买家对卖家的评价",
         field: "bsComment"
+    }, {
+        title: "卖家对买家的评价",
+        field: "sbomment"
     }, {
         title: '备注',
         field: 'remark'

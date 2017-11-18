@@ -47,17 +47,17 @@ $(function() {
         title: '业务说明',
         readonly: true
     }, {
-        field: 'transAmount',
+        field: 'transAmountString',
         title: '变动金额',
         formatter: moneyFormat,
         readonly: true
     }, {
-        field: 'preAmount',
+        field: 'preAmountString',
         title: '变动前金额',
         formatter: moneyFormat,
         readonly: true
     }, {
-        field: 'postAmount',
+        field: 'postAmountString',
         title: '变动后金额',
         formatter: moneyFormat,
         readonly: true
@@ -123,15 +123,15 @@ $(function() {
             formatter: Dict.getNameForList('biz_type'),
             search: true
         }, {
-            field: 'transAmount',
+            field: 'transAmountString',
             title: '变动金额',
             formatter: moneyFormat
         }, {
-            field: 'preAmount',
+            field: 'preAmountString',
             title: '变动前金额',
             formatter: moneyFormat
         }, {
-            field: 'postAmount',
+            field: 'postAmountString',
             title: '变动后金额',
             formatter: moneyFormat
         }, {
@@ -185,15 +185,15 @@ $(function() {
             key: 'biz_type',
             formatter: Dict.getNameForList('biz_type'),
         }, {
-            field: 'transAmount',
+            field: 'transAmountString',
             title: '变动金额',
             formatter: moneyFormat
         }, {
-            field: 'preAmount',
+            field: 'preAmountString',
             title: '变动前金额',
             formatter: moneyFormat
         }, {
-            field: 'postAmount',
+            field: 'postAmountString',
             title: '变动后金额',
             formatter: moneyFormat
         }, {

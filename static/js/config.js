@@ -8,7 +8,7 @@ OSS.company = 'CD-COIN000017';
 // system name
 OSS.systemName = '以太坊管理平台';
 // company name
-OSS.companyName = '杭州橙袋科技有限公司';
+OSS.companyName = '倍可盈';
 // menuCode
 OSS.menuRoot = 'COINSM201700000000000000';
 // picUrl

@@ -1,95 +1,117 @@
 $(function() {
     var code = getQueryString('code');
-    var view = !!getQueryString('v');
+    var view = getQueryString('v');;
+    var remarkField;
+    var remarkOnly = {
+        title: '审核说明',
+        field: 'remark',
+        readonly: true,
+    };
+    var remark = {
+        title: '审核说明',
+        field: 'remark',
+        maxlength: 255,
+        required: true
+    };
+    if (view) {
+        remarkField = remarkOnly;
+    } else {
+        remarkField = remark;
+    }
     var fields = [{
         field: 'code1',
         title: '编号',
+        readonly: true,
         formatter: function(v, data) {
-            return data.code;
-        }
+            return data.code
+        },
+        readonly: true
     }, {
-        title: "买家",
-        field: "buyUser",
-        search: true
+        title: "被告",
+        field: "beigao",
+        formatter: function(v, data) {
+            if (data.beigaoInfo) {
+                return data.beigaoInfo.mobile;
+            }
+        },
+        readonly: true
     }, {
-        title: "卖家",
-        field: "sellUser",
-        search: true
+        title: "原告",
+        field: "yuangao",
+        formatter: function(v, data) {
+            if (data.yuangaoInfo) {
+                return data.yuangaoInfo.mobile;
+            }
+        },
+        readonly: true
     }, {
-        title: "交易广告名称",
-        field: "adsCode"
+        title: "针对订单编号",
+        field: "tradeOrderCode",
+        readonly: true
     }, {
-        title: "交易价格",
-        field: "tradePrice"
+        title: "申请原因",
+        field: "reason",
+        readonly: true
     }, {
-        title: "交易数量",
-        field: "count"
-    }, {
-        title: "交易金额",
-        field: "tradeAmount",
-        formatter: moneyFormat
-    }, {
-        title: "手续费",
-        field: "fee",
-        formatter: moneyFormat
-    }, {
-        title: "交易虚拟币币种",
-        field: "tradeCoin",
-        type: "select",
-        key: "coin",
-        formatter: Dict.getNameForList("tradeCoin"),
-        search: true
-    }, {
-        title: "交易法币币种",
-        field: "tradeCurrency",
-        type: "select",
-        key: "currency",
-        formatter: Dict.getNameForList("currency"),
-        search: true
-    }, {
-        title: "支付方式",
-        field: 'payType',
-        type: 'select',
-        type: "select",
-        key: "pay_type",
-        formatter: Dict.getNameForList("pay_type"),
-        search: true
-    }, {
-        title: "下单时间",
-        field: "createDatetime",
-        formatter: dateTimeFormat
-    }, {
-        title: "支付失效时间",
-        field: "invalidDatetime",
-        formatter: dateTimeFormat
-    }, {
-        title: "买家标记时间",
-        field: "markDatetime",
-        formatter: dateTimeFormat
-    }, {
-        title: "卖家释放时间",
-        field: "releaseDatetime",
-        formatter: dateTimeFormat
+        title: "附件说明",
+        field: "attach",
+        type: "img",
+        readonly: true
     }, {
         title: "状态",
         field: "status",
         type: "select",
-        key: "trade_order_status",
-        formatter: Dict.getNameForList("trade_order_status"),
-        search: true
-    }, {
-        title: "买家对卖家的评价",
-        field: "bsComment"
-    }, {
-        title: '备注',
-        field: 'remark'
-    }];
+        key: "arbitrate_status",
+        readonly: true
+    }, remarkField];
+
     var options = {
         fields: fields,
         code: code,
-        view: true,
-        detailCode: '625266',
+        detailCode: '625266'
+    };
+
+    options.buttons = [{
+        title: '通过',
+        handler: function() {
+            if ($('#jsForm').valid()) {
+                var data = $('#jsForm').serializeObject();
+                data.result = '1';
+                reqApi({
+                    code: '625260',
+                    json: data
+                }).done(function(data) {
+                    sucDetail();
+                });
+            }
+        }
+    }, {
+        title: '不通过',
+        handler: function() {
+            if ($('#jsForm').valid()) {
+                var data = $('#jsForm').serializeObject();
+                data.result = '0';
+                reqApi({
+                    code: '625260',
+                    json: data
+                }).done(function(data) {
+                    sucDetail();
+                });
+            }
+        }
+    }, {
+        title: '返回',
+        handler: function() {
+            goBack();
+        }
+    }];
+    if (view) {
+        options.buttons = [{
+            title: '返回',
+            handler: function() {
+                goBack();
+            }
+        }];
     };
     buildDetail(options);
-
 });

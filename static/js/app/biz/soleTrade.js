@@ -5,49 +5,46 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'code',
-        title: '编号',
-    }, {
-        title: '周几',
-        field: "week",
+        title: "发布人",
+        field: 'userId',
+        type: "select",
+        pageCode: "805120",
+        params: {
+            updater: "",
+            kind: "C"
+        },
+        keyName: "userId",
+        valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
+        searchName: "mobile",
         formatter: function(v, data) {
-            if (data.displayTime) {
-                return data.displayTime.week
+            if (data.user) {
+                return data.user.mobile + '(' + data.user.nickname + ')';
             }
-        }
+        },
+        search: true
     }, {
-        title: "开始时间",
-        field: "startTime",
-        formatter: function(v, data) {
-            if (data.displayTime) {
-                return data.displayTime.startTime
-            }
-        }
-    }, {
-        title: "结束时间",
-        field: "endtime",
-        formatter: function(v, data) {
-            if (data.displayTime) {
-                return data.displayTime.endtime
-            }
-        }
-    }, {
-        title: "广告留言",
-        field: "leaveMessage"
-    }, {
-        title: "单笔最大交易额",
-        field: "maxTrade",
+        title: "交易总额",
+        field: "totalAmount",
         formatter: moneyFormat
     }, {
-        title: "单笔最大交易额",
-        field: "minTrade",
+        field: "leftAmount",
+        title: "剩余可交易",
         formatter: moneyFormat
+    }, {
+        title: "行情价格",
+        field: "marketPrice",
     }, {
         title: "溢价率",
         field: "premiumRate"
     }, {
         title: "保护价",
         field: "protectPrice",
+    }, {
+        title: "单笔最大交易额",
+        field: "maxTrade"
+    }, {
+        title: "单笔最小交易额",
+        field: "minTrade"
     }, {
         title: "可交易的对象",
         field: "onlyTrust",
@@ -68,11 +65,12 @@ $(function() {
         },
         search: true
     }, {
-        field: 'tradeCurrency',
-        title: '交易币种'
-    }, {
-        title: "交易人",
-        field: 'userId'
+        title: "状态",
+        field: "status",
+        type: "select",
+        key: "ads_status",
+        formatter: Dict.getNameForList("ads_status"),
+        search: true
     }];
     buildList({
         columns: columns,

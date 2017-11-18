@@ -47,17 +47,17 @@ $(function() {
         field: 'bizNote',
         title: '业务说明'
     }, {
-        field: 'transAmount',
+        field: 'transAmountString',
         title: '变动金额',
         formatter: moneyFormat,
         readonly: view
     }, {
-        field: 'preAmount',
+        field: 'preAmountString',
         title: '变动前金额',
         formatter: moneyFormat,
         readonly: view
     }, {
-        field: 'postAmount',
+        field: 'postAmountString',
         title: '变动后金额',
         formatter: moneyFormat,
         readonly: view
