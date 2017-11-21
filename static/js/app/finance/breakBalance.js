@@ -24,12 +24,5 @@ $(function() {
     $("#accoutGrantBtn").click(function() {
         location.href = "ledger.html?accountNumber=" + accountNumberTG + "&kind=TG";
     });
-    // $("#accouBtn").click(function() {
-    //     window.location.href = 'account_enchashment.html?accountNumber=' + accountNumberTG;
-    // });
-    // var money = (4281522000000000 / 1000000000000000000).toString();
-    // money = money.replace(/(\.\d\d)\d+/ig, "$1");
-    // money = parseFloat(money).toFixed(18);
-    // console.log(money);
 
 });

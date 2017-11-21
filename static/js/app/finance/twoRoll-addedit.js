@@ -21,16 +21,14 @@ $(function() {
         field: 'currency',
         title: '币种',
         type: 'select',
-        key: 'currency',
-
-        formatter: Dict.getNameForList("currency"),
+        key: 'coin',
+        formatter: Dict.getNameForList("coin"),
         readonly: true
     }, {
         field: 'channelType',
         title: '渠道类型',
         type: 'select',
         key: 'channel_type',
-
         formatter: Dict.getNameForList('channel_type'),
         readonly: true
     }, {
@@ -38,7 +36,6 @@ $(function() {
         title: '业务类型',
         type: 'select',
         key: 'biz_type',
-
         formatter: Dict.getNameForList('biz_type'),
         readonly: true
     }, {
@@ -70,7 +67,6 @@ $(function() {
         title: '状态',
         type: 'select',
         key: 'jour_status',
-
         formatter: Dict.getNameForList('jour_status'),
         readonly: true
     }, {
@@ -113,7 +109,6 @@ $(function() {
     };
 
     buildDetail(options);
-
 
     var h = "<p class='huilv' style='padding: 5px 0 0 194px;display: block;color:red;'>0表示平账,负数表示需减钱,正数表示需加钱</p>";
     $(h).insertAfter("#checkAmount");

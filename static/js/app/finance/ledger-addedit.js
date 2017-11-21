@@ -5,7 +5,9 @@ $(function() {
     var fields = [{
         title: '流水编号',
         field: 'code1',
-        '[value]': 'code',
+        formatter: function(v, data) {
+            return data.code;
+        },
         readonly: view
     }, {
         title: '户名',
@@ -22,8 +24,8 @@ $(function() {
         field: 'currency',
         title: '币种',
         type: 'select',
-        key: 'currency',
-        formatter: Dict.getNameForList("currency"),
+        key: 'coin',
+        formatter: Dict.getNameForList("coin"),
         readonly: view
     }, {
         field: 'channelType',
@@ -31,10 +33,6 @@ $(function() {
         type: 'select',
         key: 'channel_type',
         formatter: Dict.getNameForList('channel_type'),
-        readonly: view
-    }, {
-        field: 'channelOrder',
-        title: '渠道单号',
         readonly: view
     }, {
         field: 'bizType',

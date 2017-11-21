@@ -15,9 +15,8 @@ $(function() {
         field: 'currency',
         title: '币种',
         type: 'select',
-        key: 'currency',
-
-        formatter: Dict.getNameForList("currency"),
+        key: 'coin',
+        formatter: Dict.getNameForList("coin"),
         search: true
     }, {
         field: 'direction',
@@ -67,8 +66,7 @@ $(function() {
         search: true
     }, {
         field: 'jourCode',
-        title: '流水编号',
-        // search: true
+        title: '流水编号'
     }];
 
     buildList({
@@ -79,7 +77,7 @@ $(function() {
             companyCode: OSS.company
         }
     });
-    $("#examineBtn").click(function() {
+    $("#examBtn").click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
@@ -91,6 +89,6 @@ $(function() {
             return;
         }
 
-        window.location.href = "inRoughHand_check.html?Code=" + selRecords[0].code;
+        window.location.href = "unfairOutAccount_check.html?Code=" + selRecords[0].code;
     })
 });

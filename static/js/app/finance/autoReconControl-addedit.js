@@ -22,16 +22,14 @@ $(function() {
         field: 'currency',
         title: '币种',
         type: 'select',
-        key: 'currency',
-
-        formatter: Dict.getNameForList("currency"),
+        key: 'coin',
+        formatter: Dict.getNameForList("coin"),
         readonly: true,
     }, {
         field: 'channelType',
         title: '渠道类型',
         type: 'select',
         key: 'channel_type',
-
         formatter: Dict.getNameForList('channel_type'),
         readonly: true
     }, {
@@ -39,7 +37,6 @@ $(function() {
         title: '业务类型',
         type: 'select',
         key: 'biz_type',
-
         formatter: Dict.getNameForList('biz_type'),
         readonly: true,
     }, {
@@ -89,10 +86,11 @@ $(function() {
         type: 'o2m',
         pageCode: "802524",
         o2mvalue: {
+            refNo: code,
             accountNumber: accountNumber
         },
         columns: [{
-            field: 'code',
+            field: 'code1',
             title: '流水号',
             formatter: function(v, data) {
                 return data.code
@@ -106,8 +104,8 @@ $(function() {
         }, {
             field: 'currency',
             title: '币种',
-            key: 'currency',
-            formatter: Dict.getNameForList('currency'),
+            key: 'coin',
+            formatter: Dict.getNameForList('coin'),
         }, {
             field: 'channelType',
             title: '渠道',
@@ -156,7 +154,7 @@ $(function() {
             accountNumber: accountNumber
         },
         columns: [{
-            field: 'code',
+            field: 'code1',
             title: '流水号',
             formatter: function(v, data) {
                 return data.code
@@ -170,8 +168,8 @@ $(function() {
         }, {
             field: 'currency',
             title: '币种',
-            key: 'currency',
-            formatter: Dict.getNameForList('currency'),
+            key: 'coin',
+            formatter: Dict.getNameForList('coin'),
         }, {
             field: 'channelType',
             title: '渠道',

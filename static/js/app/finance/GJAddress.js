@@ -53,9 +53,6 @@ $(function() {
         field: ' ',
         title: '归集总额',
         formatter: moneyFormat
-    }, {
-        field: 'remark',
-        title: '备注',
     }];
     buildList({
         columns: columns,

@@ -16,8 +16,8 @@ $(function() {
         field: 'currency',
         title: '币种',
         type: 'select',
-        key: 'currency',
-        formatter: Dict.getNameForList("currency"),
+        key: 'coin',
+        formatter: Dict.getNameForList("coin"),
         search: true
     }, {
         field: 'channelType',
@@ -73,9 +73,9 @@ $(function() {
     buildList({
         columns: columns,
         pageCode: '802520',
-        // beforeDetail: function(data) {
-        //     location.href = "ledger_addedit.html?v=1&code=" + data.code;
-        // },
+        beforeDetail: function(data) {
+            location.href = "autoReconControl_addedit.html?v=1&code=" + data.code + "&accountNumber=" + data.accountNumber;
+        },
         beforeEdit: function(r) {
             if (r.status != '1') {
                 toastr.info('该记录不是待对账状态');

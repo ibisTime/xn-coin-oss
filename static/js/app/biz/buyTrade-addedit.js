@@ -28,10 +28,10 @@ $(function() {
         }
     }, {
         title: "交易总额",
-        field: "totalAmount",
+        field: "totalAmountString",
         formatter: moneyFormat
     }, {
-        field: "leftAmount",
+        field: "leftAmountString",
         title: "剩余可交易",
         formatter: moneyFormat
     }, {
