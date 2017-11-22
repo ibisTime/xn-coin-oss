@@ -5,12 +5,12 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'accountNumber',
+        field: 'realName',
         title: '户名',
         search: true
     }, {
         title: "账号",
-        field: "realName"
+        field: "accountNumber"
     }, {
         field: "currency",
         title: "币种"

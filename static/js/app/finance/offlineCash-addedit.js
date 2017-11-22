@@ -20,7 +20,6 @@ $(function() {
         ],
         params: {
             currency: 'CNY',
-            // currencyList: ['CNY', "XJK"],
             userId: userId
         },
         keyName: 'accountNumber',

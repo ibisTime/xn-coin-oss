@@ -12,9 +12,9 @@ $(function() {
         sync: true
     }).done(function(data) {
         var data = data.list;
-        $("#amount-CNY").text(moneyFormat(data[1].amount));
+        $("#amount-CNY").text(moneyFormat(data[1].amountString));
         accountNumberCNY = data[1].accountNumber;
-        $("#amount-TG").text(moneyFormat(data[0].amount));
+        $("#amount-TG").text(moneyFormat(data[0].amountString));
         accountNumberTG = data[0].accountNumber;
     });
 

@@ -22,6 +22,7 @@ $(function() {
         title: '针对人群',
         type: 'select',
         key: 'user_kind',
+        value: "C",
         // keyCode:'805906',
         readonly: view,
         required: true

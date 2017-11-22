@@ -14,8 +14,8 @@ $(function() {
         field: 'currency',
         title: '币种',
         type: 'select',
-        key: 'currency',
-        formatter: Dict.getNameForList('currency')
+        key: 'coin',
+        formatter: Dict.getNameForList('coin')
     }, {
         field: 'accountNumber',
         title: '账号'

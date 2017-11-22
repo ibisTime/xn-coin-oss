@@ -9,7 +9,7 @@ $(function() {
         title: '编号',
         search: true
     }, {
-        field: 'accountNumber',
+        field: 'accountName',
         title: '账号',
     }, {
         field: 'amount',
@@ -41,7 +41,11 @@ $(function() {
     }, {
         field: 'applyDatetime',
         title: '申请时间',
-        type: "date",
+        field1: 'applyDateStart',
+        title1: '申请时间',
+        type: 'date',
+        field2: 'applyDateEnd',
+        twoDate: true,
         search: true,
         formatter: dateTimeFormat
     }, {
@@ -55,14 +59,21 @@ $(function() {
         formatter: Dict.getNameForList('withdraw_status'),
         search: true
     }, {
+        field: 'approveNote',
+        title: '审核意见',
+    }, {
         field: 'approveUser',
         title: '审核人'
     }, {
         field: 'approveDatetime',
         title: '审核时间',
-        type: "data",
-        search: true,
-        formatter: dateTimeFormat
+        formatter: dateTimeFormat,
+        field1: 'approveDateStart',
+        title1: '审核时间',
+        type: 'date',
+        field2: 'approveDateEnd',
+        twoDate: true,
+        search: true
     }, ];
     buildList({
         columns: columns,
@@ -162,7 +173,7 @@ $(function() {
                     if ($('#approveNote').val() == "") {
                         toastr.error("审核意见不能为空");
                     } else {
-                        var data = [];
+                        var data = $('#popForm').serializeObject();
                         data.codeList = dataCode;
                         data.approveResult = "0";
                         data.approveUser = getUserName();

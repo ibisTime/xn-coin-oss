@@ -11,27 +11,16 @@ $(function() {
         pageCode: userId ? '802503' : '802500',
         keyCode1: '625907',
         dict: [
-            ['currency', 'currency'],
+            ['currency', 'coin'],
             ['type', 'account_type']
         ],
         params: {
-            currency: '',
             userId: userId
         },
         keyName: 'accountNumber',
         valueName: '{{realName.DATA}} - {{currencyName.DATA}} - {{typeName.DATA}}',
         searchName: 'realName',
-        help: '支持户名查询',
-        onChange: function(v, data) {
-            var accountNumValue = $('#accountNumber option:selected').text();
-            if (accountNumValue.indexOf("人民币") != -1) {
-                $("#payCardInfo").parent().css("display", "block");
-                $("#payCardNo").parent().css("display", "block");
-            } else {
-                $("#payCardInfo").parent().css("display", "none");
-                $("#payCardNo").parent().css("display", "none");
-            }
-        }
+        help: '支持户名查询'
     }, {
         title: "充值数量",
         field: 'amount',
@@ -40,14 +29,14 @@ $(function() {
         formatter: moneyFormat
     }, {
         field: 'payCardInfo',
-        title: '开户行',
+        title: '打币渠道',
         required: true,
         maxlength: 255
     }, {
         field: 'payCardNo',
-        title: '银行卡号',
-        bankCard: true,
+        title: '打币地址',
         required: true,
+        maxlength: 255
     }, {
         field: 'applyNote',
         title: '充值说明',
@@ -59,8 +48,9 @@ $(function() {
         addCode: '802700',
         view: view,
         beforeSubmit: function(data) {
-            data.applyUser = getUserId();
-            data.bizType = "11";
+            // data.amount = data.amount * 10e18;
+            // data.applyUser = getUserId();
+            // data.bizType = "11";
             return data;
         }
     };

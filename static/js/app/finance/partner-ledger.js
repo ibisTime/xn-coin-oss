@@ -55,9 +55,10 @@ $(function() {
         formatter: dateTimeFormat,
         field1: 'dateStart',
         title1: '创建时间',
-        type1: 'datetime',
+        type: 'date',
         field2: 'dateEnd',
         type2: 'datetime',
+        twoDate: true,
         search: true
     }];
     buildList({

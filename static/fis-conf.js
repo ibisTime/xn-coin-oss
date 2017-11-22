@@ -16,8 +16,9 @@ fis.match('::package', {
 
 fis.match('*.{js,css}', {
     useHash: true
+}).match('js/lib/bigDecimal/**', {
+    useHash: false
 });
-
 fis.media("prod").match("**.js", {
     optimizer: fis.plugin('uglify-js')
 });
