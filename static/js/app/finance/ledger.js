@@ -1,7 +1,7 @@
 $(function() {
     var currency = getQueryString('currency') || "";
     var accountNumber = getQueryString('accountNumber') || "";
-    var kind = getQueryString('kind') || "";
+    var kind = !!getQueryString('kind') || "";
 
     var columns = [{
         field: '',
@@ -28,9 +28,9 @@ $(function() {
         title: '业务类型',
         type: 'select',
         search: true,
-        key: "biz_type",
-        formatter: Dict.getNameForList('biz_type')
-            // data: bizTypeDict
+        key: kind ? "jour_biz_type_cold" : "jour_biz_type_plat",
+        formatter: kind ? Dict.getNameForList('jour_biz_type_cold') : Dict.getNameForList('jour_biz_type_plat'),
+        search: true
     }, {
         field: 'transAmountString',
         title: '变动金额',

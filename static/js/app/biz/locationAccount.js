@@ -16,7 +16,7 @@ $(function() {
         title: "币种"
     }, {
         title: '余额',
-        field: 'amount',
+        field: 'amountString',
         formatter: moneyFormat
     }, {
         field: 'status',

@@ -6,7 +6,7 @@ OSS.system = 'CD-COIN000017';
 // companyCode
 OSS.company = 'CD-COIN000017';
 // system name
-OSS.systemName = '以太坊管理平台';
+OSS.systemName = '数字资产交易管理';
 // company name
 OSS.companyName = '倍可盈';
 // menuCode

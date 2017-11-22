@@ -13,7 +13,7 @@ $(function() {
         type: 'select',
         data: {
             "0": "启用",
-            "1": "弃用"
+            "2": "弃用"
         },
         // key: 'account_status',
         // formatter: Dict.getNameForList('account_status'),
@@ -43,14 +43,10 @@ $(function() {
         field: "createDatetime",
         formatter: dateTimeFormat
     }, {
-        title: "启用日期",
-        field: "",
-        formatter: dateTimeFormat
-    }, {
         title: "使用次数",
-        field: ""
+        field: "useCount"
     }, {
-        field: ' ',
+        field: 'collectTotalAmountString',
         title: '归集总额',
         formatter: moneyFormat
     }];
@@ -78,19 +74,19 @@ $(function() {
             toastr.info("请选择记录");
             return;
         }
+        if (selRecords[0].status == 2) {
+            toastr.warning("已经是无效地址，无需重复弃用");
+            return;
+        }
         confirm("确认弃用？").then(function() {
             reqApi({
-                code: '625203',
+                code: '625202',
                 json: { "code": selRecords[0].code }
             }).then(function() {
                 toastr.info("操作成功");
                 $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
             });
         }, function() {});
-
-
-
-
     });
 
 });

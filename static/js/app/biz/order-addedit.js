@@ -33,11 +33,13 @@ $(function() {
         field: "tradePrice"
     }, {
         title: "交易数量",
-        field: "count"
+        field: "count",
+        formatter: function(v, data) {
+            return moneyFormat(v) + "以太币";
+        }
     }, {
         title: "交易金额",
-        field: "tradeAmount",
-        formatter: moneyFormat
+        field: "tradeAmount"
     }, {
         title: "手续费",
         field: "fee",

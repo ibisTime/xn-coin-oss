@@ -20,13 +20,22 @@ $(function() {
         field: 'accountNumber',
         title: '账号'
     }, {
-        field: 'amount',
+        field: 'amountString',
         title: '余额',
         formatter: moneyFormat
     }, {
-        field: 'frozenAmount',
+        field: 'frozenAmountString',
         title: '冻结金额',
         formatter: moneyFormat
+    }, {
+        field: 'amount',
+        title: '可用余额',
+        formatter: function(v, data) {
+
+            var amount = new BigDecimal(data.amountString);
+            var frozenAmount = new BigDecimal(data.frozenAmountString);
+            return moneyFormat(amount.subtract(frozenAmount).toString());
+        }
     }, {
         field: 'status',
         title: '状态',
@@ -42,8 +51,9 @@ $(function() {
     buildList({
         router: 'account',
         columns: columns,
-        pageCode: '802503',
+        pageCode: '802500',
         searchParams: {
+            companyCode: OSS.company,
             userId: userId
         }
     });
@@ -57,7 +67,7 @@ $(function() {
             toastr.info("请选择记录");
             return;
         }
-        window.location.href = "../finance/ledger.html?&a=1&accountNumber=" + selRecords[0].accountNumber + "&kind=" + selRecords[0].currency;
+        window.location.href = "../finance/partner_ledger.html?&a=1&accountNumber=" + selRecords[0].accountNumber + "&kind=" + selRecords[0].currency;
     });
     $('#goBackBtn').click(function() {
         window.location.href = "customer.html"

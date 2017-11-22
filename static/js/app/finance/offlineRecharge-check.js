@@ -90,21 +90,15 @@ $(function() {
         field: 'accountName',
         required: true
     }, {
-        field: 'amount',
+        field: 'amountString',
         title: '金额',
         formatter: moneyFormat
     }, {
         field: 'currency',
         title: '币种',
         type: 'select',
-        key: 'currency',
-        formatter: Dict.getNameForList("currency"),
-    }, {
-        field: 'bizType',
-        title: '业务类型',
-        type: 'select',
-        key: 'biz_type',
-        formatter: Dict.getNameForList('biz_type'),
+        key: 'coin',
+        formatter: Dict.getNameForList("coin"),
     }, {
         field: 'channelType',
         title: '支付渠道',
@@ -113,18 +107,14 @@ $(function() {
         formatter: Dict.getNameForList('channel_type'),
     }, {
         field: 'payCardInfo',
-        title: '开户行',
-        formatter: function(v, data) {
-            if (v) {
-                return v
-            } else {
-                $("#payCardInfo").parent().remove();
-                $("#payCardNo").parent().remove();
-            }
-        }
+        title: '打币渠道',
+        required: true,
+        maxlength: 255
     }, {
         field: 'payCardNo',
-        title: '银行卡号',
+        title: '打币地址',
+        required: true,
+        maxlength: 255
     }, {
         field: 'status',
         title: '状态',

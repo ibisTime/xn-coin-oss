@@ -58,7 +58,9 @@ $(function() {
     }, {
         field: 'orderNo',
         title: 'UI次序',
-        number: true,
+        formatter: function(v, data) {
+            return v
+        },
         readonly: true
     }, {
         title: '备注',

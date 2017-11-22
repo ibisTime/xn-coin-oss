@@ -19,7 +19,7 @@ $(function() {
     });
 
     $("#CNYls-Btn").click(function() {
-        location.href = "ledger.html?accountNumber=" + accountNumberCNY + "&kind=CNY";
+        location.href = "ledger.html?accountNumber=" + accountNumberCNY;
     });
     $("#accoutGrantBtn").click(function() {
         location.href = "ledger.html?accountNumber=" + accountNumberTG + "&kind=TG";

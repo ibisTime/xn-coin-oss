@@ -87,22 +87,22 @@ function moneyFormat(money, format) {
     if (isNaN(money)) {
         return '-';
     }
-    if (money < 0) {
-        money = -1 * money;
-        flag = false;
-    }
+    // if (money < 0) {
+    //     money = -1 * money;
+    //     flag = false;
+    // }
     if (format == '' || format == null || format == undefined || typeof format == 'object') {
-        format = 18;
+        format = 8;
     }
     //钱除以1000并保留两位小数
-    money = (money / 10e18).toString();
-    money = parseFloat(money).toFixed(format);
-    // money = new BigDecimal(money);
-    // money = money / (new BigDecimal("10e18")).setScale(18, MathContext.ROUND_HALF_UP).toString();
-
-    if (!flag) {
-        money = "-" + money;
-    }
+    // money = (money / 10e18).toString();
+    // money = parseFloat(money).toFixed(format);
+    money = new BigDecimal(money);
+    money = money.divide(new BigDecimal("10e17"), 8, MathContext.ROUND_DOWN).toString();
+    // money = parseFloat(money).toFixed(format);
+    // if (!flag) {
+    //     money = "-" + money;
+    // }
     return money;
 }
 

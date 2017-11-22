@@ -50,7 +50,9 @@ $(function() {
     }, {
         title: "交易数量",
         field: "count",
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v) + "以太币";
+        }
     }, {
         title: "交易金额",
         field: "tradeAmount"

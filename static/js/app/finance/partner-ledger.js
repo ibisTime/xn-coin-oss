@@ -1,5 +1,5 @@
 $(function() {
-    // var accountCode = get
+    var accountNumber = getQueryString('accountNumber');
     var accountCode = getQueryString('accountCode');
     var columns = [{
         field: '',
@@ -27,8 +27,8 @@ $(function() {
         field: 'bizType',
         title: '业务类型',
         type: 'select',
-        key: 'biz_type',
-        formatter: Dict.getNameForList('biz_type'),
+        key: 'jour_biz_type_user',
+        formatter: Dict.getNameForList('jour_biz_type_user'),
         search: true
     }, {
         field: 'transAmountString',
@@ -65,7 +65,7 @@ $(function() {
         columns: columns,
         pageCode: '802520',
         searchParams: {
-            accountNumber: accountCode,
+            accountNumber: accountNumber ? accountNumber : accountCode,
             companyCode: OSS.company
         }
     });

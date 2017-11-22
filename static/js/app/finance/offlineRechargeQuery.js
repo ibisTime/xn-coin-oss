@@ -23,6 +23,13 @@ $(function() {
         title: '充值金额',
         formatter: moneyFormat
     }, {
+        field: 'channelType',
+        title: '支付渠道',
+        type: 'select',
+        key: 'channel_type',
+        formatter: Dict.getNameForList('channel_type'),
+        search: true
+    }, {
         field: "bizNote",
         title: "充值说明"
     }, {
@@ -44,11 +51,11 @@ $(function() {
         search: true
     }];
     buildList({
+        router: "offlineRecharge",
         columns: columns,
         pageCode: '802705',
-        singleSelect: false,
+        // singleSelect: false,
         searchParams: {
-            channelType: "90",
             companyCode: OSS.company
         },
         beforeDetail: function(data) {
@@ -65,7 +72,6 @@ $(function() {
         }
 
         if (selRecords.length == 1 && selRecords[0].status == 1) {
-
             window.location.href = "offlineRecharge_check.html?Code=" + selRecords[0].code;
         } else {
 

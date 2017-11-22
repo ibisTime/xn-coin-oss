@@ -25,7 +25,8 @@ $(function() {
         title: "充值数量",
         field: 'amount',
         required: true,
-        amount: true,
+        number: true,
+        maxlength: 13,
         formatter: moneyFormat
     }, {
         field: 'payCardInfo',
@@ -48,9 +49,10 @@ $(function() {
         addCode: '802700',
         view: view,
         beforeSubmit: function(data) {
-            // data.amount = data.amount * 10e18;
-            // data.applyUser = getUserId();
-            // data.bizType = "11";
+            var BIGvalue = new BigDecimal(data.amount);
+            value = BIGvalue.multiply(new BigDecimal("1000000000000000000")).toString();
+            data.amount = value;
+            data.applyUser = getUserId();
             return data;
         }
     };
