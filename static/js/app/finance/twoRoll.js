@@ -5,90 +5,84 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'realName',
-        title: '户名',
+        field: 'code',
+        title: '编号',
         search: true
     }, {
-        field: 'currency',
-        title: '币种',
-        type: 'select',
-        key: 'coin',
-        formatter: Dict.getNameForList("coin"),
+        title: "买家",
+        field: "buyUser",
+        formatter: function(v, data) {
+            if (data.buyUserInfo) {
+                return data.buyUserInfo.mobile + '(' + data.buyUserInfo.nickname + ')'
+            }
+        },
+        type: "select",
+        pageCode: "805120",
+        params: {
+            updater: "",
+            kind: "C"
+        },
+        keyName: "userId",
+        valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
+        searchName: "mobile",
         search: true
     }, {
-        field: 'channelType',
-        title: '渠道',
-        type: 'select',
-        key: 'channel_type',
-        formatter: Dict.getNameForList('channel_type'),
+        title: "卖家",
+        field: "sellUser",
+        formatter: function(v, data) {
+            if (data.sellUserInfo) {
+                return data.sellUserInfo.mobile + '(' + data.sellUserInfo.nickname + ')'
+            }
+        },
+        type: "select",
+        pageCode: "805120",
+        params: {
+            updater: "",
+            kind: "C"
+        },
+        keyName: "userId",
+        valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
+        searchName: "mobile",
         search: true
     }, {
-        field: 'bizType',
-        title: '业务类型',
-        type: 'select',
-        key: 'biz_type',
-        formatter: Dict.getNameForList('biz_type'),
-        search: true
+        title: "交易价格",
+        field: "tradePrice"
     }, {
-        field: 'transAmountString',
-        title: '变动金额',
+        title: "交易数量",
+        field: "countString",
+        formatter: function(v, data) {
+            return moneyFormat(v) + "以太币";
+        }
+    }, {
+        title: "交易金额",
+        field: "tradeAmount"
+    }, {
+        title: "手续费",
+        field: "feeString",
         formatter: moneyFormat
     }, {
-        field: 'preAmountString',
-        title: '变动前金额',
-        formatter: moneyFormat
-    }, {
-        field: 'postAmountString',
-        title: '变动后金额',
-        formatter: moneyFormat
-    }, {
-        field: 'status',
-        title: '状态',
-        type: 'select',
-        key: 'jour_status',
-        formatter: Dict.getNameForList('jour_status'),
-        search: true
-    }, {
-        field: 'createDatetime',
-        title: '创建时间',
-        formatter: dateTimeFormat
-    }, {
-        field1: 'dateStart',
-        title1: '创建时间',
-        type: 'date',
-        field2: 'dateEnd',
-        search: true,
-        twoDate: true,
-        visible: false
-    }, {
-        field: 'workDate',
-        title: '拟对账日期',
-        type: 'date',
-        search: true,
-    }, {
-        field: 'refNo',
-        title: '关联单号',
+        title: "状态",
+        field: "status",
+        type: "select",
+        data: {
+            '3': "已完成"
+        },
         // search: true
+    }, {
+        title: '备注',
+        field: 'remark'
     }];
     buildList({
         columns: columns,
-        pageCode: '802520',
+        pageCode: '625250',
         searchParams: {
-            channelType: '0',
-            status: 'in',
+            type: "buy",
+            status: "3",
             companyCode: OSS.company
         },
-        beforeDetail: function(data) {
-            location.href = "ledger_addedit.html?v=1&code=" + data.code;
-        },
-        beforeSearch: function(data) {
-            if (data.workDate) {
-                data.workDate = data.workDate.replace(/-/g, "");;
-                return data;
-            } else {
-                return data;
-            }
-        },
+        beforeEdit: function(data) {
+
+        }
     });
 
 });

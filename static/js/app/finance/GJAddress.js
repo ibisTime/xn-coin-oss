@@ -46,7 +46,7 @@ $(function() {
         title: "使用次数",
         field: "useCount"
     }, {
-        field: 'collectTotalAmountString',
+        field: 'useAmountString',
         title: '归集总额',
         formatter: moneyFormat
     }];

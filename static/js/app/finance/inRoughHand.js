@@ -7,44 +7,60 @@ $(function() {
     }, {
         field: 'code',
         title: '编号',
+        search: true
     }, {
         field: 'accountName',
-        title: '户名',
-        search: true
+        title: '账号',
     }, {
-        field: 'currency',
-        title: '币种',
-        type: 'select',
-        key: 'currency',
-
-        formatter: Dict.getNameForList("currency"),
-        search: true
-    }, {
-        field: 'direction',
-        title: '方向',
-        type: 'select',
-        data: {
-            '0': '红冲',
-            '1': '蓝补'
-        },
-        search: true
-    }, {
-        field: 'amount',
-        title: '金额',
+        field: 'amountString',
+        title: '提现金额',
         formatter: moneyFormat
     }, {
-        field: 'applyUser',
-        title: '申请人'
+        field: 'channelType',
+        title: '渠道',
+        type: 'select',
+        key: 'channel_type',
+        formatter: Dict.getNameForList('channel_type'),
+        search: true
+    }, {
+        title: "区块链类型",
+        field: "payCardInfo"
+    }, {
+        title: "提现地址",
+        field: "payCardNo"
+    }, {
+        field: 'mobile',
+        title: '申请人',
+        formatter: function(v, data) {
+            if (data.user) {
+                return data.user.mobile;
+            } else {
+                return data.approveUser
+            }
+        }
     }, {
         field: 'applyDatetime',
         title: '申请时间',
-        formatter: dateTimeFormat,
         field1: 'applyDateStart',
         title1: '申请时间',
         type: 'date',
         field2: 'applyDateEnd',
         twoDate: true,
+        search: true,
+        formatter: dateTimeFormat
+    }, {
+        title: "申请说明",
+        field: "applyNote"
+    }, {
+        field: 'status',
+        title: '状态',
+        type: 'select',
+        key: 'withdraw_status',
+        formatter: Dict.getNameForList('withdraw_status'),
         search: true
+    }, {
+        field: 'approveNote',
+        title: '审核意见',
     }, {
         field: 'approveUser',
         title: '审核人'
@@ -58,39 +74,20 @@ $(function() {
         field2: 'approveDateEnd',
         twoDate: true,
         search: true
-    }, {
-        field: 'status',
-        title: '状态',
-        type: 'select',
-        key: 'hl_status',
-        formatter: Dict.getNameForList('hl_status'),
-        search: true
-    }, {
-        field: 'jourCode',
-        title: '流水编号',
-        // search: true
-    }];
-
+    }, ];
     buildList({
         columns: columns,
-        pageCode: '802805',
+        pageCode: '802755',
+        singleSelect: false,
         searchParams: {
-            'channelType': '0',
+            status: "6",
+            type: "sell",
             companyCode: OSS.company
-        }
+        },
+        // beforeDetail: function(data) {
+        //     window.location.href = "./TBunderline_detail.html?v=1&code=" + data.code;
+        // }
     });
-    $("#examineBtn").click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
 
-        if (selRecords[0].status != 1) {
-            toastr.info("不是可审批的状态");
-            return;
-        }
 
-        window.location.href = "inRoughHand_check.html?Code=" + selRecords[0].code;
-    })
 });

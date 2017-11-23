@@ -40,21 +40,18 @@ $(function() {
         search: true
     }, {
         title: "使用次数",
-        field: ""
+        field: "useCount"
     }, {
-        field: ' ',
+        field: 'initialBalanceString',
         title: '初始金额',
         formatter: moneyFormat
     }, {
-        field: ' ',
+        field: 'useAmountString',
         title: '提币金额',
         formatter: moneyFormat
     }, {
         title: "余额",
-        field: "balance"
-    }, {
-        field: 'remark',
-        title: '备注',
+        field: "balanceString"
     }];
     buildList({
         columns: columns,

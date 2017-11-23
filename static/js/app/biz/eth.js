@@ -5,26 +5,18 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: '',
-        title: '日期',
-        formatter: dateTimeFormat
-    }, {
-        title: "1eth",
-        field: ""
-    }, {
-        title: "汇率",
-        field: "rate"
-    }, {
-        title: "类型",
+        title: "币种",
         field: "currency",
         type: "select",
         key: "currency",
-        formatter: Dict.getNameForList("currency"),
-        search: true
+        formatter: Dict.getNameForList("currency")
+    }, {
+        title: "汇率",
+        field: "rate"
     }];
     buildList({
         columns: columns,
-        pageCode: '625280',
+        pageCode: '625282',
         searchParams: {
             currency: 'USD',
             companyCode: OSS.company

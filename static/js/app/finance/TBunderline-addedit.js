@@ -4,10 +4,6 @@ $(function() {
     var userId = getQueryString('userId') || '';
 
     var fields = [{
-        field: 'bizType',
-        type: 'hidden',
-        value: '-11'
-    }, {
         field: 'accountNumber',
         title: '用户账户',
         required: true,

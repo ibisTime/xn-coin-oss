@@ -55,6 +55,9 @@ $(function() {
         search: true,
         formatter: Dict.getNameForList('jour_status'),
     }, {
+        field: 'bizNote',
+        title: '生成说明'
+    }, {
         field: 'remark',
         title: '备注'
     }];
@@ -62,6 +65,7 @@ $(function() {
         columns: columns,
         pageCode: "802524",
         searchParams: {
+            kind: "0",
             currency: currency,
             userId: accountNumber ? "" : getUserId(),
             accountNumber: accountNumber,

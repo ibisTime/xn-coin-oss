@@ -12,8 +12,8 @@ $(function() {
         field: 'accountName',
         title: '账号',
     }, {
-        field: 'amount',
-        title: '金额',
+        field: 'amountString',
+        title: '提现金额',
         formatter: moneyFormat
     }, {
         field: 'channelType',
@@ -81,6 +81,9 @@ $(function() {
         singleSelect: false,
         searchParams: {
             companyCode: OSS.company
+        },
+        beforeDetail: function(data) {
+            window.location.href = "./TBunderline_detail.html?v=1&code=" + data.code;
         }
     });
 

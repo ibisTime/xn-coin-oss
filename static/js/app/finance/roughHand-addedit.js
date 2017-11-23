@@ -4,93 +4,154 @@ $(function() {
     var accountNumber = getQueryString('accountNumber');
 
     var fields = [{
-        title: '流水编号',
-        field: 'code1',
+        field: 'accountName',
+        title: '账号',
         formatter: function(v, data) {
-            return data.code;
+            return data.withdraw.accountName;
         },
         readonly: true
     }, {
-        title: '户名',
-        field: 'realName',
+        field: 'amountString',
+        title: '取现金额',
+        formatter: function(v, data) {
+            return moneyFormat(data.withdraw.amountString);
+        },
         readonly: true
     }, {
-        title: '账号',
-        field: 'accountNumber',
+        field: 'feeString',
+        title: '手续费',
+        formatter: function(v, data) {
+            return moneyFormat(data.withdraw.feeString);
+        },
         readonly: true
     }, {
-        field: 'currency',
-        title: '币种',
-        type: 'select',
-        key: 'currency',
-
-        formatter: Dict.getNameForList("currency"),
-        readonly: true,
+        field: 'payFeeString',
+        title: '实际支付矿工费',
+        formatter: function(v, data) {
+            return moneyFormat(data.withdraw.payFeeString);
+        },
+        readonly: true
     }, {
         field: 'channelType',
-        title: '渠道类型',
-        type: 'select',
-        key: 'channel_type',
+        title: '渠道',
+        formatter: function(v, data) {
+            if (data.withdraw) {
+                if (data.withdraw.channelType == "ETH") {
+                    return "以太坊"
+                } else if (data.withdraw.channelType == "0") {
+                    return "内部账"
+                } else if (data.withdraw.channelType == "9") {
+                    return "调账"
+                } else if (data.withdraw.channelType == "10") {
+                    return "轧账"
+                } else if (data.withdraw.channelType == "90") {
+                    return "人工线下"
+                }
+            }
 
-        formatter: Dict.getNameForList('channel_type'),
+        },
+    }, {
+        title: "区块链类型",
+        field: "payCardInfo",
+        formatter: function(v, data) {
+            return data.withdraw.payCardInfo;
+        },
         readonly: true
     }, {
-        field: 'bizType',
-        title: '业务类型',
-        type: 'select',
-        key: 'biz_type',
-
-        formatter: Dict.getNameForList('biz_type'),
-        readonly: true,
-    }, {
-        field: 'bizNote',
-        title: '业务说明',
+        title: "提现地址",
+        field: "payCardNo",
+        formatter: function(v, data) {
+            return data.withdraw.payCardNo;
+        },
         readonly: true
     }, {
-        field: 'transAmountString',
-        title: '变动金额',
-        formatter: moneyFormat,
+        title: "打币地址",
+        field: "payUser",
+        formatter: function(v, data) {
+            return data.withdraw.payUser;
+        },
         readonly: true
     }, {
-        field: 'preAmountString',
-        title: '变动前金额',
-        formatter: moneyFormat,
+        title: "交易Hash",
+        field: "channelOrder",
+        formatter: function(v, data) {
+            return data.withdraw.channelOrder;
+        },
         readonly: true
     }, {
-        field: 'postAmountString',
-        title: '变动后金额',
-        formatter: moneyFormat,
-        readonly: true
-    }, {
-        field: 'createDatetime',
-        title: '金额変动时间',
-        formatter: dateTimeFormat,
+        field: 'applyNote',
+        title: '申请说明',
+        formatter: function(v, data) {
+            return data.withdraw.applyNote;
+        },
         readonly: true
     }, {
         field: 'status',
         title: '状态',
-        type: 'select',
-        key: 'jour_status',
+        formatter: function(v, data) {
 
-        formatter: Dict.getNameForList('jour_status'),
+            if (data.withdraw.status == "1") {
+                return "待审批"
+            } else if (data.withdraw.status == "2") {
+                return "审批不通过"
+            } else if (data.withdraw.status == "3") {
+                return "审批通过待广播"
+            } else if (data.withdraw.status == "4") {
+                return "广播中"
+            } else if (data.withdraw.status == "5") {
+                return "广播失败"
+            } else if (data.withdraw.status == "6") {
+                return "广播成功"
+            }
+        },
         readonly: true
     }, {
-        field: 'workDate',
-        title: '拟对账时间',
+        title: "申请时间",
+        field: "applyDatetime",
+        formatter: function(v, data) {
+            return dateTimeFormat(data.withdraw.applyDatetime);
+        },
         readonly: true
     }, {
-        field: 'remark',
-        title: '备注',
+        title: "审核说明",
+        field: "approveNote",
+        formatter: function(v, data) {
+            return data.withdraw.approveNote;
+        },
+        readonly: true
+    }, {
+        title: '审核人',
+        field: "approveUser",
+        formatter: function(v, data) {
+            return data.withdraw.approveUser;
+        },
+        readonly: true
+    }, {
+        title: "审核时间",
+        field: "approveDatetime",
+        formatter: function(v, data) {
+            return dateTimeFormat(data.withdraw.approveDatetime);
+        },
+        readonly: true
+    }, {
+        title: "支付说明",
+        field: "payNote",
+        formatter: function(v, data) {
+            return data.withdraw.payNote;
+        },
+        readonly: true
+    }, {
+        title: "支付时间",
+        field: "payDatetime",
+        formatter: function(v, data) {
+            return dateTimeFormat(data.withdraw.payDatetime);
+        },
         readonly: true
     }, {
         field: 'jourList',
         title: '本地流水:',
         readonly: true,
         type: 'o2m',
-        pageCode: "802524",
-        o2mvalue: {
-            accountNumber: accountNumber
-        },
         columns: [{
             field: 'code',
             title: '流水号',
@@ -106,8 +167,8 @@ $(function() {
         }, {
             field: 'currency',
             title: '币种',
-            key: 'currency',
-            formatter: Dict.getNameForList('currency'),
+            key: 'coin',
+            formatter: Dict.getNameForList('coin'),
         }, {
             field: 'channelType',
             title: '渠道',
@@ -119,8 +180,8 @@ $(function() {
             field: 'bizType',
             title: '业务类型',
             type: 'select',
-            key: 'biz_type',
-            formatter: Dict.getNameForList('biz_type'),
+            key: 'jour_biz_type',
+            formatter: Dict.getNameForList('jour_biz_type'),
             search: true
         }, {
             field: 'transAmountString',
@@ -145,68 +206,49 @@ $(function() {
             field: 'createDatetime',
             title: '创建时间',
             formatter: dateTimeFormat
-        }]
+        }, {
+            field: 'bizNote',
+            title: '生成说明'
+        }, ]
     }, {
-        field: 'jourList2',
-        title: '区块链流水:',
+        field: 'transList',
+        title: '区块链流水',
         readonly: true,
         type: 'o2m',
-        pageCode: "802524",
-        o2mvalue: {
-            accountNumber: accountNumber
-        },
         columns: [{
-            field: 'code',
-            title: '流水号',
-            formatter: function(v, data) {
-                return data.code
-            }
+            field: 'blockNumber',
+            title: 'blockNumber',
         }, {
-            field: 'realName',
-            title: '户名',
-            formatter: function(v, data) {
-                return data.realName
-            }
+            field: 'from',
+            title: 'from'
         }, {
-            field: 'currency',
-            title: '币种',
-            key: 'currency',
-            formatter: Dict.getNameForList('currency'),
+            field: 'to',
+            title: 'to'
         }, {
-            field: 'channelType',
-            title: '渠道',
-            type: 'select',
-            key: 'channel_type',
-            formatter: Dict.getNameForList('channel_type')
+            field: 'gas',
+            title: 'gasLimit',
         }, {
-            field: 'bizType',
-            title: '业务类型',
-            type: 'select',
-            key: 'biz_type',
-            formatter: Dict.getNameForList('biz_type'),
+            field: 'gasPrice',
+            title: 'gasPrice',
+            formatter: moneyFormat,
         }, {
-            field: 'transAmountString',
-            title: '变动金额',
-            formatter: moneyFormat
+            field: 'gasUsed',
+            title: 'gasUsed'
         }, {
-            field: 'preAmountString',
-            title: '变动前金额',
-            formatter: moneyFormat
+            field: 'nonce',
+            title: 'nonce'
         }, {
-            field: 'postAmountString',
-            title: '变动后金额',
-            formatter: moneyFormat
+            field: 'refNo',
+            title: 'refNo'
         }, {
-            field: 'status',
-            title: '状态',
-            type: 'select',
-            key: 'jour_status',
-            formatter: Dict.getNameForList('jour_status'),
-            search: true
+            title: "交易Hash",
+            field: "hash"
         }, {
-            field: 'createDatetime',
-            title: '创建时间',
-            formatter: dateTimeFormat
+            field: 'transactionIndex',
+            title: 'transactionIndex'
+        }, {
+            title: "value",
+            field: "value"
         }]
     }, {
         title: '对账说明',
@@ -261,13 +303,8 @@ $(function() {
     var options = {
         fields: fields,
         code: code,
-        detailCode: '802522',
-        // editCode: '802800',
+        detailCode: '802758',
         view: view,
-        beforeSubmit: function(data) {
-            data.order = data.code;
-            return true;
-        },
         buttons: view ? buttonsView : buttons2
     };
 

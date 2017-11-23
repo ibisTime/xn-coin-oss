@@ -49,7 +49,7 @@ $(function() {
         field: "tradePrice"
     }, {
         title: "交易数量",
-        field: "count",
+        field: "countString",
         formatter: function(v, data) {
             return moneyFormat(v) + "以太币";
         }
@@ -58,7 +58,7 @@ $(function() {
         field: "tradeAmount"
     }, {
         title: "手续费",
-        field: "fee",
+        field: "feeString",
         formatter: moneyFormat
     }, {
         title: "状态",
@@ -66,7 +66,7 @@ $(function() {
         type: "select",
         data: {
             "0": "待支付",
-            "1": "待支付",
+            "1": "已支付",
             "2": "已释放待评价",
             "5": "仲裁中",
         },
