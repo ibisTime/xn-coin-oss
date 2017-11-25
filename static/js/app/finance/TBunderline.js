@@ -32,8 +32,13 @@ $(function() {
         field: 'mobile',
         title: '申请人',
         formatter: function(v, data) {
+        	
             if (data.user) {
-                return data.user.mobile;
+            	if(data.user.kind="P"){
+            		return data.user.loginName;
+            	}else{
+                	return data.user.mobile;
+            	}
             } else {
                 return data.approveUser
             }
@@ -136,7 +141,7 @@ $(function() {
 
         var dw = dialog({
             content: '<form class="pop-form" id="popForm" novalidate="novalidate">' +
-                '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">批量支付</li></ul>' +
+                '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">审核</li></ul>' +
                 '</form>'
         });
         dw.showModal();

@@ -59,11 +59,11 @@ $(function() {
         field: "applyDatetime",
         formatter: dateTimeFormat
     }, {
-        title: "审核说明",
-        field: "approveNote"
-    }, {
         title: '审核人',
         field: "approveUser"
+    }, {
+        title: "审核意见",
+        field: "approveNote"
     }, {
         title: "审核时间",
         field: "approveDatetime",

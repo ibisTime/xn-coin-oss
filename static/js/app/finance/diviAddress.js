@@ -32,7 +32,7 @@ $(function() {
         type: 'select',
         data: {
             "0": "启用",
-            "1": "弃用"
+            "2": "弃用"
         },
         search: true
     }, {
@@ -42,8 +42,9 @@ $(function() {
         field: '',
         title: '网络使用次数'
     }, {
-        field: 'balance',
+        field: 'balanceString',
         title: '当前余额',
+        amount: true,
         formatter: moneyFormat
     }, {
         field: 'remark',

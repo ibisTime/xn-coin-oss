@@ -5,11 +5,11 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        title: '参数说明',
-        field: 'cvalue'
-    }, {
         title: '备注',
         field: 'remark',
+    }, {
+        title: '参数说明',
+        field: 'cvalue'
     }];
     buildList({
         columns: columns,

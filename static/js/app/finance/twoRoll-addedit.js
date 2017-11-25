@@ -76,7 +76,7 @@ $(function() {
                 }
 
             },
-            search: true
+            readonly: true
         }, {
             title: "交易法币币种",
             field: "tradeCurrency",
@@ -219,21 +219,19 @@ $(function() {
                 field: 'bizNote',
                 title: '生成说明'
             }, ]
-        },
-        // {
-        //     title: '偏离金额',
-        //     field: 'checkAmount',
-        //     amount1: true,
-        //     value: '0',
-        //     required: true,
-        //     readonly: false,
-        // }, 
-        {
-            title: '对账说明',
-            field: 'checkNote',
-            required: true,
-            readonly: false,
-            maxlength: 250
+//      },{
+//             title: '偏离金额',
+//             field: 'checkAmount',
+//             amount1: true,
+//             value: '0',
+//             required: true,
+//             readonly: false,
+//      }, {
+//          title: '对账说明',
+//          field: 'checkNote',
+//          required: true,
+//          readonly: false,
+//          maxlength: 250
         }, {
             field: 'checkUser',
             type: 'hidden',
@@ -287,7 +285,8 @@ $(function() {
             data.order = data.code;
             return true;
         },
-        buttons: view ? buttonsView : buttons2
+        buttons: buttonsView
+//      buttons: view ? buttonsView : buttons2
     };
     buildDetail(options);
 });

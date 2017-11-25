@@ -13,7 +13,10 @@ $(function() {
         field: "accountNumber"
     }, {
         field: "currency",
-        title: "币种"
+        title: "币种",
+        type: 'select',
+        key: 'coin',
+        formatter: Dict.getNameForList("coin"),
     }, {
         title: '余额',
         field: 'amountString',

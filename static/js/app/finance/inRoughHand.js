@@ -9,85 +9,79 @@ $(function() {
         title: '编号',
         search: true
     }, {
-        field: 'accountName',
-        title: '账号',
-    }, {
-        field: 'amountString',
-        title: '提现金额',
-        formatter: moneyFormat
-    }, {
-        field: 'channelType',
-        title: '渠道',
-        type: 'select',
-        key: 'channel_type',
-        formatter: Dict.getNameForList('channel_type'),
+        title: "买家",
+        field: "buyUser",
+        formatter: function(v, data) {
+            if (data.buyUserInfo) {
+                return data.buyUserInfo.mobile + '(' + data.buyUserInfo.nickname + ')'
+            }
+        },
+        type: "select",
+        pageCode: "805120",
+        params: {
+            updater: "",
+            kind: "C"
+        },
+        keyName: "userId",
+        valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
+        searchName: "mobile",
         search: true
     }, {
-        title: "区块链类型",
-        field: "payCardInfo"
-    }, {
-        title: "提现地址",
-        field: "payCardNo"
-    }, {
-        field: 'mobile',
-        title: '申请人',
+        title: "卖家",
+        field: "sellUser",
         formatter: function(v, data) {
-            if (data.user) {
-                return data.user.mobile;
-            } else {
-                return data.approveUser
+            if (data.sellUserInfo) {
+                return data.sellUserInfo.mobile + '(' + data.sellUserInfo.nickname + ')'
             }
+        },
+        type: "select",
+        pageCode: "805120",
+        params: {
+            updater: "",
+            kind: "C"
+        },
+        keyName: "userId",
+        valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
+        searchName: "mobile",
+        search: true
+    }, {
+        title: "交易价格",
+        field: "tradePrice"
+    }, {
+        title: "交易数量",
+        field: "countString",
+        formatter: function(v, data) {
+            return moneyFormat(v) + "以太币";
         }
     }, {
-        field: 'applyDatetime',
-        title: '申请时间',
-        field1: 'applyDateStart',
-        title1: '申请时间',
-        type: 'date',
-        field2: 'applyDateEnd',
-        twoDate: true,
-        search: true,
-        formatter: dateTimeFormat
+        title: "交易金额",
+        field: "tradeAmount"
     }, {
-        title: "申请说明",
-        field: "applyNote"
+        title: "手续费",
+        field: "feeString",
+        formatter: moneyFormat
     }, {
-        field: 'status',
-        title: '状态',
-        type: 'select',
-        key: 'withdraw_status',
-        formatter: Dict.getNameForList('withdraw_status'),
-        search: true
+        title: "状态",
+        field: "status",
+        type: "select",
+        data: {
+            '3': "已完成"
+        },
+        // search: true
     }, {
-        field: 'approveNote',
-        title: '审核意见',
-    }, {
-        field: 'approveUser',
-        title: '审核人'
-    }, {
-        field: 'approveDatetime',
-        title: '审核时间',
-        formatter: dateTimeFormat,
-        field1: 'approveDateStart',
-        title1: '审核时间',
-        type: 'date',
-        field2: 'approveDateEnd',
-        twoDate: true,
-        search: true
-    }, ];
+        title: '备注',
+        field: 'remark'
+    }];
     buildList({
         columns: columns,
-        pageCode: '802755',
-        singleSelect: false,
+        pageCode: '625250',
         searchParams: {
-            status: "6",
             type: "sell",
+            status: "3",
             companyCode: OSS.company
-        },
-        // beforeDetail: function(data) {
-        //     window.location.href = "./TBunderline_detail.html?v=1&code=" + data.code;
-        // }
+        }
     });
-
-
+	
+	
+	
 });

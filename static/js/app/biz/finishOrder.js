@@ -55,8 +55,7 @@ $(function() {
         }
     }, {
         title: "交易金额",
-        field: "tradeAmountString",
-        formatter: moneyFormat
+        field: "tradeAmount"
     }, {
         title: "手续费",
         field: "feeString",
@@ -78,7 +77,7 @@ $(function() {
         columns: columns,
         pageCode: '625250',
         searchParams: {
-            status: "3",
+            statusList: ["3"],
             companyCode: OSS.company
         },
     });

@@ -9,7 +9,7 @@ $(function() {
         },
         sync: true
     }).then(function(data) {
-        collectionData = [data.ethCollection]
+        collectionData = data.ethCollection?[data.ethCollection]:[]
     });
     var fields = [{
             title: '户名',
@@ -31,11 +31,9 @@ $(function() {
             title: '币种',
             type: 'select',
             formatter: function(v, data) {
-                if (data.charge.currency == "ETH") {
-                    return "以太币"
-                } else if (data.charge.currency == "BTC") {
-                    return "比特币"
-                }
+                if (data.charge) {
+            		return Dict.getNameForList1('coin','',data.charge.currency);
+            	}
             },
             readonly: true,
         }, {
@@ -43,17 +41,7 @@ $(function() {
             title: '渠道类型',
             formatter: function(v, data) {
                 if (data.charge) {
-                    if (data.charge.channelType == "ETH") {
-                        return "以太坊"
-                    } else if (data.charge.channelType == "0") {
-                        return "内部账"
-                    } else if (data.charge.channelType == "9") {
-                        return "调账"
-                    } else if (data.charge.channelType == "10") {
-                        return "轧账"
-                    } else if (data.charge.channelType == "90") {
-                        return "人工线下"
-                    }
+                	return Dict.getNameForList1('channel_type','',data.charge.channelType);
                 }
 
             },
@@ -63,21 +51,7 @@ $(function() {
             title: '业务类型',
             formatter: function(v, data) {
                 if (data.charge) {
-                    if (data.charge.bizType == "charge") {
-                        return "充值"
-                    } else if (data.charge.bizType == "collection") {
-                        return "归集"
-                    } else if (data.charge.bizType == "withdraw") {
-                        return "取现"
-                    } else if (data.charge.bizType == "mfee") {
-                        return "提现矿工费"
-                    } else if (data.charge.bizType == "wfee") {
-                        return "归集矿工费"
-                    } else if (data.charge.bizType == "19") {
-                        return "蓝补"
-                    } else if (data.charge.bizType == "-19") {
-                        return "红冲"
-                    }
+                	return Dict.getNameForList1('jour_biz_type','',data.charge.bizType);
                 }
 
             },
@@ -108,13 +82,9 @@ $(function() {
             field: 'status',
             title: '状态',
             formatter: function(v, data) {
-                if (data.charge.status == "1") {
-                    return "待支付"
-                } else if (data.charge.status == "2") {
-                    return "支付失败"
-                } else if (data.charge.status == "3") {
-                    return "支付成功"
-                }
+            	if(data.charge){
+            		return Dict.getNameForList1('charge_status','',data.charge.status);
+            	}
             },
             readonly: true
         }, {
@@ -265,14 +235,14 @@ $(function() {
                 field: "value"
             }]
         }, {
-            title: '对账说明',
-            field: 'checkNote',
-            // type: "textarea",
-            // normalArea: true,
-            required: true,
-            readonly: view,
-            maxlength: 250
-        }, {
+//          title: '对账说明',
+//          field: 'checkNote',
+//          // type: "textarea",
+//          // normalArea: true,
+//          required: true,
+//          readonly: view,
+//          maxlength: 250
+//      }, {
             field: 'checkUser',
             type: 'hidden',
             value: getUserName()
@@ -324,7 +294,8 @@ $(function() {
             data.order = data.code;
             return true;
         },
-        buttons: view ? buttonsView : buttons2
+        buttons: buttonsView
+//      buttons: view ? buttonsView : buttons2
     };
     buildDetail(options);
 });

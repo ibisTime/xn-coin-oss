@@ -51,7 +51,8 @@ $(function() {
         formatter: moneyFormat
     }, {
         title: "余额",
-        field: "balanceString"
+        field: "balanceString",
+        formatter: moneyFormat
     }];
     buildList({
         columns: columns,

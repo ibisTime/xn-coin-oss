@@ -16,7 +16,7 @@ $(function() {
         columns: columns,
         pageCode: '625915',
         searchParams: {
-            type: 'fee_rule',
+            type: 'trade_rule',
             companyCode: OSS.company
         }
     });

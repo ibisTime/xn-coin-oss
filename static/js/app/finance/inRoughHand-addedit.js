@@ -1,268 +1,244 @@
 $(function() {
     var code = getQueryString('code');
     var view = !!getQueryString('v');
-    var accountNumber = getQueryString('accountNumber');
 
     var fields = [{
-        field: 'accountName',
-        title: '账号',
-        formatter: function(v, data) {
-            return data.withdraw.accountName;
-        },
-        readonly: true
-    }, {
-        field: 'amountString',
-        title: '取现金额',
-        formatter: function(v, data) {
-            return moneyFormat(data.withdraw.amountString);
-        },
-        readonly: true
-    }, {
-        field: 'feeString',
-        title: '手续费',
-        formatter: function(v, data) {
-            return moneyFormat(data.withdraw.feeString);
-        },
-        readonly: true
-    }, {
-        field: 'payFeeString',
-        title: '实际支付矿工费',
-        formatter: function(v, data) {
-            return moneyFormat(data.withdraw.payFeeString);
-        },
-        readonly: true
-    }, {
-        field: 'channelType',
-        title: '渠道',
-        formatter: function(v, data) {
-            if (data.withdraw) {
-                if (data.withdraw.channelType == "ETH") {
-                    return "以太坊"
-                } else if (data.withdraw.channelType == "0") {
-                    return "内部账"
-                } else if (data.withdraw.channelType == "9") {
-                    return "调账"
-                } else if (data.withdraw.channelType == "10") {
-                    return "轧账"
-                } else if (data.withdraw.channelType == "90") {
-                    return "人工线下"
+            field: 'code1',
+            title: '订单编号',
+            formatter: function(v, data) {
+                return data.tradeOrder.code;
+            },
+            readonly: true
+        }, {
+            title: "买家",
+            field: "buyUser",
+            readonly: true,
+            formatter: function(v, data) {
+                if (data.tradeOrder.buyUserInfo) {
+                    return data.tradeOrder.buyUserInfo.mobile + '(' + data.tradeOrder.buyUserInfo.nickname + ')'
                 }
-            }
+            },
 
-        },
-    }, {
-        title: "区块链类型",
-        field: "payCardInfo",
-        formatter: function(v, data) {
-            return data.withdraw.payCardInfo;
-        },
-        readonly: true
-    }, {
-        title: "提现地址",
-        field: "payCardNo",
-        formatter: function(v, data) {
-            return data.withdraw.payCardNo;
-        },
-        readonly: true
-    }, {
-        title: "打币地址",
-        field: "payUser",
-        formatter: function(v, data) {
-            return data.withdraw.payUser;
-        },
-        readonly: true
-    }, {
-        title: "交易Hash",
-        field: "channelOrder",
-        formatter: function(v, data) {
-            return data.withdraw.channelOrder;
-        },
-        readonly: true
-    }, {
-        field: 'applyNote',
-        title: '申请说明',
-        formatter: function(v, data) {
-            return data.withdraw.applyNote;
-        },
-        readonly: true
-    }, {
-        field: 'status',
-        title: '状态',
-        formatter: function(v, data) {
+        }, {
+            title: "卖家",
+            field: "sellUser",
+            formatter: function(v, data) {
+                if (data.tradeOrder.sellUserInfo) {
+                    return data.tradeOrder.sellUserInfo.mobile + '(' + data.tradeOrder.sellUserInfo.nickname + ')'
+                }
+            },
+            readonly: true
+        }, {
+            title: "交易广告名称",
+            field: "adsCode",
+            formatter: function(v, data) {
+                return data.tradeOrder.adsCode;
+            },
+            readonly: true
+        }, {
+            title: "交易价格",
+            field: "tradePrice",
+            formatter: function(v, data) {
+                return data.tradeOrder.tradePrice;
+            },
+            readonly: true
+        }, {
+            title: "交易数量",
+            field: "countString",
+            formatter: function(v, data) {
+                return moneyFormat(data.tradeOrder.countString) + "以太币";
+            },
+            readonly: true
+        }, {
+            title: "交易金额",
+            field: "tradeAmount",
+            formatter: function(v, data) {
+                return data.tradeOrder.tradeAmount;
+            },
+            readonly: true
+        }, {
+            title: "手续费",
+            field: "feeString",
+            formatter: function(v, data) {
+                return moneyFormat(data.tradeOrder.feeString);
+            },
+            readonly: true
+        }, {
+            title: "交易虚拟币币种",
+            field: "tradeCoin",
+            formatter: function(v, data) {
+                if (data.tradeOrder) {
+                    if (data.tradeOrder.tradeCoin == "ETH") {
+                        return "以太币"
+                    } else if (data.tradeOrder.tradeCoin == "BTC") {
+                        return "比特币"
+                    }
+                }
 
-            if (data.withdraw.status == "1") {
-                return "待审批"
-            } else if (data.withdraw.status == "2") {
-                return "审批不通过"
-            } else if (data.withdraw.status == "3") {
-                return "审批通过待广播"
-            } else if (data.withdraw.status == "4") {
-                return "广播中"
-            } else if (data.withdraw.status == "5") {
-                return "广播失败"
-            } else if (data.withdraw.status == "6") {
-                return "广播成功"
-            }
-        },
-        readonly: true
-    }, {
-        title: "申请时间",
-        field: "applyDatetime",
-        formatter: function(v, data) {
-            return dateTimeFormat(data.withdraw.applyDatetime);
-        },
-        readonly: true
-    }, {
-        title: "审核说明",
-        field: "approveNote",
-        formatter: function(v, data) {
-            return data.withdraw.approveNote;
-        },
-        readonly: true
-    }, {
-        title: '审核人',
-        field: "approveUser",
-        formatter: function(v, data) {
-            return data.withdraw.approveUser;
-        },
-        readonly: true
-    }, {
-        title: "审核时间",
-        field: "approveDatetime",
-        formatter: function(v, data) {
-            return dateTimeFormat(data.withdraw.approveDatetime);
-        },
-        readonly: true
-    }, {
-        title: "支付说明",
-        field: "payNote",
-        formatter: function(v, data) {
-            return data.withdraw.payNote;
-        },
-        readonly: true
-    }, {
-        title: "支付时间",
-        field: "payDatetime",
-        formatter: function(v, data) {
-            return dateTimeFormat(data.withdraw.payDatetime);
-        },
-        readonly: true
-    }, {
-        field: 'jourList',
-        title: '本地流水:',
-        readonly: true,
-        type: 'o2m',
-        columns: [{
-            field: 'code',
-            title: '流水号',
+            },
+            readonly: true
+        }, {
+            title: "交易法币币种",
+            field: "tradeCurrency",
             formatter: function(v, data) {
-                return data.code
-            }
+                if (data.tradeOrder) {
+                    if (data.tradeOrder.tradeCurrency == "CNY") {
+                        return "人民币"
+                    } else if (data.tradeOrder.tradeCurrency == "USD") {
+                        return "美元"
+                    } else if (data.tradeOrder.tradeCurrency == "HKD") {
+                        return "港币"
+                    }
+                }
+
+            },
+            readonly: true
         }, {
-            field: 'realName',
-            title: '户名',
+            title: "支付方式",
+            field: 'payType',
             formatter: function(v, data) {
-                return data.realName
-            }
+                if (data.tradeOrder.payType == "0") {
+                    return "支付宝"
+                } else if (data.tradeOrder.payType == "1") {
+                    return "微信"
+                } else if (data.tradeOrder.payType == "2") {
+                    return "银联转账"
+                }
+            },
+            readonly: true
         }, {
-            field: 'currency',
-            title: '币种',
-            key: 'coin',
-            formatter: Dict.getNameForList('coin'),
+            title: "下单时间",
+            field: "createDatetime",
+            formatter: function(v, data) {
+                return dateTimeFormat(data.tradeOrder.createDatetime)
+            },
+            readonly: true
         }, {
-            field: 'channelType',
-            title: '渠道',
-            type: 'select',
-            key: 'channel_type',
-            formatter: Dict.getNameForList('channel_type'),
-            search: true
+            title: "支付失效时间",
+            field: "invalidDatetime",
+            formatter: function(v, data) {
+                return dateTimeFormat(data.tradeOrder.invalidDatetime)
+            },
+            readonly: true
         }, {
-            field: 'bizType',
-            title: '业务类型',
-            type: 'select',
-            key: 'jour_biz_type',
-            formatter: Dict.getNameForList('jour_biz_type'),
-            search: true
+            title: "买家标记时间",
+            field: "markDatetime",
+            formatter: function(v, data) {
+                return dateTimeFormat(data.tradeOrder.markDatetime)
+            },
+            readonly: true
         }, {
-            field: 'transAmountString',
-            title: '变动金额',
-            formatter: moneyFormat
+            title: "卖家释放时间",
+            field: "releaseDatetime",
+            formatter: function(v, data) {
+                return dateTimeFormat(data.tradeOrder.releaseDatetime)
+            },
+            readonly: true
         }, {
-            field: 'preAmountString',
-            title: '变动前金额',
-            formatter: moneyFormat
+            title: "状态",
+            field: "status",
+            formatter: function(v, data) {
+                if (data.tradeOrder) {
+                    if (data.tradeOrder.status == "0") {
+                        return "待支付"
+                    } else if (data.tradeOrder.status == "1") {
+                        return "已支付待释放"
+                    } else if (data.tradeOrder.status == "2") {
+                        return "已释放待评价"
+                    } else if (data.tradeOrder.status == "3") {
+                        return "已完成"
+                    } else if (data.tradeOrder.status == "4") {
+                        return "已取消"
+                    } else if (data.tradeOrder.status == "5") {
+                        return "仲裁中"
+                    }
+                }
+
+            },
+            readonly: true
         }, {
-            field: 'postAmountString',
-            title: '变动后金额',
-            formatter: moneyFormat
+            field: 'jourList',
+            title: '本地流水:',
+            readonly: true,
+            type: 'o2m',
+            columns: [{
+                field: 'code',
+                title: '流水号',
+                formatter: function(v, data) {
+                    return data.code
+                }
+            }, {
+                field: 'realName',
+                title: '户名',
+                formatter: function(v, data) {
+                    return data.realName
+                }
+            }, {
+                field: 'currency',
+                title: '币种',
+                key: 'coin',
+                formatter: Dict.getNameForList('coin'),
+            }, {
+                field: 'channelType',
+                title: '渠道',
+                type: 'select',
+                key: 'channel_type',
+                formatter: Dict.getNameForList('channel_type'),
+                search: true
+            }, {
+                field: 'bizType',
+                title: '业务类型',
+                type: 'select',
+                key: 'jour_biz_type',
+                formatter: Dict.getNameForList('jour_biz_type'),
+                search: true
+            }, {
+                field: 'transAmountString',
+                title: '变动金额',
+                formatter: moneyFormat
+            }, {
+                field: 'preAmountString',
+                title: '变动前金额',
+                formatter: moneyFormat
+            }, {
+                field: 'postAmountString',
+                title: '变动后金额',
+                formatter: moneyFormat
+            }, {
+                field: 'status',
+                title: '状态',
+                type: 'select',
+                key: 'jour_status',
+                formatter: Dict.getNameForList('jour_status'),
+                search: true
+            }, {
+                field: 'createDatetime',
+                title: '创建时间',
+                formatter: dateTimeFormat
+            }, {
+                field: 'bizNote',
+                title: '生成说明'
+            }, ]
+//      }, {
+//             title: '偏离金额',
+//             field: 'checkAmount',
+//             amount1: true,
+//             value: '0',
+//             required: true,
+//             readonly: false,
+//      }, {
+//          title: '对账说明',
+//          field: 'checkNote',
+//          required: true,
+//          readonly: false,
+//          maxlength: 250
         }, {
-            field: 'status',
-            title: '状态',
-            type: 'select',
-            key: 'jour_status',
-            formatter: Dict.getNameForList('jour_status'),
-            search: true
-        }, {
-            field: 'createDatetime',
-            title: '创建时间',
-            formatter: dateTimeFormat
-        }, {
-            field: 'bizNote',
-            title: '生成说明'
-        }, ]
-    }, {
-        field: 'transList',
-        title: '区块链流水',
-        readonly: true,
-        type: 'o2m',
-        columns: [{
-            field: 'blockNumber',
-            title: 'blockNumber',
-        }, {
-            field: 'from',
-            title: 'from'
-        }, {
-            field: 'to',
-            title: 'to'
-        }, {
-            field: 'gas',
-            title: 'gasLimit',
-        }, {
-            field: 'gasPrice',
-            title: 'gasPrice',
-            formatter: moneyFormat,
-        }, {
-            field: 'gasUsed',
-            title: 'gasUsed'
-        }, {
-            field: 'nonce',
-            title: 'nonce'
-        }, {
-            field: 'refNo',
-            title: 'refNo'
-        }, {
-            title: "交易Hash",
-            field: "hash"
-        }, {
-            field: 'transactionIndex',
-            title: 'transactionIndex'
-        }, {
-            title: "value",
-            field: "value"
-        }]
-    }, {
-        title: '对账说明',
-        field: 'checkNote',
-        // type: "textarea",
-        // normalArea: true,
-        required: true,
-        readonly: view,
-        maxlength: 250
-    }, {
-        field: 'checkUser',
-        type: 'hidden',
-        value: getUserName()
-    }];
+            field: 'checkUser',
+            type: 'hidden',
+            value: getUserName()
+        }
+    ];
+
     var buttonsView = [{
         title: "返回",
         handler: function() {
@@ -303,12 +279,14 @@ $(function() {
     var options = {
         fields: fields,
         code: code,
-        detailCode: '802758',
+        detailCode: '625252',
         view: view,
-        buttons: view ? buttonsView : buttons2
+        beforeSubmit: function(data) {
+            data.order = data.code;
+            return true;
+        },
+        buttons: buttonsView
+//      buttons: view ? buttonsView : buttons2
     };
-
     buildDetail(options);
-
-
 });

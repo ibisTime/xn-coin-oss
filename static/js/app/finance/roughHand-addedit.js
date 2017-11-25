@@ -36,20 +36,23 @@ $(function() {
         title: '渠道',
         formatter: function(v, data) {
             if (data.withdraw) {
-                if (data.withdraw.channelType == "ETH") {
-                    return "以太坊"
-                } else if (data.withdraw.channelType == "0") {
-                    return "内部账"
-                } else if (data.withdraw.channelType == "9") {
-                    return "调账"
-                } else if (data.withdraw.channelType == "10") {
-                    return "轧账"
-                } else if (data.withdraw.channelType == "90") {
-                    return "人工线下"
-                }
+            	
+            	return Dict.getNameForList1('channel_type','',data.withdraw.channelType);
+//              if (data.withdraw.channelType == "ETH") {
+//                  return "以太坊"
+//              } else if (data.withdraw.channelType == "0") {
+//                  return "内部账"
+//              } else if (data.withdraw.channelType == "9") {
+//                  return "调账"
+//              } else if (data.withdraw.channelType == "10") {
+//                  return "轧账"
+//              } else if (data.withdraw.channelType == "90") {
+//                  return "人工线下"
+//              }
             }
 
         },
+        readonly: true
     }, {
         title: "区块链类型",
         field: "payCardInfo",
@@ -89,20 +92,21 @@ $(function() {
         field: 'status',
         title: '状态',
         formatter: function(v, data) {
-
-            if (data.withdraw.status == "1") {
-                return "待审批"
-            } else if (data.withdraw.status == "2") {
-                return "审批不通过"
-            } else if (data.withdraw.status == "3") {
-                return "审批通过待广播"
-            } else if (data.withdraw.status == "4") {
-                return "广播中"
-            } else if (data.withdraw.status == "5") {
-                return "广播失败"
-            } else if (data.withdraw.status == "6") {
-                return "广播成功"
-            }
+			
+    		return Dict.getNameForList1('withdraw_status','',data.withdraw.status);
+//          if (data.withdraw.status == "1") {
+//              return "待审批"
+//          } else if (data.withdraw.status == "2") {
+//              return "审批不通过"
+//          } else if (data.withdraw.status == "3") {
+//              return "审批通过待广播"
+//          } else if (data.withdraw.status == "4") {
+//              return "广播中"
+//          } else if (data.withdraw.status == "5") {
+//              return "广播失败"
+//          } else if (data.withdraw.status == "6") {
+//              return "广播成功"
+//          }
         },
         readonly: true
     }, {
@@ -251,14 +255,14 @@ $(function() {
             field: "value"
         }]
     }, {
-        title: '对账说明',
-        field: 'checkNote',
-        // type: "textarea",
-        // normalArea: true,
-        required: true,
-        readonly: view,
-        maxlength: 250
-    }, {
+//      title: '对账说明',
+//      field: 'checkNote',
+//      // type: "textarea",
+//      // normalArea: true,
+//      required: true,
+//      readonly: view,
+//      maxlength: 250
+//  }, {
         field: 'checkUser',
         type: 'hidden',
         value: getUserName()
@@ -305,7 +309,8 @@ $(function() {
         code: code,
         detailCode: '802758',
         view: view,
-        buttons: view ? buttonsView : buttons2
+        buttons: buttonsView
+//      buttons: view ? buttonsView : buttons2
     };
 
     buildDetail(options);

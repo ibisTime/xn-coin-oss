@@ -40,12 +40,7 @@ $(function() {
 
     var options = {
         fields: fields,
-        addCode: '625200',
-        beforeSubmit: function(data) {
-            data.availableDatetimeStart += " 00:00:00";
-            data.availableDatetimeEnd += " 00:00:00";
-            return data;
-        }
+        addCode: '625200'
     };
     buildDetail(options);
 

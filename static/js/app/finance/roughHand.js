@@ -33,7 +33,11 @@ $(function() {
         title: '申请人',
         formatter: function(v, data) {
             if (data.user) {
-                return data.user.mobile;
+            	if(data.user.kind="P"){
+            		return data.user.loginName;
+            	}else{
+                	return data.user.mobile;
+            	}
             } else {
                 return data.approveUser
             }
@@ -78,10 +82,9 @@ $(function() {
     buildList({
         columns: columns,
         pageCode: '802755',
-        singleSelect: false,
         searchParams: {
             status: "6",
-            type: "buy",
+            channelType: "ETH",
             companyCode: OSS.company
         },
         // beforeDetail: function(data) {

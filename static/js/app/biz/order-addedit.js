@@ -26,7 +26,7 @@ $(function() {
         },
         search: true
     }, {
-        title: "交易广告名称",
+        title: "广告编号",
         field: "adsCode"
     }, {
         title: "交易价格",
@@ -91,10 +91,16 @@ $(function() {
         search: true
     }, {
         title: "买家对卖家的评价",
-        field: "bsComment"
+        field: "bsComment",
+        type: "select",
+        key: "comment_result",
+        formatter: Dict.getNameForList("comment_result"),
     }, {
         title: "卖家对买家的评价",
-        field: "sbomment"
+        field: "sbComment",
+        type: "select",
+        key: "comment_result",
+        formatter: Dict.getNameForList("comment_result"),
     }, {
         title: '备注',
         field: 'remark'

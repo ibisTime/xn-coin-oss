@@ -9,15 +9,15 @@ $(function() {
         required: true,
         type: 'select',
         pageCode: '802500',
-        keyCode1: '801907',
         dict: [
-            ['currency', 'currency'],
+            ['currency', 'coin'],
             ['type', 'account_type']
         ],
         params: {
             // currency: 'CNY',
             // currencyList: ['CNY', "XJK"],
-            userId: userId
+            userId: userId,
+            type:'C'
         },
         keyName: 'accountNumber',
         valueName: '{{realName.DATA}} - {{currencyName.DATA}} - {{typeName.DATA}}',
@@ -31,13 +31,13 @@ $(function() {
         formatter: moneyFormat
     }, {
         field: 'payCardInfo',
-        title: '银行类型',
+        title: '区块链类型',
+        value: 'ETH',
+        readonly: true,
         required: true,
     }, {
         field: 'payCardNo',
-        title: '银行卡号',
-        number: true,
-        minlength: 15,
+        title: '提现地址',
         required: true,
     }, {
         field: 'applyNote',
@@ -53,6 +53,7 @@ $(function() {
         view: view,
         beforeSubmit: function(data) {
             data.applyUser = getUserId();
+            data.payCardInfo = $("#payCardInfo").text();
             return data;
         }
     };

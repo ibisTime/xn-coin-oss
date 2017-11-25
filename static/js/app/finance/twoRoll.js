@@ -79,10 +79,9 @@ $(function() {
             type: "buy",
             status: "3",
             companyCode: OSS.company
-        },
-        beforeEdit: function(data) {
-
         }
     });
-
+	
+	
+	
 });

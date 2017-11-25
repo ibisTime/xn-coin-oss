@@ -40,7 +40,7 @@ Dict.getName = function(type, key) {
         json: {
             parentKey: type
         }
-    }).then(function(data) {
+    },true).then(function(data) {
         res = key ? (Dict.findName(data, key) || '-') : data;
     });
     return res;
@@ -56,7 +56,7 @@ Dict.getName2 = function(type, code, key) {
         json: {
             parentKey: type
         }
-    }).then(function(data) {
+    },true).then(function(data) {
         res = key ? (Dict.findName(data, key) || '-') : data;
     });
     return res;
@@ -71,7 +71,7 @@ Dict.getNameForList = function(type, code) {
         json: {
             parentKey: type
         }
-    }).then(function(data) {
+    },true).then(function(data) {
         res = function(key) {
             return key != undefined ? Dict.findName(data, key) : '-';
         }
@@ -87,7 +87,7 @@ Dict.getNameForList1 = function(type, code, key) {
         json: {
             parentKey: type
         }
-    }).then(function(data) {
+    },true).then(function(data) {
         if (key != undefined) {
             k = Dict.findName(data, key);
             return k;

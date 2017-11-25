@@ -53,11 +53,11 @@ $(function() {
         field: "reason",
         readonly: true
     }, {
-        title: "附件说明",
-        field: "attach",
-        type: "img",
-        readonly: true
-    }, {
+//      title: "附件说明",
+//      field: "attach",
+//      type: "img",
+//      readonly: true
+//  }, {
         title: "状态",
         field: "status",
         type: "select",

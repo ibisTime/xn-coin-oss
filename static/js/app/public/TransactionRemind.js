@@ -5,21 +5,23 @@ $(function() {
         title: '',
         checkbox: true
     }, {
+        title: '参数名称',
         field: 'remark',
-        title: '规则名称'
     }, {
-        field: 'cvalue',
-        title: '数值'
+        title: '参数说明',
+        field: 'cvalue'
     }];
     buildList({
         columns: columns,
         pageCode: '625915',
         searchParams: {
-            type: 'fen_cheng_rule',
-            companyCode: OSS.company
+            companyCode: OSS.company,
+            ckey: "trade_remind"
         },
         beforeEdit: function(data) {
-            window.location.href = "../rules/rule_addedit.html?code=" + data.id;
+            window.location.href = "./buyETH_addedit.html?code=" + data.id;
         }
     });
+
+
 });

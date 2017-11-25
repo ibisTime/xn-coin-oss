@@ -13,7 +13,7 @@ $(function() {
         field: "beigao",
         formatter: function(v, data) {
             if (data.beigaoInfo) {
-                return data.beigaoInfo.mobile;
+                return data.beigaoInfo.mobile + '(' + data.beigaoInfo.nickname + ')';
             }
         }
     }, {
@@ -21,7 +21,7 @@ $(function() {
         field: "yuangao",
         formatter: function(v, data) {
             if (data.yuangaoInfo) {
-                return data.yuangaoInfo.mobile;
+                return data.yuangaoInfo.mobile + '(' + data.yuangaoInfo.nickname + ')';
             }
         }
     }, {

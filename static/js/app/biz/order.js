@@ -70,6 +70,17 @@ $(function() {
             "2": "已释放待评价",
             "5": "仲裁中",
         },
+    }, {
+        title: "状态",
+        field: "statusList",
+        type: "select",
+        data: {
+            "0": "待支付",
+            "1": "已支付",
+            "2": "已释放待评价",
+            "5": "仲裁中",
+        },
+        visible: false,
         search: true
     }, {
         title: '备注',
@@ -82,6 +93,14 @@ $(function() {
             statusList: ["0", "1", "2", "5"],
             companyCode: OSS.company
         },
+        beforeSearch:function(data){
+        	if(!Array.isArray(data.statusList)){
+        		var statusList = []
+	        	statusList.push(data.statusList)
+	        	data.statusList = statusList;
+        	}
+        	return data;
+        }
     });
 
 });

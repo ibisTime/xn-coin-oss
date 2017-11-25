@@ -1,6 +1,7 @@
 $(function() {
     var code = getQueryString('code');
     var view = !!getQueryString('v');
+    
     var fields = [{
         field: '',
         title: '日期',
@@ -19,7 +20,7 @@ $(function() {
         fields: fields,
         code: code,
         view: view,
-        detailCode: ' ',
+        detailCode: "",
         editCode: ""
     };
     buildDetail(options);

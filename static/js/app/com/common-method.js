@@ -98,7 +98,7 @@ function moneyFormat(money, format) {
     // money = (money / 10e18).toString();
     // money = parseFloat(money).toFixed(format);
     money = new BigDecimal(money);
-    money = money.divide(new BigDecimal("10e17"), 8, MathContext.ROUND_DOWN).toString();
+    money = money.divide(new BigDecimal("1e18"), 8, MathContext.ROUND_DOWN).toString();
     // money = parseFloat(money).toFixed(format);
     // if (!flag) {
     //     money = "-" + money;
@@ -1217,7 +1217,7 @@ function buildDetail(options) {
                 textareaList.push({ field: item.field });
                 html += '<div style="width:800px;float:left;"><textarea style="height:300px;" id="' + item.field + '" name="' + item.field + '"></textarea></div></li>';
             } else if (item.type == 'textarea' && item.normalArea) {
-                html += '<div style="width:400px;float:left;"><textarea style="height:200px;width: 320px;border: 1px solid #e0e0e0;padding: 8px;" id="' + item.field + '" name="' + item.field + '"></textarea></div></li>';
+                html += '<div style="width:400px;float:left;"><textarea style="resize:none;height:200px;width: 320px !important;border: 1px solid #e0e0e0;padding: 8px;" id="' + item.field + '" name="' + item.field + '"></textarea></div></li>';
             } else if (item.type == 'citySelect') {
                 if (item.onlyProvince) {
                     html += '<div id="city-group" data-only-prov="' + item.onlyProvince + '"><select id="province" name="province" class="control-def prov"><option value="">请选择</option></select></div></li>';
@@ -1931,7 +1931,7 @@ function buildDetail(options) {
                 if (item.link) {
                     $('#' + item.field).html('<a target="_blank" href="' + displayValue + '">' + displayValue + '</a>');
                 }
-                if (item.type == 'textarea') {
+                if (item.type == 'textarea' && !item.normalArea) {
                     $('#' + item.field).css('width', '800px');
                 }
                 if (item.afterSet) {

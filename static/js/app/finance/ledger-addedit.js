@@ -1,6 +1,7 @@
 $(function() {
     var code = getQueryString('code');
     var view = getQueryString('v');
+    var kind = !!getQueryString('kind') || "";
 
     var fields = [{
         title: '流水编号',
@@ -38,12 +39,12 @@ $(function() {
         field: 'bizType',
         title: '业务类型',
         type: 'select',
-        key: 'biz_type',
-        formatter: Dict.getNameForList('biz_type'),
+        key: "jour_biz_type",
+        formatter: Dict.getNameForList('jour_biz_type'),
         readonly: view
     }, {
         field: 'bizNote',
-        title: '业务说明'
+        title: '生成说明'
     }, {
         field: 'transAmountString',
         title: '变动金额',
