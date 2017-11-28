@@ -65,9 +65,19 @@ $(function() {
         field: "status",
         type: "select",
         data: {
+            "2": "已释放待评价",
             '3': "已完成"
         },
-        // search: true
+    }, {
+        title: "状态",
+        field: "statusList",
+        type: "select",
+        data: {
+            "2": "已释放待评价",
+            '3': "已完成"
+        },
+        visible: false,
+        search: true
     }, {
         title: '备注',
         field: 'remark'
@@ -77,8 +87,16 @@ $(function() {
         pageCode: '625250',
         searchParams: {
             type: "sell",
-            status: "3",
+            statusList: ["2","3"],
             companyCode: OSS.company
+        },
+        beforeSearch:function(data){
+        	if(!Array.isArray(data.statusList)){
+        		var statusList = []
+	        	statusList.push(data.statusList)
+	        	data.statusList = statusList;
+        	}
+        	return data;
         }
     });
 	

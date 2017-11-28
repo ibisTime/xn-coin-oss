@@ -16,7 +16,8 @@ $(function() {
         pageCode: '625915',
         searchParams: {
             companyCode: OSS.company,
-            type: "buy_ads_hint"
+            type: "buy_ads_hint",
+			updater: ''
         },
         beforeEdit: function(data) {
             window.location.href = "./buyETH_addedit.html?code=" + data.id;

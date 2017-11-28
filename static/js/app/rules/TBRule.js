@@ -20,7 +20,8 @@ $(function() {
         pageCode: '625915',
         searchParams: {
             type: 'withdraw_rule',
-            companyCode: OSS.company
+            companyCode: OSS.company,
+			updater: ''
         },
         beforeEdit: function(r) {
             location.href = 'TBRule_addedit.html?code=' + r.id + "&t=" + r.type;

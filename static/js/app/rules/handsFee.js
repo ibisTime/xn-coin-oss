@@ -17,7 +17,8 @@ $(function() {
         pageCode: '625915',
         searchParams: {
             type: 'trade_rule',
-            companyCode: OSS.company
+            companyCode: OSS.company,
+			updater: ''
         }
     });
 });

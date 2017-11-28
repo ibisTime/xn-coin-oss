@@ -7,6 +7,7 @@ $(function() {
     }, {
         field: 'code',
         title: '编号',
+        search: true
     }, {
         field: 'accountName',
         title: '户名',
@@ -17,7 +18,6 @@ $(function() {
         type: 'select',
         key: 'coin',
         formatter: Dict.getNameForList("coin"),
-        search: true
     }, {
         field: 'amountString',
         title: '充值金额',
@@ -65,7 +65,7 @@ $(function() {
 
         },
         searchParams: {
-            channelType: "ETH",
+            channelType: "",
             status: "3",
             companyCode: OSS.company
         },

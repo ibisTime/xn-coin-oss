@@ -121,27 +121,59 @@ $(function() {
         }
         window.location.href = "customer_account.html?&c=1&userId=" + selRecords[0].userId;
     });
-
-    //查看推荐关系
-    $('#userRefereeBtn').click(function() {
+	
+	//添加备注
+    $('#remarkBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
             return;
         }
 
-        window.location.href = "customer_userReferee.html?userId=" + selRecords[0].userId + "&mobile=" + selRecords[0].mobile;
+        var dw = dialog({
+            content: '<form class="pop-form" id="popForm" novalidate="novalidate">' +
+                '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">添加备注</li></ul>' +
+                '</form>'
+        });
+
+        dw.showModal();
+
+        buildDetail({
+            fields: [{
+                field: 'remark',
+                title: '添加备注',
+                required: true,
+                value: selRecords[0].remark,
+                maxlength: 250
+            }],
+            buttons: [{
+                title: '添加备注',
+                handler: function() {
+                    if ($('#popForm').validate()) {
+                        var data = $('#popForm').serializeObject();
+                        data.userId = selRecords[0].userId;
+                        reqApi({
+                            code: '805082',
+                            json: data
+                        }).done(function(data) {
+                            toastr.info("操作成功");
+
+                            $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                            dw.close().remove();
+                        });
+                    }
+
+                }
+            }, {
+                title: '取消',
+                handler: function() {
+                    dw.close().remove();
+                }
+            }]
+        });
+
+        dw.__center();
+
     });
 
-
-    //修改实名认证
-    $('#identityBtn').click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-
-        window.location.href = "bizman_identity.html?userId=" + selRecords[0].userId;
-    });
 });

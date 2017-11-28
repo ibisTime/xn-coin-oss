@@ -17,7 +17,6 @@ $(function() {
         type: 'select',
         key: 'coin',
         formatter: Dict.getNameForList("coin"),
-        search: true
     }, {
         field: 'direction',
         title: '方向',

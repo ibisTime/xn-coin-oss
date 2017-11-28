@@ -139,19 +139,7 @@ $(function() {
             field: "status",
             formatter: function(v, data) {
                 if (data.tradeOrder) {
-                    if (data.tradeOrder.status == "0") {
-                        return "待支付"
-                    } else if (data.tradeOrder.status == "1") {
-                        return "已支付待释放"
-                    } else if (data.tradeOrder.status == "2") {
-                        return "已释放待评价"
-                    } else if (data.tradeOrder.status == "3") {
-                        return "已完成"
-                    } else if (data.tradeOrder.status == "4") {
-                        return "已取消"
-                    } else if (data.tradeOrder.status == "5") {
-                        return "仲裁中"
-                    }
+                	return Dict.getNameForList1("trade_order_status","",data.tradeOrder.status)
                 }
 
             },

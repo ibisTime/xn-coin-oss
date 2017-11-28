@@ -106,10 +106,19 @@ function moneyFormat(money, format) {
     return money;
 }
 
-
+/**
+ * 提交时金额放大
+ * @param money
+ * @param rate
+ */
 function moneyParse(money, rate) {
-    rate = rate || 1000;
-    return ((+('' + money).replace(/,/g, '')) * rate).toFixed(0);
+//  rate = rate || 1000;
+//  return ((+('' + money).replace(/,/g, '')) * rate).toFixed(0);
+	
+    rate = rate || new BigDecimal("1e18");
+	money = new BigDecimal(money);
+	money = money.multiply(rate).toString();
+    return money;
 }
 
 /**
@@ -1302,6 +1311,7 @@ function buildDetail(options) {
     $('#subBtn').click(function() {
         if ($('#jsForm').valid()) {
             var data = $('#jsForm').serializeObject();
+            
             $('#jsForm').find('.btn-file [type=file]').parent().next().each(function(i, el) {
                 var values = [];
                 var imgs = $(el).find('.img-ctn');
@@ -1785,13 +1795,14 @@ function buildDetail(options) {
                         data.city && $('#city').html(data.city);
                         data.area && $('#area').html(data.area);
                     } else {
-                        if (displayValue) {
-                            $('#' + item.field).html(((item.amount || item.amount1) ?
-                                moneyFormat(displayValue) :
-                                displayValue) || '-');
-                        } else {
-                            $('#' + item.field).html('-');
-                        }
+                        if (item.field && item.field.indexOf('-') > -1) {
+							$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(displayValue) : displayValue) || '-');
+						}
+						else if (item.field in data) {
+							$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(data[item.field]) : data[item.field]));
+						} else {
+							$('#' + item.field).html('-');
+						}
                     }
                     if (item.formatter) {
                         if (item.type == 'img') {

@@ -14,7 +14,6 @@ $(function() {
         type: 'select',
         key: 'coin',
         formatter: Dict.getNameForList("coin"),
-        search: true
     }, {
         field: 'channelType',
         title: '渠道',
@@ -65,6 +64,7 @@ $(function() {
         searchParams: {
             accountNumber: accountCode,
             type: 'P',
+            kind:'0',
             companyCode: OSS.company
         }
     });

@@ -27,27 +27,28 @@ $(function() {
             }
         }
     }, {
-        title: "交易总额",
-        field: "totalAmountString",
+        title: "购买总量",
+        field: "totalCountString",
         formatter: moneyFormat
     }, {
-        field: "leftAmountString",
-        title: "剩余可交易",
+        field: "leftCountString",
+        title: "剩余可购买",
         formatter: moneyFormat
     }, {
         title: "行情价格",
         field: "marketPrice",
     }, {
         title: "溢价率",
-        field: "premiumRate"
+        field: "premiumRate",
+        readonly: true
     }, {
         title: "保护价",
         field: "protectPrice",
     }, {
-        title: "单笔最大交易额",
+        title: "单笔最大量",
         field: "maxTrade"
     }, {
-        title: "单笔最小交易额",
+        title: "单笔最小量",
         field: "minTrade"
     }, {
         title: "可交易的对象",

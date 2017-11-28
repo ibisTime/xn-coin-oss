@@ -125,11 +125,16 @@ $(function() {
         field: 'applyUser',
         title: '申请人',
         formatter: function(v, data) {
-            if (data.user.kind == 'P') {
-                return data.user.loginName;
-            } else {
-                return data.user.mobile;
-            }
+        	if(data.user){
+        		if (data.user.kind == 'P') {
+                	return data.user.loginName;
+	            } else {
+	                return data.user.mobile;
+	            }
+        	}else{
+        		return data.applyUser
+        	}
+            
         }
     }, {
         field: 'bizNote',

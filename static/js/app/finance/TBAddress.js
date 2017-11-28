@@ -42,10 +42,10 @@ $(function() {
         title: "使用次数",
         field: "useCount"
     }, {
-        field: 'initialBalanceString',
-        title: '初始金额',
-        formatter: moneyFormat
-    }, {
+//      field: 'initialBalanceString',
+//      title: '初始金额',
+//      formatter: moneyFormat
+//  }, {
         field: 'useAmountString',
         title: '提币金额',
         formatter: moneyFormat

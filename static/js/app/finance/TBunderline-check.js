@@ -1,7 +1,48 @@
 $(function() {
     var code = getQueryString('code');
     var view = !!getQueryString('v');
-    var userId = getQueryString('userId') || '';
+	
+	var buttons = [{
+        title: '通过',
+        handler: function() {
+
+            if ($('#jsForm').valid()) {
+                var data = $('#jsForm').serializeObject();
+                data.codeList = dataCode;
+                data.approveResult = "1";
+                data.approveUser = getUserName();
+                reqApi({
+                    code: '802752',
+                    json: data
+                }).done(function(data) {
+                    sucDetail();
+                });
+            }
+
+        }
+    }, {
+        title: '不通过',
+        handler: function() {
+            if ($('#jsForm').valid()) {
+                var data = $('#jsForm').serializeObject();
+                data.codeList = dataCode;
+                data.approveResult = "0";
+                data.approveUser = getUserName();
+                reqApi({
+                    code: '802752',
+                    json: data
+                }).done(function(data) {
+                    sucDetail();
+                });
+            }
+        }
+    }, {
+        title: '返回',
+        handler: function() {
+            goBack();
+        }
+    }];
+    
 
     var fields = [{
         field: 'accountName',
@@ -15,10 +56,6 @@ $(function() {
         title: '手续费',
         formatter: moneyFormat
     }, {
-        field: 'payFeeString',
-        title: '实际支付矿工费',
-        formatter: moneyFormat
-    }, {
         field: 'channelType',
         title: '渠道',
         type: 'select',
@@ -29,12 +66,6 @@ $(function() {
     }, {
         title: "提现地址",
         field: "payCardNo"
-    }, {
-        title: "打币地址",
-        field: "payUser"
-    }, {
-        title: "交易Hash",
-        field: "channelOrder"
     }, {
         field: 'mobile',
         title: '申请人',
@@ -62,30 +93,20 @@ $(function() {
         title: "申请时间",
         field: "applyDatetime",
         formatter: dateTimeFormat
-    }, {
-        title: '审核人',
-        field: "approveUser"
-    }, {
-        title: "审核意见",
-        field: "approveNote"
-    }, {
-        title: "审核时间",
-        field: "approveDatetime",
-        formatter: dateTimeFormat
-    }, {
-        title: "支付说明",
-        field: "payNote"
-    }, {
-        title: "支付时间",
-        field: "payDatetime",
-        formatter: dateTimeFormat
+    },{
+        title: '审核意见',
+        field: 'approveNote',
+        maxlength: 250,
+        required: true,
+        readonly: false
     }];
 
     var options = {
         fields: fields,
         code: code,
         detailCode: '802756',
-        view: view
+        view: true,
+        buttons: buttons
     };
 
     buildDetail(options);

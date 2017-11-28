@@ -1,6 +1,7 @@
 $(function() {
     var accountNumber = getQueryString('accountNumber');
     var accountCode = getQueryString('accountCode');
+    var kind = getQueryString('kind')||'0';
     var columns = [{
         field: '',
         title: '',
@@ -15,7 +16,6 @@ $(function() {
         type: 'select',
         key: 'coin',
         formatter: Dict.getNameForList("coin"),
-        search: true
     }, {
         field: 'channelType',
         title: '渠道',
@@ -27,8 +27,8 @@ $(function() {
         field: 'bizType',
         title: '业务类型',
         type: 'select',
-        key: 'jour_biz_type_user',
-        formatter: Dict.getNameForList('jour_biz_type_user'),
+        key: kind=='1'?'frezon_jour_biz_type_user':'jour_biz_type_user',
+        formatter: kind=='1'?Dict.getNameForList('frezon_jour_biz_type_user'):Dict.getNameForList('jour_biz_type_user'),
         search: true
     }, {
         field: 'transAmountString',
@@ -65,6 +65,7 @@ $(function() {
         columns: columns,
         pageCode: '802520',
         searchParams: {
+            kind:kind,
             accountNumber: accountNumber ? accountNumber : accountCode,
             companyCode: OSS.company
         }

@@ -5,7 +5,7 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        title: '备注',
+        title: '参数名称',
         field: 'remark',
     }, {
         title: '参数说明',
@@ -16,7 +16,8 @@ $(function() {
         pageCode: '625915',
         searchParams: {
             companyCode: OSS.company,
-            type: "sell_ads_hint"
+            type: "sell_ads_hint",
+			updater: ''
         },
         beforeEdit: function(data) {
             window.location.href = "./buyETH_addedit.html?code=" + data.id;

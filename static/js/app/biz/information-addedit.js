@@ -21,10 +21,9 @@ $(function() {
     }, {
         title: '缩略图',
         field: 'pic',
-        type: 'img',
+        type: 'hidden',
         required: true,
         readonly: view,
-        single: true
     }, {
         title: "广告图",
         field: "advPic",

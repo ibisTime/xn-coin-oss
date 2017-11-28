@@ -10,7 +10,8 @@ $(function() {
         title: '说明',
         field: 'cvalue',
         required: true,
-        maxlength: 255
+        type: 'textarea',
+        normalArea: true
     }];
 
     buildDetail({

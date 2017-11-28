@@ -1,7 +1,5 @@
 $(function() {
     var code = getQueryString('code');
-    var view = getQueryString('v');
-    
     var fields = [{
         field: 'code1',
         title: '编号',
@@ -53,31 +51,51 @@ $(function() {
         key: "arbitrate_status",
         readonly: true
     }, {
-        title: "处理结果",
-        field: "result",
-        type: "select",
-        data: {
-            "1": "通过",
-            "0": "不通过"
-        },
-        search: true
-    }, {
-        field: 'updateDatetime',
-        title: '处理时间',
-        formatter: dateTimeFormat,
-        readonly: true
-    }, {
         title: '处理说明',
         field: 'remark',
-        readonly: true
+        maxlength: 255,
+        required: true
     }];
 
     var options = {
         fields: fields,
         code: code,
-        detailCode: '625266',
-        view: view
+        detailCode: '625266'
     };
 
+    options.buttons = [{
+        title: '通过',
+        handler: function() {
+            if ($('#jsForm').valid()) {
+                var data = $('#jsForm').serializeObject();
+                data.result = '1';
+                reqApi({
+                    code: '625260',
+                    json: data
+                }).done(function(data) {
+                    sucDetail();
+                });
+            }
+        }
+    }, {
+        title: '不通过',
+        handler: function() {
+            if ($('#jsForm').valid()) {
+                var data = $('#jsForm').serializeObject();
+                data.result = '0';
+                reqApi({
+                    code: '625260',
+                    json: data
+                }).done(function(data) {
+                    sucDetail();
+                });
+            }
+        }
+    }, {
+        title: '返回',
+        handler: function() {
+            goBack();
+        }
+    }];
     buildDetail(options);
 });

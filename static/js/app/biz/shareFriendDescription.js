@@ -6,7 +6,7 @@ $(function() {
         checkbox: true
     }, {
         field: 'remark',
-        title: '规则名称'
+        title: '名称'
     }, {
         field: 'cvalue',
         title: '说明'
@@ -15,11 +15,11 @@ $(function() {
         columns: columns,
         pageCode: '625915',
         searchParams: {
-            type: 'fen_cheng_rule',
+            ckey: 'activity_rule',
             companyCode: OSS.company
         },
         beforeEdit: function(data) {
-            window.location.href = "../rules/rule_addedit.html?code=" + data.id;
+            window.location.href = "../biz/shareFriendDescription_addedit.html?code=" + data.id;
         }
     });
 });

@@ -53,13 +53,16 @@ $(function() {
         columns: columns,
         pageCode: '802500',
         searchParams: {
+            kind:'0',
             companyCode: OSS.company,
             userId: userId
         }
     });
 
 
-    $('.tools .toolbar').html('<li style="display:block;" id="ledgerBtn"><span><img src="/static/images/t01.png"></span>查看明细</li><li style="display:block;" id="goBackBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
+    $('.tools .toolbar').html('<li style="display:block;" id="ledgerBtn"><span><img src="/static/images/t01.png"></span>查看明细</li>'+
+    							'<li style="display:block;" id="ledgerFrozenBtn"><span><img src="/static/images/t01.png"></span>查看冻结金额明细</li>'+
+    							'<li style="display:block;" id="goBackBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
 
     $('#ledgerBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
@@ -67,9 +70,19 @@ $(function() {
             toastr.info("请选择记录");
             return;
         }
-        window.location.href = "../finance/partner_ledger.html?&a=1&accountNumber=" + selRecords[0].accountNumber + "&kind=" + selRecords[0].currency;
+        window.location.href = "../finance/partner_ledger.html?&a=1&accountNumber=" + selRecords[0].accountNumber + "&kind=0";
     });
+    
+    $('#ledgerFrozenBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        window.location.href = "../finance/partner_ledger.html?&a=1&accountNumber=" + selRecords[0].accountNumber + "&kind=1";
+    });
+    
     $('#goBackBtn').click(function() {
-        window.location.href = "customer.html"
+        window.location.href = "./customer.html"
     });
 });

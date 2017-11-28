@@ -6,26 +6,23 @@ $(function() {
 		checkbox : true
 	},{
 		field : 'remark',
-		title : '规则名称'
-	},{
-		field : 'ckey',
-		title : '参数',
-		search: true
+		title : '名称'
 	},{
 		field : 'cvalue',
 		title : '数值'
 	}];
 	buildList({
 		columns: columns,
-		pageCode: '807715',
+		pageCode: '625915',
 		searchParams: {
-			type: 'ios_c',
+			type: 'ios-c',
 			companyCode: OSS.company,
+			updater: '',
 			orderColumn:'id',
 			orderDir: 'asc'
 		},
 		beforeEdit: function(r) {
-			location.href = '../biz/rule4_addedit.html?code=' + r.id +"&t="+ r.type;
+			location.href = '../rules/ruleV_addedit.html?code=' + r.id +"&t="+ r.type;
 		}
 	});
 });

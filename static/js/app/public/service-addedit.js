@@ -3,7 +3,7 @@ $(function() {
     reqApi({
         code: '625917',
         json: {
-            key: 'reg_protocol'
+            key: 'service'
         },
         sync: true
     }).then(function(data) {
@@ -12,7 +12,7 @@ $(function() {
     var fields = [{
         field: 'remark',
         type: 'hidden',
-        value: '注册协议'
+        value: '联系客服'
     }, {
         title: '内容',
         field: 'cvalue',

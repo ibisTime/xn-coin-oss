@@ -1,17 +1,23 @@
 $(function() {
 
     var code = getQueryString('code');
+	var type = getQueryString('t');
+	
     var fields = [{
-        title: '规则名称',
-        field: 'remark',
+		field: 'kind',
+		type: 'hidden',
+		value: '1'
+	},{
+		title: '名称',
+		field: 'remark',
         readonly: true,
-        maxlength: 250
-    }, {
-        title: '说明',
+		maxlength: 250
+	},{
+        title: '数值',
         field: 'cvalue',
         required: true,
         maxlength: 255
-    }];
+	}];
 
     buildDetail({
         fields: fields,
@@ -20,6 +26,7 @@ $(function() {
         editCode: '625910',
         beforeSubmit: function(data) {
             data.remark = $('#remark').html();
+			data.type = type;
             return data;
         }
     });

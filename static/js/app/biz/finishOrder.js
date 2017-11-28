@@ -69,6 +69,10 @@ $(function() {
         },
         // search: true
     }, {
+        field: 'updateDatetime',
+        title: '更新时间',
+        formatter: dateTimeFormat,
+    }, {
         title: '备注',
         field: 'remark'
     }];

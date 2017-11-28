@@ -11,6 +11,16 @@ $(function() {
     }, {
         title: "被告",
         field: "beigao",
+        type: "select",
+        pageCode: "805120",
+        params: {
+            updater: "",
+            kind: "C"
+        },
+        keyName: "userId",
+        valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
+        searchName: "mobile",
+        search: true,
         formatter: function(v, data) {
             if (data.beigaoInfo) {
                 return data.beigaoInfo.mobile + '(' + data.beigaoInfo.nickname + ')';
@@ -19,6 +29,16 @@ $(function() {
     }, {
         title: "原告",
         field: "yuangao",
+        type: "select",
+        pageCode: "805120",
+        params: {
+            updater: "",
+            kind: "C"
+        },
+        keyName: "userId",
+        valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
+        searchName: "mobile",
+        search: true,
         formatter: function(v, data) {
             if (data.yuangaoInfo) {
                 return data.yuangaoInfo.mobile + '(' + data.yuangaoInfo.nickname + ')';
@@ -26,10 +46,22 @@ $(function() {
         }
     }, {
         title: "针对订单编号",
-        field: "tradeOrderCode"
+        field: "tradeOrderCode",
+        search: true,
+    }, {
+        title: "状态",
+        field: "status",
+        type: "select",
+        key: "arbitrate_status",
+        formatter: Dict.getNameForList("arbitrate_status"),
+        search: true
     }, {
         title: "申请原因",
         field: "reason"
+    }, {
+        field: 'createDatetime',
+        title: '申请时间',
+        formatter: dateTimeFormat,
     }, {
         title: "处理结果",
         field: "result",
@@ -40,14 +72,11 @@ $(function() {
         },
         search: true
     }, {
-        title: "状态",
-        field: "status",
-        type: "select",
-        key: "arbitrate_status",
-        formatter: Dict.getNameForList("arbitrate_status"),
-        search: true
+        field: 'updateDatetime',
+        title: '处理时间',
+        formatter: dateTimeFormat,
     }, {
-        title: '备注',
+        title: '处理说明',
         field: 'remark'
     }];
     buildList({
@@ -67,6 +96,6 @@ $(function() {
             toastr.error("只有待处理的订单才可以进行处理");
             return;
         }
-        window.location.href = "zcOrder_addedit.html?code=" + selRecords[0].code;
+        window.location.href = "zcOrder_resolve.html?code=" + selRecords[0].code;
     });
 });

@@ -13,7 +13,7 @@ $(function() {
         field: "userId",
         formatter: function(v, data) {
             if (data.user) {
-                return data.user.mobile;
+                return data.user.mobile + '(' + data.user.nickname + ')';
             }
         },
         type: "select",
@@ -36,19 +36,19 @@ $(function() {
         },
         search: true
     }, {
-        field: '',
-        title: '本地使用次数'
-    }, {
-        field: '',
-        title: '网络使用次数'
-    }, {
+//      field: '',
+//      title: '本地使用次数'
+//  }, {
+//      field: '',
+//      title: '网络使用次数'
+//  }, {
         field: 'balanceString',
         title: '当前余额',
         amount: true,
         formatter: moneyFormat
-    }, {
-        field: 'remark',
-        title: '备注'
+//  }, {
+//      field: 'remark',
+//      title: '备注'
     }];
     buildList({
         columns: columns,
@@ -65,7 +65,7 @@ $(function() {
             toastr.info("请选择记录");
             return;
         }
-        window.location.href = "partner_ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
+        window.location.href = "./diviAddress_ledger.html?address=" + selRecords[0].address;
     });
 
 });
