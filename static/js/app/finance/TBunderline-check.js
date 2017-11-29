@@ -8,7 +8,7 @@ $(function() {
 
             if ($('#jsForm').valid()) {
                 var data = $('#jsForm').serializeObject();
-                data.codeList = dataCode;
+                data.codeList = [code];
                 data.approveResult = "1";
                 data.approveUser = getUserName();
                 reqApi({
@@ -25,7 +25,7 @@ $(function() {
         handler: function() {
             if ($('#jsForm').valid()) {
                 var data = $('#jsForm').serializeObject();
-                data.codeList = dataCode;
+                data.codeList = [code];
                 data.approveResult = "0";
                 data.approveUser = getUserName();
                 reqApi({

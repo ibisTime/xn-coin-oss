@@ -22,6 +22,20 @@ $(function() {
         field: 'amountString',
         formatter: moneyFormat
     }, {
+        title: '冻结金额',
+        field: 'frozenAmountString',
+        formatter: moneyFormat
+    }, {
+        title: '可用余额',
+        field: 'amount',
+        formatter: function(v,data){
+        	var amount = new BigDecimal(data.amountString);
+        	var frozenAmount = new BigDecimal(data.frozenAmountString);
+        	amount =  amount.subtract(frozenAmount).toString();
+        	return moneyFormat(amount);
+        	
+        }
+    }, {
         field: 'status',
         title: '状态',
         type: 'select',
