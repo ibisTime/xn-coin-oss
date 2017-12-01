@@ -90,21 +90,27 @@ $(function() {
             field: 'startTime',
             title: '开始时间',
             formatter: function(v, data) {
-                if (v <= 12) {
-                    return "上午" + v + "点"
-                } else {
-                    return "下午" + (v - 12) + "点"
-                }
+            	if(v<10){
+            		return "0" + v + ":00";
+            	}else if(v==24&&data.endTime=='24'){
+            		return "关闭";
+            	}else {
+            		return v + ":00";
+            	}
             }
         }, {
             field: 'endTime',
             title: '结束时间',
             formatter: function(v, data) {
-                if (v <= 12) {
-                    return "上午" + v + "点"
-                } else {
-                    return "下午" + (v - 12) + "点"
-                }
+            	if(v<10){
+            		return "0" + v + ":00";
+            	}else if(v==24&&data.startTime!='24'){
+            		return "23:59";
+            	}else if(v==24&&data.startTime=='24'){
+            		return "关闭";
+            	}else{
+            		return v + ":00";
+            	}
             }
         }]
     }, {

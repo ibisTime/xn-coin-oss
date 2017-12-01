@@ -11,8 +11,10 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'account_status',
-        formatter: Dict.getNameForList('account_status'),
+        data: {
+            "0": "启用",
+            "2": "弃用"
+        },
         search: true
     }, {
         title: "创建日期",

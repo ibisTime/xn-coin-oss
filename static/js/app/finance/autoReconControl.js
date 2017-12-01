@@ -48,7 +48,6 @@ $(function() {
         type: "select",
         key: "charge_status",
         formatter: Dict.getNameForList("charge_status"),
-        search: true
     }];
     buildList({
         columns: columns,

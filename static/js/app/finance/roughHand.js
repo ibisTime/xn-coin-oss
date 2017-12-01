@@ -61,7 +61,6 @@ $(function() {
         type: 'select',
         key: 'withdraw_status',
         formatter: Dict.getNameForList('withdraw_status'),
-        search: true
     }, {
         field: 'approveNote',
         title: '审核意见',

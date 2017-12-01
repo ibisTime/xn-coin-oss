@@ -71,6 +71,10 @@ $(function() {
         key: "ads_status",
         formatter: Dict.getNameForList("ads_status"),
         search: true
+    }, {
+        title: '最后更新时间',
+        field: "updateDatetime",
+        formatter: dateTimeFormat
     }];
     buildList({
         columns: columns,

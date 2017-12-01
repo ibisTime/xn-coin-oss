@@ -15,6 +15,15 @@ $(function() {
         title: '手续费',
         formatter: moneyFormat
     }, {
+        field: 'amount',
+        title: '实际到账金额',
+        formatter: function(v, data) {
+            var amount = new BigDecimal(data.amountString);
+            var feeString = new BigDecimal(data.feeString);
+            return moneyFormat(amount.subtract(feeString).toString());
+        },
+        readonly: true
+    }, {
         field: 'payFeeString',
         title: '实际支付矿工费',
         formatter: moneyFormat

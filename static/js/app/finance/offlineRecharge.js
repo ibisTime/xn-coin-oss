@@ -7,6 +7,7 @@ $(function() {
     }, {
         field: 'code',
         title: '编号',
+        search: true
     }, {
         field: 'accountName',
         title: '户名',

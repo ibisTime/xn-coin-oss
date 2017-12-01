@@ -25,6 +25,15 @@ $(function() {
         },
         readonly: true
     }, {
+        field: 'amount',
+        title: '实际到账金额',
+        formatter: function(v, data) {
+            var amount = new BigDecimal(data.withdraw.amountString);
+            var feeString = new BigDecimal(data.withdraw.feeString);
+            return moneyFormat(amount.subtract(feeString).toString());
+        },
+        readonly: true
+    }, {
         field: 'payFeeString',
         title: '实际支付矿工费',
         formatter: function(v, data) {
@@ -38,17 +47,6 @@ $(function() {
             if (data.withdraw) {
             	
             	return Dict.getNameForList1('channel_type','',data.withdraw.channelType);
-//              if (data.withdraw.channelType == "ETH") {
-//                  return "以太坊"
-//              } else if (data.withdraw.channelType == "0") {
-//                  return "内部账"
-//              } else if (data.withdraw.channelType == "9") {
-//                  return "调账"
-//              } else if (data.withdraw.channelType == "10") {
-//                  return "轧账"
-//              } else if (data.withdraw.channelType == "90") {
-//                  return "人工线下"
-//              }
             }
 
         },
@@ -92,21 +90,7 @@ $(function() {
         field: 'status',
         title: '状态',
         formatter: function(v, data) {
-			
     		return Dict.getNameForList1('withdraw_status','',data.withdraw.status);
-//          if (data.withdraw.status == "1") {
-//              return "待审批"
-//          } else if (data.withdraw.status == "2") {
-//              return "审批不通过"
-//          } else if (data.withdraw.status == "3") {
-//              return "审批通过待广播"
-//          } else if (data.withdraw.status == "4") {
-//              return "广播中"
-//          } else if (data.withdraw.status == "5") {
-//              return "广播失败"
-//          } else if (data.withdraw.status == "6") {
-//              return "广播成功"
-//          }
         },
         readonly: true
     }, {
@@ -239,6 +223,15 @@ $(function() {
             field: 'gasUsed',
             title: 'gasUsed'
         }, {
+	        title: "矿工费",
+	        field: 'kgPrice',
+	        formatter: function(v,data){
+	        	var gasPrice = new BigDecimal(data.gasPrice);
+	        	var gasUsed = new BigDecimal(data.gasUsed);
+	        	kgPrice =  gasPrice.multiply(gasUsed).toString();
+	        	return moneyFormat(kgPrice);
+	        	}
+        },{
             field: 'nonce',
             title: 'nonce'
         }, {
@@ -252,7 +245,8 @@ $(function() {
             title: 'transactionIndex'
         }, {
             title: "value",
-            field: "value"
+            field: "value",
+            formatter: moneyFormat,
         }]
     }, {
 //      title: '对账说明',
