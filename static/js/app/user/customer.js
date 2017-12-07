@@ -12,6 +12,13 @@ $(function() {
         field: 'nickname',
         title: '昵称',
     }, {
+        field: 'level',
+        title: '用户等级',
+        type: 'select',
+        key: 'user_level',
+        formatter: Dict.getNameForList('user_level'),
+        search: true
+    }, {
         field: 'userReferee',
         title: '推荐人',
         formatter: function(v, data) {
@@ -22,6 +29,16 @@ $(function() {
             }
         },
         required: true
+    }, {
+        field: 'userRefereeLevel',
+        title: '推荐人等级',
+        formatter: function(v, data) {
+            if (data.refereeUser) {
+                return Dict.getNameForList1('user_level',"",data.refereeUser.level);
+            } else {
+                return "无"
+            }
+        },
     }, {
         field: 'status',
         title: '状态',
@@ -40,6 +57,10 @@ $(function() {
         type2: 'date',
         twoDate: true,
         search: true,
+    }, {
+        field: 'lastLogin',
+        title: '最后登录时间',
+        formatter: dateTimeFormat,
     }, {
         field: 'remark',
         title: '备注',
@@ -175,5 +196,55 @@ $(function() {
         dw.__center();
 
     });
+	
+    //设为代理人
+    $('#setPartnerBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].level == '2') {
+            toastr.info("用户已经是代理人");
+            return;
+        }
+        confirm("确定设为代理人？").then(function() {
+            reqApi({
+                code: '805094',
+                json: {
+                    userId: selRecords[0].userId,
+                    level: '2'
+                }
+            }).then(function() {
+                sucList();
+            });
 
+        }, function() {})
+    });
+    
+    //取消代理人
+    $('#cancelPartnerBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].level != '2') {
+            toastr.info("用户不是代理人，不可取消代理");
+            return;
+        }
+        confirm("确定取消代理人？").then(function() {
+            reqApi({
+                code: '805094',
+                json: {
+                    userId: selRecords[0].userId,
+                    level: '1'
+                }
+            }).then(function() {
+                sucList();
+            });
+
+        }, function() {})
+    });
+	
 });
