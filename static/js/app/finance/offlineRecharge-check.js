@@ -10,8 +10,8 @@ $(function() {
         required: true,
         readonly: false
     };
-    var payList = [approveNoteField]
-
+//  var payList = [approveNoteField]
+	var payList = []
 
     var buttons = [{
         title: '通过',
@@ -65,14 +65,14 @@ $(function() {
             maxlength: 250,
         };
         buttons = "";
-        payList = [{
-            field: 'payUser',
-            title: '审核人'
-        }, {
-            field: 'payDatetime',
-            title: '审核时间',
-            formatter: dateTimeFormat
-        }, approveNoteField]
+//      payList = [{
+//          field: 'payUser',
+//          title: '审核人'
+//      }, {
+//          field: 'payDatetime',
+//          title: '审核时间',
+//          formatter: dateTimeFormat
+//      }, approveNoteField]
     }
 
     var fields = [{

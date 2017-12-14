@@ -12,7 +12,20 @@ $(function() {
         		return data.user.mobile;
         	}
         },
-        search: true
+    }, {
+    	field: 'userId',
+        title: '手机号',
+        type: 'select',
+    	pageCode: "805120",
+        params: {
+            updater: "",
+            kind: "C"
+        },
+        keyName: "userId",
+        valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
+        searchName: "mobile",
+        search: true,
+        visible: false
     }, {
         field: 'nickname',
         title: '昵称',
@@ -74,7 +87,7 @@ $(function() {
 
         buildDetail({
             fields: [{
-                field: 'userId',
+                field: 'userId1',
                 title: '用户',
                 type: "select",
 		        pageCode: "805120",
@@ -87,7 +100,7 @@ $(function() {
 		        searchName: "mobile",
                 required: true
             },{
-                field: 'remark',
+                field: 'remark1',
                 title: '备注',
             }],
             buttons: [{
@@ -99,8 +112,11 @@ $(function() {
                 title: '加入黑名单',
                 handler: function() {
                     if ($('#popForm').validate()) {
-                        var data = $('#popForm').serializeObject();
+                        var popFormdata = $('#popForm').serializeObject();
+                        var data={}
                         data.type = '0';
+                        data.userId = popFormdata.userId1;
+                        data.remark = popFormdata.remark1;
                         reqApi({
                             code: '805200',
                             json: data

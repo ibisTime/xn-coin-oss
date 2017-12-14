@@ -13,9 +13,9 @@ $(function() {
         title: '交易金额',
         formatter: function(v,data){
         	if(data.from==address){
-        		return moneyFormat(v);
-        	}else{
         		return '-'+moneyFormat(v);
+        	}else{
+        		return moneyFormat(v);
         	}
         }
     }, {

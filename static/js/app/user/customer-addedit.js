@@ -13,6 +13,12 @@ $(function() {
         field: "nickname",
         readonly: view
     }, {
+        field: 'level',
+        title: '用户等级',
+        type: 'select',
+        key: 'user_level',
+        formatter: Dict.getNameForList('user_level'),
+    }, {
         field: 'idKind',
         title: '证件类型',
         type: 'select',
@@ -40,16 +46,28 @@ $(function() {
         },
         required: true
     }, {
-        title: "状态",
-        field: "status",
-        type: "select",
-        key: "user_status",
-        formatter: Dict.getNameForList("user_status"),
+        field: 'userRefereeLevel',
+        title: '推荐人等级',
+        type: 'select',
+        key: 'user_level',
+        formatter: Dict.getNameForList('user_level'),
+    }, {
+        field: 'status',
+        title: '状态',
+        type: 'select',
+        key: 'user_status',
+        formatter: Dict.getNameForList('user_status'),
+    }, {
+        field: 'createDatetime',
+        title: '注册时间',
+        formatter: dateTimeFormat,
+    }, {
+        field: 'lastLogin',
+        title: '最后登录时间',
+        formatter: dateTimeFormat,
     }, {
         field: 'remark',
         title: '备注',
-        readonly: view,
-        maxlength: 250
     }];
 
     buildDetail({

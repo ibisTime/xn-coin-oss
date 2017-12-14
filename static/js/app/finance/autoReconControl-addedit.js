@@ -219,6 +219,15 @@ $(function() {
                 field: 'gasUsed',
                 title: 'gasUsed'
             }, {
+		        title: "矿工费",
+		        field: 'kgPrice',
+		        formatter: function(v,data){
+		        	var gasPrice = new BigDecimal(data.gasPrice);
+		        	var gasUsed = new BigDecimal(data.gasUsed);
+		        	kgPrice =  gasPrice.multiply(gasUsed).toString();
+		        	return moneyFormat(kgPrice);
+		        	}
+	        },{
                 field: 'nonce',
                 title: 'nonce'
             }, {
@@ -232,7 +241,8 @@ $(function() {
                 title: 'transactionIndex'
             }, {
                 title: "value",
-                field: "value"
+                field: "value",
+                formatter: moneyFormat,
             }]
         }, {
 //          title: '对账说明',

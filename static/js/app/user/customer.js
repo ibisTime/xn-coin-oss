@@ -25,20 +25,16 @@ $(function() {
             if (data.refereeUser) {
                 return data.refereeUser.mobile;
             } else {
-                return "无"
+                return "-"
             }
         },
         required: true
     }, {
         field: 'userRefereeLevel',
         title: '推荐人等级',
-        formatter: function(v, data) {
-            if (data.refereeUser) {
-                return Dict.getNameForList1('user_level',"",data.refereeUser.level);
-            } else {
-                return "无"
-            }
-        },
+        type: 'select',
+        key: 'user_level',
+        formatter: Dict.getNameForList('user_level'),
     }, {
         field: 'status',
         title: '状态',
@@ -161,17 +157,21 @@ $(function() {
 
         buildDetail({
             fields: [{
-                field: 'remark',
+                field: 'remark1',
                 title: '添加备注',
-                required: true,
-                value: selRecords[0].remark,
+                value: selRecords[0].remark||"",
+				required: true,
                 maxlength: 250
             }],
             buttons: [{
                 title: '添加备注',
                 handler: function() {
-                    if ($('#popForm').validate()) {
-                        var data = $('#popForm').serializeObject();
+                	if($('#remark1').val()==""){
+						toastr.error("备注不能为空");
+					}else{
+                        var popFormData = $('#popForm').serializeObject();
+                        var data={};
+                        data.remark = popFormData.remark1
                         data.userId = selRecords[0].userId;
                         reqApi({
                             code: '805082',

@@ -27,7 +27,6 @@ $(function() {
         type: 'select',
         key: 'channel_type',
         formatter: Dict.getNameForList('channel_type'),
-        search: true
     }, {
         field: "bizNote",
         title: "充值说明"
