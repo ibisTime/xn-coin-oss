@@ -19,3 +19,5 @@ OSS.picShow = '?imageMogr2/auto-orient/interlace/1';
 OSS.userValidTime = 30;
 //系统userid
 OSS.SYS_USER = 'sysAdmin';
+//是否测试环境
+OSS.ISTEST = '1';

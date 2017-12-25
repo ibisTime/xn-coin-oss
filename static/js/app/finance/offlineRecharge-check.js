@@ -10,8 +10,12 @@ $(function() {
         required: true,
         readonly: false
     };
-//  var payList = [approveNoteField]
-	var payList = []
+    //是否是测试环境，测试环境需要审核
+    if(OSS.ISTEST=='1'&&OSS.ISTEST){
+      	  var payList = [approveNoteField]
+    }else{
+    	var payList = []
+    }
 
     var buttons = [{
         title: '通过',

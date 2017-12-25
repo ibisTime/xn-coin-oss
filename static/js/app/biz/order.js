@@ -77,7 +77,6 @@ $(function() {
         data: {
             "0": "待支付",
             "1": "已支付",
-            "2": "已释放待评价",
             "5": "仲裁中",
         },
         visible: false,
@@ -94,7 +93,7 @@ $(function() {
         columns: columns,
         pageCode: '625250',
         searchParams: {
-            statusList: ["0", "1", "2", "5"],
+            statusList: ["0", "1", "5"],
             companyCode: OSS.company
         },
         beforeSearch:function(data){
