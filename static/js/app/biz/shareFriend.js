@@ -9,7 +9,7 @@ $(function() {
         title: '规则名称'
     }, {
         field: 'cvalue',
-        title: '说明'
+        title: '比例'
     }];
     buildList({
         columns: columns,
@@ -19,7 +19,7 @@ $(function() {
             companyCode: OSS.company
         },
         beforeEdit: function(data) {
-            window.location.href = "../rules/rule_addedit.html?code=" + data.id;
+            window.location.href = "../biz/shareFriend_addedit.html?code=" + data.id;
         }
     });
 });

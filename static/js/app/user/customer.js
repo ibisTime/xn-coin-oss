@@ -49,6 +49,9 @@ $(function() {
         field: 'divRate2',
         title: '代理人分成',
     }, {
+        field: 'tradeRate',
+        title: '广告费率',
+    }, {
         field: 'createDatetime',
         title: '注册时间',
         formatter: dateTimeFormat,
@@ -253,6 +256,7 @@ $(function() {
         }, function() {})
     });
     
+    
     //设置分成比例
     $('#setDivRateBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
@@ -294,6 +298,60 @@ $(function() {
                         data.userId = selRecords[0].userId
                         reqApi({
                             code: '805093',
+                            json: data
+                        }).done(function(data) {
+                        	sucList();
+                            dw.close().remove();
+                        });
+                    }
+
+                }
+            }, {
+                title: '取消',
+                handler: function() {
+                    dw.close().remove();
+                }
+            }]
+        });
+
+        dw.__center();
+
+    });
+    
+    //设置广告费率
+    $('#setTradeRateBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+
+        var dw = dialog({
+            content: '<form class="pop-form" id="popForm" novalidate="novalidate">' +
+                '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">设置广告费率</li></ul>' +
+                '</form>'
+        });
+
+        dw.showModal();
+
+        buildDetail({
+            container: $('#formContainer'),
+            fields: [{
+		        field: 'tradeRate',
+		        title: '广告费率',
+		        value: selRecords[0].tradeRate || '0',
+				required: true,
+				number: true,
+				min: 0
+		    }],
+            buttons: [{
+                title: '确定',
+                handler: function() {
+                	if($('#popForm').valid()){
+                        var data = $('#popForm').serializeObject();
+                        data.userId = selRecords[0].userId
+                        reqApi({
+                            code: '805096',
                             json: data
                         }).done(function(data) {
                         	sucList();
