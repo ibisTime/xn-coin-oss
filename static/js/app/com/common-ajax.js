@@ -90,8 +90,21 @@ function reqApi(options, updateType) {
 
     return dataCache[cache_url].then(function(res, textStatus, jqXHR) {
         if (res.errorCode != '0') {
-            toastr.warning(res.errorInfo);
-            return $.Deferred().reject(jqXHR, res, 'Not YES').promise();
+        	if(res.errorCode=='4'){
+        		sessionStorage.removeItem("userId"); //userId
+        		sessionStorage.removeItem("token"); //token
+        		parent.frames["rightFrame"].toastr.warning("登录失效，请重新登录");
+        		
+        		setTimeout(function() {
+                    location.replace("../signin.html?loginKind="+sessionStorage.getItem("loginKind"));
+                }, 2000);
+                
+                return $.Deferred().reject("登录失效，请重新登录");
+        	}else{
+        		toastr.warning(res.errorInfo);
+            	return $.Deferred().reject(jqXHR, res, 'Not YES').promise();
+        	}
+            
         } else {
             return res.data;
         }

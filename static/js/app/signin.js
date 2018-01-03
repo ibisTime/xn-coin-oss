@@ -50,7 +50,8 @@ $(function() {
                     limit: "10",
                     orderColumn: "id",
                     orderDir: "asc",
-                    start: "0"
+                    start: "0",
+                    updater:''
                 },
                 sync: true
             }).then(function(data) {

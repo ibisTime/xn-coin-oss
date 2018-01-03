@@ -22,9 +22,16 @@ $(function() {
         searchName: "mobile",
         search: true,
         formatter: function(v, data) {
+        	var html ='';
             if (data.beigaoInfo) {
-                return data.beigaoInfo.mobile + '(' + data.beigaoInfo.nickname + ')';
+                html = data.beigaoInfo.mobile + '(' + data.beigaoInfo.nickname + ')';
             }
+            if(v==data.tradeOrder.buyUser){
+            	html+= '-买家'
+            }else{
+            	html+= '-卖家'
+            }
+            return html;
         }
     }, {
         title: "原告",
@@ -40,9 +47,17 @@ $(function() {
         searchName: "mobile",
         search: true,
         formatter: function(v, data) {
+        	var html ='';
             if (data.yuangaoInfo) {
-                return data.yuangaoInfo.mobile + '(' + data.yuangaoInfo.nickname + ')';
+                html =  data.yuangaoInfo.mobile + '(' + data.yuangaoInfo.nickname + ')';
             }
+            if(v==data.tradeOrder.buyUser){
+            	html+= '-买家'
+            }else{
+            	html+= '-卖家'
+            }
+            
+            return html;
         }
     }, {
         title: "针对订单编号",

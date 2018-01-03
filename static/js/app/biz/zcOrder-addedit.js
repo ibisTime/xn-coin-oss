@@ -14,19 +14,34 @@ $(function() {
         title: "被告",
         field: "beigao",
         formatter: function(v, data) {
+        	var html ='';
             if (data.beigaoInfo) {
-                return data.beigaoInfo.mobile;
+                html = data.beigaoInfo.mobile + '(' + data.beigaoInfo.nickname + ')';
             }
-        },
+            if(v==data.tradeOrder.buyUser){
+            	html+= '-买家'
+            }else{
+            	html+= '-卖家'
+            }
+            return html;
+        }
         readonly: true
     }, {
         title: "原告",
         field: "yuangao",
         formatter: function(v, data) {
+        	var html ='';
             if (data.yuangaoInfo) {
-                return data.yuangaoInfo.mobile;
+                html =  data.yuangaoInfo.mobile + '(' + data.yuangaoInfo.nickname + ')';
             }
-        },
+            if(v==data.tradeOrder.buyUser){
+            	html+= '-买家'
+            }else{
+            	html+= '-卖家'
+            }
+            
+            return html;
+        }
         readonly: true
     }, {
         title: "针对订单编号",

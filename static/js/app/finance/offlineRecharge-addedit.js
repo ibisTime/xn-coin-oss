@@ -5,7 +5,7 @@ $(function() {
 
     var fields = [{
         field: 'accountNumber',
-        title: '用户账户',
+        title: '充值账户',
         required: true,
         type: 'select',
         pageCode: userId ? '802503' : '802500',
@@ -31,12 +31,10 @@ $(function() {
     }, {
         field: 'payCardInfo',
         title: '打币渠道',
-        required: true,
         maxlength: 255
     }, {
         field: 'payCardNo',
         title: '打币地址',
-        required: true,
         maxlength: 255
     }, {
         field: 'applyNote',
