@@ -4,7 +4,10 @@
     "description": "xn-coin-oss",
     "main": "fis-conf.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prod": "fis3 release -d ../dist prod",
+        "dev": "fis3 release -d D:/chengdai_dabao/bcoin_oss -w",
+        "build": "fis3 release -d D:/chengdai_dabao/bcoin_oss prod"
     },
     "author": "",
     "license": "ISC",

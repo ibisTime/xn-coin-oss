@@ -17,6 +17,7 @@ $(function() {
         type: 'select',
         key: 'coin',
         formatter: Dict.getNameForList("coin"),
+        search: true
     }, {
         title: '余额',
         field: 'amountString',

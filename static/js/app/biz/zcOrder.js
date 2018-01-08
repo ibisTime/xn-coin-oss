@@ -64,6 +64,17 @@ $(function() {
         field: "tradeOrderCode",
         search: true,
     }, {
+            field: "coin",
+            title: "币种",
+            type: 'select',
+            key: 'coin',
+            formatter: function(v, data) {
+                if (data.tradeOrder) {
+                    return Dict.getNameForList1("coin","",data.tradeOrder.tradeCoin)
+                }
+            },
+            search: true
+        } ,{
         title: "状态",
         field: "status",
         type: "select",

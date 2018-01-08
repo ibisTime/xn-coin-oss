@@ -23,6 +23,15 @@ $(function() {
         },
         search: true
     }, {
+        field: "coin",
+        title: "币种",
+        type: 'select',
+        key: 'coin',
+        formatter: function (v, data) {
+            return Dict.getNameForList1("coin","",data.tradeCoin)
+        },
+        search: true
+    } ,{
         title: "售卖总量",
         field: "totalCountString",
         formatter: moneyFormat
@@ -80,7 +89,6 @@ $(function() {
         columns: columns,
         pageCode: '625227',
         searchParams: {
-            coin: "ETH",
             tradeType: '1',
             companyCode: OSS.company
         }

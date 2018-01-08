@@ -44,7 +44,16 @@ $(function() {
         valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
         searchName: "mobile",
         search: true
-    }, {
+    },{
+        field: "coin",
+        title: "币种",
+        type: 'select',
+        key: 'coin',
+        formatter: function (v, data) {
+            return Dict.getNameForList1("coin","",data.tradeCoin)
+        },
+        search: true
+    } ,{
         title: "交易价格",
         field: "tradePrice"
     }, {

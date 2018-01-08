@@ -35,7 +35,7 @@ $(function() {
         title: "交易数量",
         field: "countString",
         formatter: function(v, data) {
-            return moneyFormat(v) + "以太币";
+            return moneyFormat(v)
         }
     }, {
         title: "交易金额",

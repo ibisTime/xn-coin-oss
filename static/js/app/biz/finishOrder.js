@@ -44,14 +44,23 @@ $(function() {
         valueName: "{{mobile.DATA}}--{{nickname.DATA}}",
         searchName: "mobile",
         search: true
-    }, {
+    },{
+        field: "tradeCoin",
+        title: "币种",
+        type: 'select',
+        key: 'coin',
+        formatter: function (v, data) {
+            return Dict.getNameForList1("coin","",data.tradeCoin)
+        },
+        search: true
+    } ,{
         title: "交易价格",
         field: "tradePrice"
     }, {
         title: "交易数量",
         field: "countString",
         formatter: function(v, data) {
-            return moneyFormat(v) + "以太币";
+            return moneyFormat(v) ;
         }
     }, {
         title: "交易金额",
@@ -93,7 +102,7 @@ $(function() {
         pageCode: '625250',
         searchParams: {
             statusList: ["2","3"],
-            companyCode: OSS.company
+            companyCode: OSS.company,
         },
         beforeSearch:function(data){
         	if(!Array.isArray(data.statusList)){

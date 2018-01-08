@@ -24,7 +24,7 @@ $(function() {
             	html+= '-卖家'
             }
             return html;
-        }
+        },
         readonly: true
     }, {
         title: "原告",
@@ -41,13 +41,22 @@ $(function() {
             }
             
             return html;
-        }
+        },
         readonly: true
     }, {
         title: "针对订单编号",
         field: "tradeOrderCode",
         readonly: true
     }, {
+        title: "币种",
+        field: "tradeCoin",
+        formatter: function(v, data) {
+            if (data.tradeOrder) {
+                return Dict.getNameForList1("coin","",data.tradeOrder.tradeCoin)
+            }
+
+        },
+    } ,{
         title: "申请原因",
         field: "reason",
         readonly: true

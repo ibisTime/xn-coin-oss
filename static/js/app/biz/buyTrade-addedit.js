@@ -27,6 +27,10 @@ $(function() {
             }
         }
     }, {
+        title: "币种",
+        field: "tradeCoin",
+        formatter: Dict.getNameForList('coin')
+    } , {
         title: "购买总量",
         field: "totalCountString",
         formatter: moneyFormat
