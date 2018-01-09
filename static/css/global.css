@@ -394,6 +394,7 @@ textarea {
 
 .toolbar {
 	float: left;
+	margin-bottom: 0;
 }
 
 .toolbar li {
@@ -406,6 +407,7 @@ textarea {
 	border-radius: 3px;
 	cursor: pointer;
 	display: none;
+	margin-bottom: 10px;
 }
 
 .toolbar li span {
@@ -1264,4 +1266,7 @@ svg circle:hover {
 }
 .search-form-li-date{
 	min-width: 455px !important;
+}
+.pop-form-uRef .form-info li label{
+	width: 120px;
 }

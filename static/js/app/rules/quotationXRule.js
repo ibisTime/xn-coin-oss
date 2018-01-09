@@ -24,7 +24,7 @@ $(function() {
 			updater: ''
         },
         beforeEdit: function(r) {
-            location.href = 'TBRule_addedit.html?code=' + r.id + "&t=" + r.type;
+            location.href = 'quotationXRule_addedit.html?code=' + r.id + "&t=" + r.type;
         }
     });
 });
