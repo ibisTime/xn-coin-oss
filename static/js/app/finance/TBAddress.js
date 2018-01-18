@@ -21,26 +21,6 @@ $(function() {
         field: "createDatetime",
         formatter: dateTimeFormat
     }, {
-        title: '使用时间起',
-        field: 'availableDatetimeStart',
-        type: "date",
-        formatter: function(v, data) {
-            var date = new Date(v);
-            var str = date.format('yyyy-MM-dd');
-            return str;
-        },
-        search: true
-    }, {
-        title: '使用时间止',
-        field: 'availableDatetimeEnd',
-        type: "date",
-        formatter: function(v, data) {
-            var date = new Date(v);
-            var str = date.format('yyyy-MM-dd');
-            return str;
-        },
-        search: true
-    }, {
         title: "使用次数",
         field: "useCount"
     }, {
@@ -64,5 +44,9 @@ $(function() {
             companyCode: OSS.company
         }
     });
-
+$('#addBtn').off('click').click(function () {
+    reqApi({ code: '625200', sync: true }, true).then(function () {
+        sucList();
+    })
+})
 });

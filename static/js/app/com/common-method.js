@@ -1007,6 +1007,12 @@ function buildList(options) {
     }
 
     //表格初始化
+    buildTable(tableEl, options, sortName, sortOrder, singleSelect, detailView, detailFormatter);
+
+    chosen();
+}
+function buildTable(tableEl, options, sortName, sortOrder, singleSelect, detailView, detailFormatter) {
+
     tableEl.bootstrapTable({
         method: "post",
         url: urlDispatch(options.pageCode) + "/api",
@@ -1017,7 +1023,7 @@ function buildList(options) {
         singleSelect: singleSelect,
         detailView: detailView,
         detailFormatter: detailFormatter,
-        queryParams: function(params) {
+        queryParams: function (params) {
             var json = {};
             json.start = params.offset / params.limit + 1;
             json.limit = params.limit;
@@ -1032,7 +1038,7 @@ function buildList(options) {
                 systemCode: sessionStorage.getItem('systemCode')
             });
             params.order && (json.orderDir = params.order);
-            params.sort && (json.orderColumn = params.sort.replace(/[A-Z]/g, function(word) {
+            params.sort && (json.orderColumn = params.sort.replace(/[A-Z]/g, function (word) {
                 return '_' + word.toLowerCase()
             }));
             if (options.beforeSearch) {
@@ -1045,7 +1051,7 @@ function buildList(options) {
             return res;
         },
         queryParamsType: 'limit',
-        responseHandler: function(res) {
+        responseHandler: function (res) {
             return {
                 rows: res.data.list || res.data,
                 total: res.data.totalCount || res.data.length
@@ -1059,10 +1065,7 @@ function buildList(options) {
         pageList: options.pageList || [10, 20, 30, 40, 50],
         columns: options.columns
     });
-
-    chosen();
 }
-
 function selectImage(file, name) {
     setTimeout(function() {
         $(file).valid();
@@ -3396,9 +3399,10 @@ function confirm(msg, okText, cancelText) {
                 var that = this;
                 setTimeout(function() {
                     that.close().remove();
-                }, 1000);
+                }, 0);
                 resolve();
-                return true;
+                return false;
+                // return true;
             },
             cancel: function() {
                 reject();

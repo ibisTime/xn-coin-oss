@@ -67,5 +67,19 @@ $(function() {
         }
         window.location.href = "./diviAddress_ledger.html?address=" + selRecords[0].address;
     });
+    $('#shoudongGuijiBtn').click(function () {
+        confirm('<input type="number" name="number1" id="number1" placeholder="请输入阈值" style="border:1px solid blue;width: 150px;height: 30px;">' ).then(function () {
+            if($('#number1').val()>=0) {
+                var data = {
+                    balanceStart: $('#number1').val()
+                }
+                reqApi({ code: '625100', json: data, sync: true }, true).then(function () {
+                    sucList();
+                })
+            }else {
+                toastr.error('阈值不能小于0');
+            }
 
+        })
+    })
 });

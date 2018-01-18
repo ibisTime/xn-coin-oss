@@ -42,7 +42,19 @@ $(function() {
         key: 'user_status',
         formatter: Dict.getNameForList('user_status'),
         search: true
+    },{
+        field: 'isRealname',
+        title: '是否实名',
+        formatter: function (v, data) {
+            return data.realName?'是':'否'
+        }
     }, {
+        field: 'realName',
+        title: '真实姓名',
+        formatter: function (v, data) {
+            return data.realName?data.realName:'-'
+        }
+    },  {
         field: 'divRate1',
         title: '普通分成',
     }, {

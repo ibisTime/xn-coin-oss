@@ -109,27 +109,96 @@ $(function() {
         }
         var dataCode = []
 
-        for (var i = 0; i < selRecords.length; i++) {
-            dataCode.push(selRecords[i].code)
-
-            if (selRecords[i].status != 3) {
-                toastr.info(selRecords[i].code + "状态不能广播，只有审批通过才可以广播!");
-                return;
-            }
-
-        }
-        confirm("确定进行广播？").then(function() {
-            reqApi({
-                code: '802754',
-                json: {
-                    codeList: dataCode,
-                    approveUser: getUserName()
+        var dw = dialog({
+            content: '<table id="tableList1"></table>',
+            ok: function() {
+                var that = this;
+                var selRecords1 = $('#tableList').bootstrapTable('getSelections');
+                if (selRecords1.length <= 0) {
+                    toastr.info("请选择记录");
+                    return;
                 }
-            }).then(function() {
-                sucList();
-            });
+                var data = {
+                    approveUser: getUserName(),
+                    code: selRecords[0].code,
+                    mAddressCode: selRecords1[0].mAddressCode
+                }
+                reqApi({ code: '802754', json: data, sync: true }, true).then(function () {
+                    setTimeout(function () {
+                        that.close().remove();
+                    }, 0);
+                })
+                return false;
+                // return true;
+            },
+            cancel: function() {
+                return true;
+            },
+            cancelValue: '取消',
+            okValue: '确定'
+        });
 
-        }, function() {});
+        dw.showModal();
+
+        var display = [{
+            field: '',
+            title: '',
+            checkbox: true
+        }, {
+            field: 'address',
+            title: '地址'
+        }, {
+            field: 'status',
+            title: '状态',
+            type: 'select',
+            data: {
+                "0": "启用",
+                "2": "弃用"
+            },
+            search: true
+        }, {
+            title: "创建日期",
+            field: "createDatetime",
+            formatter: dateTimeFormat
+        }, {
+            title: "使用次数",
+            field: "useCount"
+        }, {
+            field: 'useAmountString',
+            title: '提币金额',
+            formatter: moneyFormat
+        }, {
+            title: "余额",
+            field: "balanceString",
+            formatter: moneyFormat
+        }];
+        var options = {
+            columns: display,
+            pageCode: '625205',
+            searchParams: {
+                type: 'M',
+                statusList: ['0'],
+                companyCode: OSS.company,
+                balanceStart:selRecords[0].amountString
+            }
+        }
+        buildTable($('#tableList1'), options, '', '', true, false, function() {});
+        $('.ui-popup.ui-popup-modal.ui-popup-show.ui-popup-focus').css('position','absolute').css('left','150px');
+        // confirm(buildList({
+        //
+        //
+        // })).then(function() {
+            // reqApi({
+            //     code: '802754',
+            //     json: {
+            //         codeList: dataCode,
+            //         approveUser: getUserName()
+            //     }
+            // }).then(function() {
+            //     sucList();
+            // });
+
+        // }, function() {});
     });
     //审核
     $('#multiCheckBtn').click(function() {
