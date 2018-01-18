@@ -183,7 +183,7 @@ $(function() {
             }
         }
         buildTable($('#tableList1'), options, '', '', true, false, function() {});
-        $('.ui-popup.ui-popup-modal.ui-popup-show.ui-popup-focus').css('position','absolute').css('left','150px');
+        $('.ui-popup.ui-popup-modal.ui-popup-show.ui-popup-focus').css('position','absolute').css('left','150px').css('top','150px');
         // confirm(buildList({
         //
         //

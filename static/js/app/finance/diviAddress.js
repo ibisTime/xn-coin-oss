@@ -68,7 +68,7 @@ $(function() {
         window.location.href = "./diviAddress_ledger.html?address=" + selRecords[0].address;
     });
     $('#shoudongGuijiBtn').click(function () {
-        confirm('<input type="number" name="number1" id="number1" placeholder="请输入阈值" style="border:1px solid blue;width: 150px;height: 30px;">' ).then(function () {
+        confirm('<input type="number" name="number1" id="number1" placeholder="请输入阈值" style="border:1px solid rgb(206,217,223);width: 150px;height: 30px;">' ).then(function () {
             if($('#number1').val()>=0) {
                 var data = {
                     balanceStart: $('#number1').val()

@@ -11,10 +11,15 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        data: {
-            "0": "启用",
-            "2": "弃用"
-        },
+        key: 'maddress_status',
+        formatter: Dict.getNameForList('maddress_status'),
+        // data: {
+        //     "0": "启用",
+        //     "2": "弃用"
+        // },
+        // formatter: function (v, data) {
+        //     return Dict.getName();
+        // },
         search: true
     }, {
         title: "创建日期",
@@ -49,4 +54,24 @@ $('#addBtn').off('click').click(function () {
         sucList();
     })
 })
+    $('#deleBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].status == 2) {
+            toastr.warning("已经是无效地址，无需重复弃用");
+            return;
+        }
+        confirm("确认弃用？").then(function() {
+            reqApi({
+                code: '625202',
+                json: { "code": selRecords[0].code }
+            }).then(function() {
+                toastr.info("操作成功");
+                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+            });
+        }, function() {});
+    });
 });
