@@ -67,19 +67,66 @@ $(function() {
         }
         window.location.href = "./diviAddress_ledger.html?address=" + selRecords[0].address;
     });
-    $('#shoudongGuijiBtn').click(function () {
-        confirm('<input type="number" name="number1" id="number1" placeholder="请输入阈值" style="border:1px solid rgb(206,217,223);width: 150px;height: 30px;">' ).then(function () {
-            if($('#number1').val()>=0) {
-                var data = {
-                    balanceStart: $('#number1').val()
-                }
-                reqApi({ code: '625100', json: data, sync: true }, true).then(function () {
-                    sucList();
-                })
-            }else {
-                toastr.error('阈值不能小于0');
-            }
+    
+    //设置广告费率
+    $('#shoudongGuijiBtn').click(function() {
 
-        })
-    })
+        var dw = dialog({
+            content: '<form class="pop-form" id="popForm" novalidate="novalidate">' +
+                '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">设置阈值</li></ul>' +
+                '</form>'
+        });
+
+        dw.showModal();
+
+        buildDetail({
+            container: $('#formContainer'),
+            fields: [{
+		        field: 'balanceStart',
+		        title: '阈值',
+				required: true,
+				number: true,
+				min: '0'
+		    }],
+            buttons: [{
+                title: '确定',
+                handler: function() {
+                	if($('#popForm').valid()){
+                        var data = $('#popForm').serializeObject();
+                        reqApi({
+                            code: '625100',
+                            json: data
+                        }).done(function(data) {
+                        	sucList();
+                            dw.close().remove();
+                        });
+                    }
+
+                }
+            }, {
+                title: '取消',
+                handler: function() {
+                    dw.close().remove();
+                }
+            }]
+        });
+
+        dw.__center();
+    });
+    
+//  $('#shoudongGuijiBtn').click(function () {
+//      confirm('<input type="number" name="number1" id="number1" placeholder="请输入阈值" style="border:1px solid rgb(206,217,223);width: 150px;height: 30px;">' ).then(function () {
+//          if($('#number1').val()>=0) {
+//              var data = {
+//                  balanceStart: $('#number1').val()
+//              }
+//              reqApi({ code: '625100', json: data, sync: true }, true).then(function () {
+//                  sucList();
+//              })
+//          }else {
+//              toastr.error('阈值不能小于0');
+//          }
+//
+//      })
+//  })
 });
