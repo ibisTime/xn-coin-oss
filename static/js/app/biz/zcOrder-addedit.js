@@ -24,7 +24,7 @@ $(function() {
             	html+= '-卖家'
             }
             return html;
-        }
+        },
         readonly: true
     }, {
         title: "原告",
@@ -41,7 +41,7 @@ $(function() {
             }
             
             return html;
-        }
+        },
         readonly: true
     }, {
         title: "针对订单编号",
