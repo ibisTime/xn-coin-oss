@@ -68,7 +68,7 @@ $(function() {
         window.location.href = "./diviAddress_ledger.html?address=" + selRecords[0].address;
     });
     
-    //设置广告费率
+    //手动归集
     $('#shoudongGuijiBtn').click(function() {
 
         var dw = dialog({
@@ -93,15 +93,16 @@ $(function() {
                 handler: function() {
                 	if($('#popForm').valid()){
                         var data = $('#popForm').serializeObject();
-                        reqApi({
-                            code: '625100',
-                            json: data
-                        }).done(function(data) {
-                        	sucList();
-                            dw.close().remove();
-                        });
+                        confirm('所有余额大于'+data.balanceStart+'的地址都将进行归集，确定进行操作吗？').then(function () {
+                            reqApi({
+                                code: '625100',
+                                json: data
+                            }).done(function(data) {
+                                sucList();
+                                dw.close().remove();
+                            });
+                        },function () {})
                     }
-
                 }
             }, {
                 title: '取消',

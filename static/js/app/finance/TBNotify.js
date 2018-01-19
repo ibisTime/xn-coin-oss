@@ -34,7 +34,7 @@ $(function() {
             reqApi({code: '625901', json: data, sync: true}, true).then(function () {
                 sucList();
             })
-        })
+        },function () {})
     })
 
 });
