@@ -5,12 +5,8 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'mobile',
-        title: '提币通知手机号',
-        search: true,
-        formatter: function (v, data) {
-            return data.dvalue
-        }
+        field: 'dvalue',
+        title: '提币通知手机号'
     }];
     buildList({
         columns: columns,
@@ -21,6 +17,8 @@ $(function() {
             parentKey: 'qx_sms_notice'
         }
     });
+
+    // 删除提币通知人
     $('#deleteBtn').off('click').click(function () {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
@@ -36,5 +34,16 @@ $(function() {
             })
         },function () {})
     })
-
+    // $('#searchBtn').off('click').click(function () {
+    //     buildList({
+    //         columns: columns,
+    //         pageCode: '625905',
+    //         searchParams: {
+    //             companyCode: OSS.company,
+    //             systemCode: OSS.company,
+    //             parentKey: 'qx_sms_notice',
+    //             dkey: $('#mobile').val()
+    //         }
+    //     });
+    // })
 });

@@ -5,12 +5,8 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'mobile',
-        title: '仲裁通知手机号',
-        search: true,
-        formatter: function (v, data) {
-            return data.dvalue
-        }
+        field: 'dvalue',
+        title: '仲裁通知手机号'
     }];
     buildList({
         columns: columns,

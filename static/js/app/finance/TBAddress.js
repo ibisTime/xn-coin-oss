@@ -49,11 +49,14 @@ $(function() {
             companyCode: OSS.company
         }
     });
-$('#addBtn').off('click').click(function () {
-    reqApi({ code: '625200', sync: true }, true).then(function () {
-        sucList();
+    $('#addBtn').off('click').click(function () {
+        confirm('确认生成地址？').then(function () {
+            reqApi({ code: '625200', sync: true }, true).then(function () {
+                sucList();
+            })
+
+        },function () {})
     })
-})
     $('#deleBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {

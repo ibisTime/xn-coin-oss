@@ -140,10 +140,14 @@ $(function() {
 	                statusList: ['0'],
 	                companyCode: OSS.company,
 	                balanceStart: selRecords[0].amountString
+	                // balanceStart: '0'
 		        },
 		        keyName: "code",
-		        valueName: "{{address.DATA}}",
+		        valueName: "{{address.DATA}}--{{balanceString.DATA}}",
 		        searchName: "address",
+                valueFormatter: {
+                    balanceString: moneyFormat
+                }
 		    }],
             buttons: [{
                 title: '确定',
