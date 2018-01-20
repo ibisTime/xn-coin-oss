@@ -3723,3 +3723,10 @@ function updateListSearch() {
     searchs[pathName] = params;
     sessionStorage.setItem('listSearchs', JSON.stringify(searchs));
 }
+
+function showLoading() {
+    $("#loadingSpin").removeClass("hidden");
+}
+function hideLoading() {
+    $("#loadingSpin").addClass("hidden");
+}
