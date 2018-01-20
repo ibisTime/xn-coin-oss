@@ -118,59 +118,78 @@ $(function() {
             toastr.info("只有审批通过的记录才可以广播");
             return;
         }
-		
-        var dw = dialog({
-            content: '<form class="pop-form pop-form-uRef " id="popForm" novalidate="novalidate">' +
+
+        var balanceStart;
+        reqApi({
+            code: '625800',
+            json: {}
+        }).done(function(data) {
+            var amount1 = data.bcoinGasPrice;
+            var amount2 = 21000;
+            var amount3 = selRecords[0].amountString;
+            var amount4 = selRecords[0].feeString;
+            var balanceStart1 = amount3 - amount4;
+            balanceStart = amount1 * amount2;
+            balanceStart= balanceStart1 + balanceStart;
+            console.log(balanceStart);
+            var dw = dialog({
+                content: '<form class="pop-form pop-form-uRef " id="popForm" novalidate="novalidate">' +
                 '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">提币广播</li></ul>' +
                 '</form>'
-        });
+            });
 
-        dw.showModal();
+            dw.showModal();
 
-        buildDetail({
-            container: $('#formContainer'),
-            fields: [{
-		        field: 'mAddressCode',
-		        title: '地址',
-				required: true,
-				type: "select",
-		        pageCode: "625205",
-		        params: {
-		            type: 'M',
-	                statusList: ['0'],
-	                companyCode: OSS.company,
-	                balanceStart: selRecords[0].amountString
-		        },
-		        keyName: "code",
-		        valueName: "{{address.DATA}}",
-		        searchName: "address",
-		    }],
-            buttons: [{
-                title: '确定',
-                handler: function() {
-                	if($('#popForm').valid()){
-                        var data = $('#popForm').serializeObject();
-                        data.approveUser = getUserName();
-                        data.code = selRecords[0].code;
-                        reqApi({
-                            code: '802754',
-                            json: data
-                        }).done(function(data) {
-                        	sucList();
-                            dw.close().remove();
-                        });
+            buildDetail({
+                container: $('#formContainer'),
+                fields: [{
+                    field: 'mAddressCode',
+                    title: '地址',
+                    required: true,
+                    type: "select",
+                    pageCode: "625205",
+                    params: {
+                        type: 'M',
+                        statusList: ['0'],
+                        companyCode: OSS.company,
+                        // balanceStart: balanceStart
+                        balanceStart: '0'
+                    },
+                    keyName: "code",
+                    valueName: "{{address.DATA}}--{{balanceString.DATA}}",
+                    searchName: "address",
+                    valueFormatter: {
+                        balanceString: moneyFormat
                     }
+                }],
+                buttons: [{
+                    title: '确定',
+                    handler: function() {
+                        if($('#popForm').valid()){
+                            var data = $('#popForm').serializeObject();
+                            data.approveUser = getUserName();
+                            data.code = selRecords[0].code;
+                            reqApi({
+                                code: '802754',
+                                json: data
+                            }).done(function() {
+                                sucList();
+                                dw.close().remove();
+                            });
+                        }
 
-                }
-            }, {
-                title: '取消',
-                handler: function() {
-                    dw.close().remove();
-                }
-            }]
+                    }
+                }, {
+                    title: '取消',
+                    handler: function() {
+                        dw.close().remove();
+                    }
+                }]
+            });
+
+            dw.__center();
         });
 
-        dw.__center();
     });
 	
 //  $('#spBtn').click(function() {

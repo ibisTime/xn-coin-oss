@@ -17,8 +17,8 @@ $(function() {
         field: 'cvalue',
         required: true,
         maxlength: 255,
-        number: true,
-		min: '0'
+        // number: true,
+        // min: '0'
 	}];
 
     buildDetail({

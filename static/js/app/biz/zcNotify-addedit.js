@@ -2,7 +2,8 @@ $(function() {
     var columns = [ {
         title: '手机号',
         field: 'dvalue',
-        required: true
+        required: true,
+        mobile: true
     }];
 
     buildDetail({

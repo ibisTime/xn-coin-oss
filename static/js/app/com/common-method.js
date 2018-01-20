@@ -341,7 +341,8 @@ $.fn.renderDropdown = function(data, keyName, valueName, defaultOption, filter) 
         dict,
         filter = filter || '',
         beforeData,
-        keyCode1;
+        keyCode1,
+        valueFormatter;
     if ($.isPlainObject(data)) {
         value = data.value;
         listCode = data.listCode;
@@ -352,6 +353,7 @@ $.fn.renderDropdown = function(data, keyName, valueName, defaultOption, filter) 
         defaultOption = data.defaultOption;
         beforeData = data.beforeData;
         dict = data.dict;
+        valueFormatter = data.valueFormatter;
     }
     if (listCode) {
         reqApi({ code: listCode, json: params, sync: true }).then(function(d) {
@@ -381,9 +383,9 @@ $.fn.renderDropdown = function(data, keyName, valueName, defaultOption, filter) 
     var filters = filter.split(',');
     for (var i = 0; i < data.length; i++) {
         if (filter && filters.indexOf(data[i][keyName]) > -1) {
-            html += "<option value='" + data[i][keyName] + "'>" + (data[i][valueName] || valueName.temp(data[i])) + "</option>";
+            html += "<option value='" + data[i][keyName] + "'>" + (data[i][valueName] || valueName.temp(data[i], valueFormatter)) + "</option>";
         } else if (!filter) {
-            html += "<option value='" + data[i][keyName] + "'>" + (data[i][valueName] || valueName.temp(data[i])) + "</option>";
+            html += "<option value='" + data[i][keyName] + "'>" + (data[i][valueName] || valueName.temp(data[i], valueFormatter)) + "</option>";
         }
     }
     this.html(html);
@@ -635,12 +637,13 @@ function goBack() {
     }
 }
 
-String.prototype.temp = function(obj) {
+String.prototype.temp = function(obj, formatters) {
     return this.replace(/\{\{(\w+)\.DATA\}\}/gi, function(matchs) {
-        var returns = obj[matchs.replace(/\{\{(\w+)\.DATA\}\}/, '$1')];
+        var key = matchs.replace(/\{\{(\w+)\.DATA\}\}/, '$1');
+        var returns = obj[key];
         return (returns + "") == "undefined" ?
             "" :
-            returns;
+            formatters && formatters[key] ? formatters[key](returns) : returns;
     });
 };
 
@@ -1432,7 +1435,8 @@ function buildDetail(options) {
                 params: pageParams,
                 keyName: item.keyName,
                 valueName: item.valueName,
-                dict: item.dict
+                dict: item.dict,
+                valueFormatter: item.valueFormatter
             }, (item.defaultOption ? { defaultOption: '<option value="0">' + item.defaultOption + '</option>' } : {})));
             $('#' + item.field)[0].pageOptions = {
                 pageCode: item.pageCode,
