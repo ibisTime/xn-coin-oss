@@ -120,6 +120,7 @@ $(function() {
         }
 
         var balanceStart;
+        showLoading()
         reqApi({
             code: '625800',
             json: {}
@@ -131,7 +132,9 @@ $(function() {
             var balanceStart1 = amount3 - amount4;
             balanceStart = amount1 * amount2;
             balanceStart= balanceStart1 + balanceStart;
-            console.log(balanceStart);
+            
+            hideLoading();
+            
             var dw = dialog({
                 content: '<form class="pop-form pop-form-uRef " id="popForm" novalidate="novalidate">' +
                 '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">提币广播</li></ul>' +
@@ -166,16 +169,18 @@ $(function() {
                     title: '确定',
                     handler: function() {
                         if($('#popForm').valid()){
+                        	showLoading()
                             var data = $('#popForm').serializeObject();
                             data.approveUser = getUserName();
                             data.code = selRecords[0].code;
                             reqApi({
                                 code: '802754',
                                 json: data
-                            }).done(function() {
+                            }).then(function() {
+                            	hideLoading()
                                 sucList();
                                 dw.close().remove();
-                            });
+                            },hideLoading);
                         }
 
                     }
