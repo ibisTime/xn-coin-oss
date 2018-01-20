@@ -124,11 +124,12 @@ $(function() {
         reqApi({
             code: '625800',
             json: {}
-        }).done(function(data) {
+        }).then(function(data) {
             var amount1 = data.bcoinGasPrice;
             var amount2 = 21000;
-            var amount3 = selRecords[0].amountString;
-            var amount4 = selRecords[0].feeString;
+            // amount1*amount2 = 矿工费
+            var amount3 = selRecords[0].amountString;      // 提现金额
+            var amount4 = selRecords[0].feeString;         // 手续费
             var balanceStart1 = amount3 - amount4;
             balanceStart = amount1 * amount2;
             balanceStart= balanceStart1 + balanceStart;
@@ -179,6 +180,7 @@ $(function() {
                                 code: '802754',
                                 json: data
                             }).then(function() {
+                                hideLoading();
                                 sucList();
                                 dw.close().remove();
                             },hideLoading);
