@@ -131,7 +131,6 @@ $(function() {
             var balanceStart1 = amount3 - amount4;
             balanceStart = amount1 * amount2;
             balanceStart= balanceStart1 + balanceStart;
-            console.log(balanceStart);
             var dw = dialog({
                 content: '<form class="pop-form pop-form-uRef " id="popForm" novalidate="novalidate">' +
                 '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">提币广播</li></ul>' +
@@ -152,8 +151,8 @@ $(function() {
                         type: 'M',
                         statusList: ['0'],
                         companyCode: OSS.company,
-                        // balanceStart: balanceStart
-                        balanceStart: '0'
+                        balanceStart: balanceStart
+                        // balanceStart: '0'
                     },
                     keyName: "code",
                     valueName: "{{address.DATA}}--{{balanceString.DATA}}",

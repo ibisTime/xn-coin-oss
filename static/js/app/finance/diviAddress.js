@@ -70,7 +70,6 @@ $(function() {
     
     //手动归集
     $('#shoudongGuijiBtn').click(function() {
-
         var dw = dialog({
             content: '<form class="pop-form" id="popForm" novalidate="novalidate">' +
                 '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">设置阈值</li></ul>' +

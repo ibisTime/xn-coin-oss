@@ -39,7 +39,9 @@ $(function() {
     }, {
         title: "余额",
         field: "balanceString",
-        formatter: moneyFormat
+        formatter: function (v, data) {
+            return moneyFormat(data.balanceString) + 'ETH'
+        }
     }];
     buildList({
         columns: columns,
