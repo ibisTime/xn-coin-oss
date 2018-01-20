@@ -156,8 +156,8 @@ $(function() {
                         type: 'M',
                         statusList: ['0'],
                         companyCode: OSS.company,
-                        // balanceStart: balanceStart
-                        balanceStart: '0'
+                        balanceStart: balanceStart
+                        // balanceStart: '0'
                     },
                     keyName: "code",
                     valueName: "{{address.DATA}}--{{balanceString.DATA}}",
