@@ -34,16 +34,4 @@ $(function() {
             })
         },function () {})
     })
-    // $('#searchBtn').off('click').click(function () {
-    //     buildList({
-    //         columns: columns,
-    //         pageCode: '625905',
-    //         searchParams: {
-    //             companyCode: OSS.company,
-    //             systemCode: OSS.company,
-    //             parentKey: 'qx_sms_notice',
-    //             dkey: $('#mobile').val()
-    //         }
-    //     });
-    // })
 });

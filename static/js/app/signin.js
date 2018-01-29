@@ -41,6 +41,8 @@ $(function() {
             $.each(t, function() {
                 data[this.name] = this.value;
             });
+            
+            showLoading();
 
             // 获取七牛地址
             reqApi({
@@ -55,20 +57,23 @@ $(function() {
                 },
                 sync: true
             }).then(function(data) {
+            	hideLoading()
                 // console.log(data.list[0].cvalue);
                 window.sessionStorage.setItem('qiniuUrl', 'http://' + data.list[0].cvalue);
-            });
-
+            },hideLoading);
+			
+			
             //获取用户详情
             reqApi({
                 code: '805050',
                 json: data,
                 sync: true
             }).then(function(data) {
+            	hideLoading()
                 location.href = "main.html?timestamp=" + new Date().getTime();
                 window.sessionStorage.setItem('token', data.token || data.userId);
                 window.sessionStorage.setItem('userId', data.userId);
-            });
+            },hideLoading);
         }
     }
 

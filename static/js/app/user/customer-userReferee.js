@@ -3,6 +3,7 @@ $(function() {
 	$("#mobile").val(getQueryString("mobile"));
 	
 	var userId = getQueryString("userId");
+	showLoading();
 	
 	//下拉菜单
 	$.when(reqApi({ // 所有菜单
@@ -11,7 +12,7 @@ $(function() {
 			userId: userId
 		}
 	})).then(function(d) {
-		
+		hideLoading()
 		var ligerTreeData = [];
 		
 		d.forEach(function(d, i){
@@ -37,7 +38,7 @@ $(function() {
             childIcon: 'user' ,
 		});
 		
-	});
+	}, hideLoading);
 	
 	
 	//返回
