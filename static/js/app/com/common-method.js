@@ -659,6 +659,7 @@ function objectArrayFilter(arr, keys) {
 }
 
 function buildList(options) {
+	showLoading();
     options = options || {};
     var searchs = JSON.parse(sessionStorage.getItem('listSearchs') || '{}')[location.pathname];
 
@@ -841,6 +842,7 @@ function buildList(options) {
     $("#city-group").citySelect && $("#city-group").citySelect({ required: false });
 
     $('#searchBtn').click(function() {
+    	showLoading();
         updateListSearch();
         $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
     });
@@ -906,10 +908,11 @@ function buildList(options) {
                 });
             }
             var data = codeParams;
-
-            reqApi({ code: options.deleteCode, json: data }).done(function(data) {
+			
+			showLoading();
+            reqApi({ code: options.deleteCode, json: data }).then(function(data) {
                 sucList();
-            });
+            },hideLoading);
         }, function() {});
 
     });
@@ -1005,17 +1008,19 @@ function buildList(options) {
         sortOrder = options['sortOrder'];
     }
     var tableEl = $('#tableList');
+	
     if (options.tableId) {
         tableEl = $('#' + options.tableId);
     }
-
+	tableEl.on('load-success.bs.table', function () {
+        hideLoading();
+        updateTableInfo('tableList');
+    });    
+    tableEl.on('page-change.bs.table', function () {
+        showLoading();
+    });
+    var tableInfo = JSON.parse(sessionStorage.getItem('tableInfo') || '{}')[location.pathname] || {};
     //表格初始化
-    buildTable(tableEl, options, sortName, sortOrder, singleSelect, detailView, detailFormatter);
-
-    chosen();
-}
-function buildTable(tableEl, options, sortName, sortOrder, singleSelect, detailView, detailFormatter) {
-
     tableEl.bootstrapTable({
         method: "post",
         url: urlDispatch(options.pageCode) + "/api",
@@ -1026,7 +1031,7 @@ function buildTable(tableEl, options, sortName, sortOrder, singleSelect, detailV
         singleSelect: singleSelect,
         detailView: detailView,
         detailFormatter: detailFormatter,
-        queryParams: function (params) {
+        queryParams: function(params) {
             var json = {};
             json.start = params.offset / params.limit + 1;
             json.limit = params.limit;
@@ -1041,7 +1046,7 @@ function buildTable(tableEl, options, sortName, sortOrder, singleSelect, detailV
                 systemCode: sessionStorage.getItem('systemCode')
             });
             params.order && (json.orderDir = params.order);
-            params.sort && (json.orderColumn = params.sort.replace(/[A-Z]/g, function (word) {
+            params.sort && (json.orderColumn = params.sort.replace(/[A-Z]/g, function(word) {
                 return '_' + word.toLowerCase()
             }));
             if (options.beforeSearch) {
@@ -1054,7 +1059,7 @@ function buildTable(tableEl, options, sortName, sortOrder, singleSelect, detailV
             return res;
         },
         queryParamsType: 'limit',
-        responseHandler: function (res) {
+        responseHandler: function(res) {
             return {
                 rows: res.data.list || res.data,
                 total: res.data.totalCount || res.data.length
@@ -1063,11 +1068,12 @@ function buildTable(tableEl, options, sortName, sortOrder, singleSelect, detailV
         pagination: true,
         sidePagination: 'server',
         totalRows: 0,
-        pageNumber: 1,
-        pageSize: options.pageSize || 10,
+        pageNumber: tableInfo.pageNumber || 1,
+        pageSize: tableInfo.pageSize || options.pageSize || 10,
         pageList: options.pageList || [10, 20, 30, 40, 50],
         columns: options.columns
     });
+    chosen();
 }
 function selectImage(file, name) {
     setTimeout(function() {
@@ -1359,13 +1365,14 @@ function buildDetail(options) {
             }
 
             var request = function() {
+            	showLoading();
                 reqApi({
                     code: code ?
                         options.editCode : options.addCode,
                     json: data
-                }).done(function(data) {
+                }).then(function(data) {
                     sucDetail();
-                });
+                },hideLoading);
             };
 
             if (options.beforeSubmitAsync) {
@@ -1598,10 +1605,12 @@ function buildDetail(options) {
 
     //是否请求详情
     if (code) {
+    	showLoading();
         reqApi({
             code: options.detailCode,
             json: detailParams
-        }).done(function(d) {
+        }).then(function(d) {
+        	hideLoading()
             var data = d;
             if (options._keys) {
                 options._keys.forEach(function(key) {
@@ -1957,7 +1966,7 @@ function buildDetail(options) {
                 }
             }
             options.afterData && options.afterData(data);
-        });
+        }, hideLoading);
     } else {
         for (var i = 0, len = fields.length; i < len; i++) {
             var item = fields[i];
@@ -2239,11 +2248,14 @@ function sleep(ms) {
 }
 
 function sucList() {
+	hideLoading();
     toastr.success('操作成功');
-    $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+    var option = $('#tableList').bootstrapTable('getOptions');
+    $('#tableList').bootstrapTable('refreshOptions', { pageNumber: option.pageNumber, pageSize: option.pageSize });
 }
 
 function sucDetail() {
+	hideLoading();
     toastr.success('操作成功');
     sleep(1000).then(function() {
         goBack();
@@ -3175,12 +3187,13 @@ function buildCharts(options) {
         json.systemCode = sessionStorage.getItem('systemCode');
 
         $.extend(json, options.searchParams, searchFormParams);
-
+		
+		showLoading();
         reqApi({
             code: options.pageCode,
             json: json,
             sync: true,
-        }).done(function(data) {
+        }).then(function(data) {
 
             //请求数据
             var data = data;
@@ -3385,7 +3398,7 @@ function buildCharts(options) {
 
 
             myChart.setOption(chartOption);
-        });
+        }, hideLoading);
     }
 
 }
@@ -3723,7 +3736,14 @@ function updateListSearch() {
     searchs[pathName] = params;
     sessionStorage.setItem('listSearchs', JSON.stringify(searchs));
 }
-
+function updateTableInfo(id) {
+    var searchs = JSON.parse(sessionStorage.getItem('tableInfo') || '{}');
+    var pathName = location.pathname;
+    var option = $('#' + id).bootstrapTable('getOptions');
+    var params = { pageNumber: option.pageNumber, pageSize: option.pageSize };
+    searchs[pathName] = params;
+    sessionStorage.setItem('tableInfo', JSON.stringify(searchs));
+}
 function showLoading() {
     $("#loadingSpin").removeClass("hidden");
 }
