@@ -172,6 +172,12 @@ $(function() {
             });
         }
     });
-
+	
+	function showLoading() {
+    $("#loadingSpin").removeClass("hidden");
+	}
+	function hideLoading() {
+	    $("#loadingSpin").addClass("hidden");
+	}
 
 });
