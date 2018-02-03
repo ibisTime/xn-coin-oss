@@ -12,13 +12,15 @@ $(function() {
         title: '数值'
     }];
     buildList({
-        // router: "GJRule",
         columns: columns,
         pageCode: '625915',
         searchParams: {
             type: 'trade_rule',
             companyCode: OSS.company,
 			updater: ''
+        },
+        beforeEdit: function(r) {
+            location.href = 'handsFee_addedit.html?code=' + r.id + "&t=" + r.type+"&ckey="+r.ckey;
         }
     });
 });

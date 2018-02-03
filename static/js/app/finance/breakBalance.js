@@ -3,6 +3,7 @@ $(function() {
     var accountNumberJF;
     var accountNumberTG;
     
+    showLoading();
     $('#tableList').bootstrapTable({
         columns: [{
 	        field: 'name',
@@ -26,19 +27,20 @@ $(function() {
             "type": "P"
         },
         sync: true
-    }).done(function(data) {
+    }).then(function(data) {
+    	hideLoading()
         var data = data.list;
         $("#amount-CNY").text(moneyFormat(data[1].amountString));
         accountNumberCNY = data[1].accountNumber;
         $("#amount-TG").text(moneyFormat(data[0].amountString));
         accountNumberTG = data[0].accountNumber;
-    });
+    }, hideLoading);
     
     reqApi({
         code: '802900',
         sync: true
-    }).done(function(data) {
-    	
+    }).then(function(data) {
+    	hideLoading()
         var tableData = [{
 	        	name: '平台所有币',
 	        	amount: data.totalCount
@@ -57,7 +59,7 @@ $(function() {
 	        }]
         
         $('#tableList').bootstrapTable('prepend', tableData)
-    });
+    }, hideLoading);
     
     $("#CNYls-Btn").click(function() {
         location.href = "ledger.html?accountNumber=" + accountNumberCNY;

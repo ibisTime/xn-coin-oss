@@ -16,7 +16,9 @@ $(function() {
         title: '数值',
         field: 'cvalue',
         required: true,
-        maxlength: 255
+        maxlength: 255,
+        // number: true,
+        // min: '0'
 	}];
 
     buildDetail({

@@ -2,6 +2,26 @@ $(function() {
 
     var code = getQueryString('code');
     var type = getQueryString('t');
+    var ckey = getQueryString('ckey');
+    var cvalueFields={}
+    
+    if(ckey=="activity_trade_fee_rate"){
+    	cvalueFields={
+	        title: '数值',
+	        field: 'cvalue',
+	        required: true,
+	        maxlength: 255,
+	        number: true
+	    }
+    }else{
+    	cvalueFields={
+	        title: '数值',
+	        field: 'cvalue',
+	        required: true,
+	        maxlength: 255,
+			min: '0'
+	    }
+    }
 
     var fields = [{
         field: 'kind',
@@ -18,12 +38,7 @@ $(function() {
         readonly: true,
         required: true,
         maxlength: 20
-    }, {
-        title: '数值',
-        field: 'cvalue',
-        required: true,
-        maxlength: 255
-    }];
+    }, cvalueFields];
 
     buildDetail({
         fields: fields,

@@ -341,7 +341,8 @@ $.fn.renderDropdown = function(data, keyName, valueName, defaultOption, filter) 
         dict,
         filter = filter || '',
         beforeData,
-        keyCode1;
+        keyCode1,
+        valueFormatter;
     if ($.isPlainObject(data)) {
         value = data.value;
         listCode = data.listCode;
@@ -352,6 +353,7 @@ $.fn.renderDropdown = function(data, keyName, valueName, defaultOption, filter) 
         defaultOption = data.defaultOption;
         beforeData = data.beforeData;
         dict = data.dict;
+        valueFormatter = data.valueFormatter;
     }
     if (listCode) {
         reqApi({ code: listCode, json: params, sync: true }).then(function(d) {
@@ -381,9 +383,9 @@ $.fn.renderDropdown = function(data, keyName, valueName, defaultOption, filter) 
     var filters = filter.split(',');
     for (var i = 0; i < data.length; i++) {
         if (filter && filters.indexOf(data[i][keyName]) > -1) {
-            html += "<option value='" + data[i][keyName] + "'>" + (data[i][valueName] || valueName.temp(data[i])) + "</option>";
+            html += "<option value='" + data[i][keyName] + "'>" + (data[i][valueName] || valueName.temp(data[i], valueFormatter)) + "</option>";
         } else if (!filter) {
-            html += "<option value='" + data[i][keyName] + "'>" + (data[i][valueName] || valueName.temp(data[i])) + "</option>";
+            html += "<option value='" + data[i][keyName] + "'>" + (data[i][valueName] || valueName.temp(data[i], valueFormatter)) + "</option>";
         }
     }
     this.html(html);
@@ -635,12 +637,13 @@ function goBack() {
     }
 }
 
-String.prototype.temp = function(obj) {
+String.prototype.temp = function(obj, formatters) {
     return this.replace(/\{\{(\w+)\.DATA\}\}/gi, function(matchs) {
-        var returns = obj[matchs.replace(/\{\{(\w+)\.DATA\}\}/, '$1')];
+        var key = matchs.replace(/\{\{(\w+)\.DATA\}\}/, '$1');
+        var returns = obj[key];
         return (returns + "") == "undefined" ?
             "" :
-            returns;
+            formatters && formatters[key] ? formatters[key](returns) : returns;
     });
 };
 
@@ -656,6 +659,7 @@ function objectArrayFilter(arr, keys) {
 }
 
 function buildList(options) {
+	showLoading();
     options = options || {};
     var searchs = JSON.parse(sessionStorage.getItem('listSearchs') || '{}')[location.pathname];
 
@@ -838,6 +842,7 @@ function buildList(options) {
     $("#city-group").citySelect && $("#city-group").citySelect({ required: false });
 
     $('#searchBtn').click(function() {
+    	showLoading();
         updateListSearch();
         $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
     });
@@ -903,10 +908,11 @@ function buildList(options) {
                 });
             }
             var data = codeParams;
-
-            reqApi({ code: options.deleteCode, json: data }).done(function(data) {
+			
+			showLoading();
+            reqApi({ code: options.deleteCode, json: data }).then(function(data) {
                 sucList();
-            });
+            },hideLoading);
         }, function() {});
 
     });
@@ -1002,10 +1008,18 @@ function buildList(options) {
         sortOrder = options['sortOrder'];
     }
     var tableEl = $('#tableList');
+	
     if (options.tableId) {
         tableEl = $('#' + options.tableId);
     }
-
+	tableEl.on('load-success.bs.table', function () {
+        hideLoading();
+        updateTableInfo('tableList');
+    });    
+    tableEl.on('page-change.bs.table', function () {
+        showLoading();
+    });
+    var tableInfo = JSON.parse(sessionStorage.getItem('tableInfo') || '{}')[location.pathname] || {};
     //表格初始化
     tableEl.bootstrapTable({
         method: "post",
@@ -1054,15 +1068,13 @@ function buildList(options) {
         pagination: true,
         sidePagination: 'server',
         totalRows: 0,
-        pageNumber: 1,
-        pageSize: options.pageSize || 10,
+        pageNumber: tableInfo.pageNumber || 1,
+        pageSize: tableInfo.pageSize || options.pageSize || 10,
         pageList: options.pageList || [10, 20, 30, 40, 50],
         columns: options.columns
     });
-
     chosen();
 }
-
 function selectImage(file, name) {
     setTimeout(function() {
         $(file).valid();
@@ -1353,13 +1365,14 @@ function buildDetail(options) {
             }
 
             var request = function() {
+            	showLoading();
                 reqApi({
                     code: code ?
                         options.editCode : options.addCode,
                     json: data
-                }).done(function(data) {
+                }).then(function(data) {
                     sucDetail();
-                });
+                },hideLoading);
             };
 
             if (options.beforeSubmitAsync) {
@@ -1429,7 +1442,8 @@ function buildDetail(options) {
                 params: pageParams,
                 keyName: item.keyName,
                 valueName: item.valueName,
-                dict: item.dict
+                dict: item.dict,
+                valueFormatter: item.valueFormatter
             }, (item.defaultOption ? { defaultOption: '<option value="0">' + item.defaultOption + '</option>' } : {})));
             $('#' + item.field)[0].pageOptions = {
                 pageCode: item.pageCode,
@@ -1591,10 +1605,12 @@ function buildDetail(options) {
 
     //是否请求详情
     if (code) {
+    	showLoading();
         reqApi({
             code: options.detailCode,
             json: detailParams
-        }).done(function(d) {
+        }).then(function(d) {
+        	hideLoading()
             var data = d;
             if (options._keys) {
                 options._keys.forEach(function(key) {
@@ -1950,7 +1966,7 @@ function buildDetail(options) {
                 }
             }
             options.afterData && options.afterData(data);
-        });
+        }, hideLoading);
     } else {
         for (var i = 0, len = fields.length; i < len; i++) {
             var item = fields[i];
@@ -2232,11 +2248,14 @@ function sleep(ms) {
 }
 
 function sucList() {
+	hideLoading();
     toastr.success('操作成功');
-    $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+    var option = $('#tableList').bootstrapTable('getOptions');
+    $('#tableList').bootstrapTable('refreshOptions', { pageNumber: option.pageNumber, pageSize: option.pageSize });
 }
 
 function sucDetail() {
+	hideLoading();
     toastr.success('操作成功');
     sleep(1000).then(function() {
         goBack();
@@ -3168,12 +3187,13 @@ function buildCharts(options) {
         json.systemCode = sessionStorage.getItem('systemCode');
 
         $.extend(json, options.searchParams, searchFormParams);
-
+		
+		showLoading();
         reqApi({
             code: options.pageCode,
             json: json,
             sync: true,
-        }).done(function(data) {
+        }).then(function(data) {
 
             //请求数据
             var data = data;
@@ -3378,7 +3398,7 @@ function buildCharts(options) {
 
 
             myChart.setOption(chartOption);
-        });
+        }, hideLoading);
     }
 
 }
@@ -3396,9 +3416,10 @@ function confirm(msg, okText, cancelText) {
                 var that = this;
                 setTimeout(function() {
                     that.close().remove();
-                }, 1000);
+                }, 0);
                 resolve();
-                return true;
+                return false;
+                // return true;
             },
             cancel: function() {
                 reject();
@@ -3714,4 +3735,18 @@ function updateListSearch() {
     var params = $('.search-form').serializeObject();
     searchs[pathName] = params;
     sessionStorage.setItem('listSearchs', JSON.stringify(searchs));
+}
+function updateTableInfo(id) {
+    var searchs = JSON.parse(sessionStorage.getItem('tableInfo') || '{}');
+    var pathName = location.pathname;
+    var option = $('#' + id).bootstrapTable('getOptions');
+    var params = { pageNumber: option.pageNumber, pageSize: option.pageSize };
+    searchs[pathName] = params;
+    sessionStorage.setItem('tableInfo', JSON.stringify(searchs));
+}
+function showLoading() {
+    $("#loadingSpin").removeClass("hidden");
+}
+function hideLoading() {
+    $("#loadingSpin").addClass("hidden");
 }
