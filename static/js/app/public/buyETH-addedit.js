@@ -17,8 +17,8 @@ $(function() {
     var options = {
         fields: fields,
         code: code,
-        detailCode: '625916',
-        editCode: "625910"
+        detailCode: '660916',
+        editCode: "660911"
     };
 
     buildDetail(options);

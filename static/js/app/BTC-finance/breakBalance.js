@@ -27,11 +27,20 @@ $(function() {
         },
         sync: true
     }).done(function(data) {
-        var data = data.list;
-        $("#amount-CNY").text(moneyFormat(data[1].amountString));
-        accountNumberCNY = data[1].accountNumber;
-        $("#amount-TG").text(moneyFormat(data[0].amountString));
-        accountNumberTG = data[0].accountNumber;
+        var list = data.list;
+        list.forEach(function(d){
+        	//平台ETH冷钱包
+        	if(d.accountNumber=="SYS_ACOUNT_ETH_COLD"){
+        		$("#amount-CNY").text(moneyFormat(d.amountString));
+        		accountNumberCNY = d.accountNumber;
+        	}
+        	//平台ETH盈亏账户
+        	if(d.accountNumber=="SYS_ACOUNT_ETH"){
+        		$("#amount-TG").text(moneyFormat(d.amountString));
+        		accountNumberTG = d.accountNumber;
+        	}
+        })
+        
     });
     
     reqApi({

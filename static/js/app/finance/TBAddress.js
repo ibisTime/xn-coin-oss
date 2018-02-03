@@ -45,7 +45,7 @@ $(function() {
     }];
     buildList({
         columns: columns,
-        pageCode: '625205',
+        pageCode: '802105',
         searchParams: {
             type: 'M',
             companyCode: OSS.company
@@ -53,7 +53,7 @@ $(function() {
     });
     $('#addBtn').off('click').click(function () {
         confirm('确认生成地址？').then(function () {
-            reqApi({ code: '625200', sync: true }, true).then(function () {
+            reqApi({ code: '802101', sync: true }, true).then(function () {
                 sucList();
             })
 
@@ -71,7 +71,7 @@ $(function() {
         }
         confirm("确认弃用？").then(function() {
             reqApi({
-                code: '625202',
+                code: '802102',
                 json: { "code": selRecords[0].code }
             }).then(function() {
             	sucList();

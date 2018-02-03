@@ -4,21 +4,16 @@ $(function() {
     var isDetail = !!getQueryString('detail');
 
     var approveNoteField = {
-        title: '审核意见',
+        title: '支付意见',
         field: 'payNote',
         maxlength: 250,
         required: true,
         readonly: false
     };
-    //是否是测试环境，测试环境需要审核
-    if(OSS.ISTEST=='1'&&OSS.ISTEST){
-      	  var payList = [approveNoteField]
-    }else{
-    	var payList = []
-    }
+  	var payList = [approveNoteField]
 
     var buttons = [{
-        title: '通过',
+        title: '支付',
         handler: function() {
             if ($('#jsForm').valid()) {
                 var data = $('#jsForm').serializeObject();
@@ -34,7 +29,7 @@ $(function() {
             }
         }
     }, {
-        title: '不通过',
+        title: '不支付',
         handler: function() {
             if ($('#jsForm').valid()) {
                 var data = $('#jsForm').serializeObject();
@@ -69,14 +64,14 @@ $(function() {
             maxlength: 250,
         };
         buttons = "";
-//      payList = [{
-//          field: 'payUser',
-//          title: '审核人'
-//      }, {
-//          field: 'payDatetime',
-//          title: '审核时间',
-//          formatter: dateTimeFormat
-//      }, approveNoteField]
+        payList = [{
+            field: 'payUser',
+            title: '支付人'
+        }, {
+            field: 'payDatetime',
+            title: '支付时间',
+            formatter: dateTimeFormat
+        }, approveNoteField]
     }
 
     var fields = [{

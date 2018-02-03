@@ -34,7 +34,7 @@ Dict.findObj = function(data, key, k) {
 Dict.getName = function(type, key) {
     var res;
     reqApi({
-        code: '625907',
+        code: '660906',
         cache: true,
         sync: true,
         json: {
@@ -42,7 +42,7 @@ Dict.getName = function(type, key) {
         }
     },true).then(function(data) {
         res = key ? (Dict.findName(data, key) || '-') : data;
-    });
+    },hideLoading);
     return res;
 }
 
@@ -50,7 +50,7 @@ Dict.getName = function(type, key) {
 Dict.getName2 = function(type, code, key) {
     var res;
     reqApi({
-        code: code || '625907',
+        code: code || '660906',
         cache: true,
         sync: true,
         json: {
@@ -58,14 +58,14 @@ Dict.getName2 = function(type, code, key) {
         }
     },true).then(function(data) {
         res = key ? (Dict.findName(data, key) || '-') : data;
-    });
+    },hideLoading);
     return res;
 }
 
 Dict.getNameForList = function(type, code) {
     var res;
     reqApi({
-        code: code || '625907',
+        code: code || '660906',
         cache: true,
         sync: true,
         json: {
@@ -75,13 +75,13 @@ Dict.getNameForList = function(type, code) {
         res = function(key) {
             return key != undefined ? Dict.findName(data, key) : '-';
         }
-    });
+    },hideLoading);
     return res;
 }
 Dict.getNameForList1 = function(type, code, key) {
     var k;
     reqApi({
-        code: code || '625907',
+        code: code || '660906',
         cache: true,
         sync: true,
         json: {
@@ -95,6 +95,12 @@ Dict.getNameForList1 = function(type, code, key) {
             k = '-';
             return k;
         }
-    });
+    },hideLoading);
     return k;
+}
+function showLoading() {
+    $("#loadingSpin").removeClass("hidden");
+}
+function hideLoading() {
+    $("#loadingSpin").addClass("hidden");
 }

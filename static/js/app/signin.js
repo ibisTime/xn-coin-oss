@@ -46,7 +46,7 @@ $(function() {
 
             // 获取七牛地址
             reqApi({
-                code: '625915',
+                code: '660915',
                 json: {
                     ckey: 'qiniu_domain',
                     limit: "10",

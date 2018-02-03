@@ -15,7 +15,8 @@ $(function() {
             ['type', 'account_type']
         ],
         params: {
-            userId: userId
+            userId: userId,
+            currency:'ETH'
         },
         keyName: 'accountNumber',
         valueName: '{{realName.DATA}} - {{currencyName.DATA}} - {{typeName.DATA}}',

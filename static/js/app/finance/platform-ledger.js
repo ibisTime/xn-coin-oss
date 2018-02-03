@@ -65,6 +65,7 @@ $(function() {
             accountNumber: accountCode,
             type: 'P',
             kind:'0',
+            currency: 'ETH',
             companyCode: OSS.company
         }
     });

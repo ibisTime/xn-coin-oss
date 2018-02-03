@@ -111,7 +111,6 @@ $.validator.addMethod("Z+", function(value, element) {
 $.validator.addMethod("amount", function(value, element) {
     var BIGvalue = new BigDecimal(value);
     var aint = '' + parseInt(value.replace(/[\,]/g, ''));
-    console.log(BIGvalue.multiply(new BigDecimal("1e18")).toString());
     return /^\d+$/.test(aint) && /^[\d\.\,]+$/.test(value + '') && aint.length <= 13;
     
 }, '金额必须>=0，且小于13位');

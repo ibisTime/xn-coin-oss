@@ -66,6 +66,7 @@ $(function() {
         searchParams: {
             channelType: "",
             status: "3",
+            currency: "ETH",
             companyCode: OSS.company
         },
         beforeSearch: function(data) {

@@ -1,9 +1,9 @@
 $(function() {
     var code;
     reqApi({
-        code: '625917',
+        code: '660917',
         json: {
-            key: 'about_us'
+            ckey: 'about_us'
         },
         sync: true
     }).then(function(data) {
@@ -24,7 +24,7 @@ $(function() {
     buildDetail({
         fields: fields,
         code: code,
-        detailCode: '625916',
+        detailCode: '660916',
         buttons: [{
             title: '保存',
             handler: function() {
@@ -32,7 +32,7 @@ $(function() {
                     var data = $('#jsForm').serializeObject();
                     data['id'] = data['code'];
                     reqApi({
-                        code: '625910',
+                        code: '660911',
                         json: data
                     }).done(function(data) {
                         toastr.success('操作成功');

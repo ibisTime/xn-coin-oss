@@ -29,8 +29,8 @@ $(function() {
     buildDetail({
         fields: fields,
         code: code,
-        detailCode: '625916',
-        editCode: '625910',
+        detailCode: '660916',
+        editCode: '660911',
         beforeSubmit: function(data) {
             data.remark = $('#remark').html();
             data.type = type;

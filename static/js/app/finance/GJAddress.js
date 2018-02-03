@@ -19,27 +19,7 @@ $(function() {
         // formatter: Dict.getNameForList('account_status'),
         search: true
     }, {
-        title: '使用时间起',
-        field: 'availableDatetimeStart',
-        type: "date",
-        formatter: function(v, data) {
-            var date = new Date(v);
-            var str = date.format('yyyy-MM-dd');
-            return str;
-        },
-        search: true
-    }, {
-        title: '使用时间止',
-        field: 'availableDatetimeEnd',
-        type: "date",
-        formatter: function(v, data) {
-            var date = new Date(v);
-            var str = date.format('yyyy-MM-dd');
-            return str;
-        },
-        search: true,
-    }, {
-        title: "导入日期",
+        title: "创建日期",
         field: "createDatetime",
         formatter: dateTimeFormat
     }, {
@@ -52,22 +32,68 @@ $(function() {
     }];
     buildList({
         columns: columns,
-        pageCode: '625205',
+        pageCode: '802105',
         searchParams: {
             type: 'W',
             companyCode: OSS.company
         },
-        getImportData: function(list) {
-            reqApi({
-                code: "625201",
-                json: { wAddressList: list }
-            }).then(function() {
-                sucList();
-            })
-
-        }
+        //导入
+//      getImportData: function(list) {
+//          reqApi({
+//              code: "802101",
+//              json: { wAddressList: list }
+//          }).then(function() {
+//              sucList();
+//          })
+//
+//      }
     });
+    
+    $('#addBtn').off("click").click(function() {
+    	var dw = dialog({
+            content: '<form class="pop-form pop-form-uRef " id="popForm" novalidate="novalidate">' +
+            '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">新增归集地址</li></ul>' +
+            '</form>'
+        });
 
+        dw.showModal();
+
+        buildDetail({
+            container: $('#formContainer'),
+            fields: [{
+                field: 'address',
+                title: '地址',
+                required: true,
+            }],
+            buttons: [{
+                title: '确定',
+                handler: function() {
+                    if($('#popForm').valid()){
+                        showLoading();
+
+                        var data = $('#popForm').serializeObject();
+                        reqApi({
+                            code: '802100',
+                            json: data
+                        }).then(function() {
+                            hideLoading();
+                            sucList();
+                            dw.close().remove();
+                        },hideLoading);
+                    }
+
+                }
+            }, {
+                title: '取消',
+                handler: function() {
+                    dw.close().remove();
+                }
+            }]
+        });
+
+        dw.__center();
+    })
+	
     $('#deleBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
@@ -80,7 +106,7 @@ $(function() {
         }
         confirm("确认弃用？").then(function() {
             reqApi({
-                code: '625202',
+                code: '802102',
                 json: { "code": selRecords[0].code }
             }).then(function() {
             	sucList();

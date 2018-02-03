@@ -8,7 +8,7 @@ $(function() {
 
     buildDetail({
         fields: columns,
-        addCode: '625900',
+        addCode: '660900',
         beforeSubmit:function (data) {
             data.parentKey = 'zc_sms_notice';
             data.dkey = data.dvalue;

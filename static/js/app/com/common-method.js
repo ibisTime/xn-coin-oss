@@ -81,28 +81,59 @@ Number.prototype.toFixed = function(length) {
  * 金额格式转化
  * @param money
  * @param format
+ * @param coin 币种
  */
-function moneyFormat(money, format) {
-    var flag = true;
+function moneyFormat(money, format, coin) {
+    var unit = "1e18";
     if (isNaN(money)) {
         return '-';
     }
-    // if (money < 0) {
-    //     money = -1 * money;
-    //     flag = false;
-    // }
+    if (format == '' || format == null || format == undefined || typeof format == 'object') {
+        format = 8;
+    }
+    if(coin=="SC"){
+    	unit = "1e24";
+    }
+    //钱除以1000并保留两位小数
+    money = new BigDecimal(money);
+    money = money.divide(new BigDecimal(unit), format, MathContext.ROUND_DOWN).toString();
+    
+    //去掉小数点后多余的0
+//  money = money.replace(/(-?\d+)\.0+$/, '$1').replace(/(.+[^0]+)0+$/, '$1');
+    return money;
+}
+//SC
+function moneyFormatSC(money, format, coin) {
+    var unit = "1e24";
+    if (isNaN(money)) {
+        return '-';
+    }
     if (format == '' || format == null || format == undefined || typeof format == 'object') {
         format = 8;
     }
     //钱除以1000并保留两位小数
-    // money = (money / 10e18).toString();
-    // money = parseFloat(money).toFixed(format);
     money = new BigDecimal(money);
-    money = money.divide(new BigDecimal("1e18"), 8, MathContext.ROUND_DOWN).toString();
-    // money = parseFloat(money).toFixed(format);
-    // if (!flag) {
-    //     money = "-" + money;
-    // }
+    money = money.divide(new BigDecimal(unit), format, MathContext.ROUND_DOWN).toString();
+    
+    //去掉小数点后多余的0
+//  money = money.replace(/(-?\d+)\.0+$/, '$1').replace(/(.+[^0]+)0+$/, '$1');
+    return money;
+}
+//BTC
+function moneyFormatBTC(money, format, coin) {
+    var unit = "1e24";
+    if (isNaN(money)) {
+        return '-';
+    }
+    if (format == '' || format == null || format == undefined || typeof format == 'object') {
+        format = 8;
+    }
+    //钱除以1000并保留两位小数
+    money = new BigDecimal(money);
+    money = money.divide(new BigDecimal(unit), format, MathContext.ROUND_DOWN).toString();
+    
+    //去掉小数点后多余的0
+//  money = money.replace(/(-?\d+)\.0+$/, '$1').replace(/(.+[^0]+)0+$/, '$1');
     return money;
 }
 
@@ -110,17 +141,18 @@ function moneyFormat(money, format) {
  * 提交时金额放大
  * @param money
  * @param rate
+ * @param coin 币种
  */
-function moneyParse(money, rate) {
-//  rate = rate || 1000;
-//  return ((+('' + money).replace(/,/g, '')) * rate).toFixed(0);
-	
-    rate = rate || new BigDecimal("1e18");
+function moneyParse(money, rate, coin) {
+	var unit = "1e18";
+	if(coin=="SC"){
+    	unit = "1e24";
+    }
+    rate = rate || new BigDecimal(unit);
 	money = new BigDecimal(money);
 	money = money.multiply(rate).toString();
     return money;
 }
-
 /**
  * 编辑金额格式转化
  * @param money
@@ -317,8 +349,16 @@ $.fn.serializeObject = function() {
             }
         } else {
             var value = this.value || '';
+            //入参判断是金额则金额放大,
             if ($('#' + this.name).parent('li').attr('type') == 'amount') {
-                value = moneyParse(value);
+            	//不同币种放大
+            	if($('#' + this.name).parent('li').attr('coin') == 'SC'){
+            		value = moneyParse(value,"","SC");
+            	}else if($('#' + this.name).parent('li').attr('coin') == 'BTC'){
+            		value = moneyParse(value,"","BTC");
+            	}else{
+            		value = moneyParse(value);
+            	}
             }
             if ($('#' + this.name).attr('multiple')) {
                 var values = [];
@@ -684,7 +724,13 @@ function buildList(options) {
     for (var i = 0, len = columns.length; i < len; i++) {
         var item = columns[i];
         if (item.amount) {
-            item.formatter = moneyFormat;
+        	if(item.coin=="SC"){
+        		item.formatter = moneyFormatSC
+        	}else if(item.coin=="BTC"){
+        		item.formatter = moneyFormatBTC
+        	}else {
+        		item.formatter = moneyFormat;
+        	}
         }
         if (item.search) {
             if (item.key || item.type == 'select') {
@@ -784,7 +830,14 @@ function buildList(options) {
             for (var j = 0, len1 = data.length; j < len1; j++) {
                 dataDict[data[j][item.keyName]] = data[j][item.valueName] || item.valueName.temp(data[j]);
                 if (item.amount) {
-                    dataDict[data[j][item.keyName]] = moneyFormat(dataDict[data[j][item.keyName]]);
+                	if(item.coin=="SC"){
+		        		dataDict[data[j][item.keyName]] = moneyFormat(dataDict[data[j][item.keyName]],'','SC');
+		        	}else if(item.coin=="BTC"){
+		        		dataDict[data[j][item.keyName]] = moneyFormat(dataDict[data[j][item.keyName]],'','BTC');
+		        	}else{
+		        		dataDict[data[j][item.keyName]] = moneyFormat(dataDict[data[j][item.keyName]]);
+		        	}
+                    
                 }
             }
 
@@ -1812,10 +1865,22 @@ function buildDetail(options) {
                         data.area && $('#area').html(data.area);
                     } else {
                         if (item.field && item.field.indexOf('-') > -1) {
-							$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(displayValue) : displayValue) || '-');
+                        	if(item.coin=="SC"){
+								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(displayValue,'','SC') : displayValue) || '-');
+				        	}else if(item.coin=="BTC"){
+								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(displayValue,'','BTC') : displayValue) || '-');
+				        	}else{
+								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(displayValue) : displayValue) || '-');
+				        	}
 						}
 						else if (item.field in data) {
-							$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(data[item.field]) : data[item.field]));
+							if(item.coin=="SC"){
+								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(data[item.field],'','SC') : data[item.field]));
+				        	}else if(item.coin=="BTC"){
+								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(data[item.field],'','BTC') : data[item.field]));
+				        	}else{
+								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(data[item.field]) : data[item.field]));
+				        	}
 						} else {
 							$('#' + item.field).html('-');
 						}
@@ -1936,9 +2001,13 @@ function buildDetail(options) {
                         if (item.formatter) {
                             $('#' + item.field).val(item.formatter(displayValue, data));
                         } else {
-                            $('#' + item.field).val((item.amount || item.amount1) ?
-                                moneyFormat(displayValue) :
-                                displayValue);
+                        	if(item.coin=="SC"){
+								$('#' + item.field).val((item.amount || item.amount1) ? moneyFormat(displayValue,'','SC') : displayValue);
+				        	}else if(item.coin=="BTC"){
+								$('#' + item.field).val((item.amount || item.amount1) ? moneyFormat(displayValue,'','BTC') : displayValue);
+				        	}else{
+                            	$('#' + item.field).val((item.amount || item.amount1) ? moneyFormat(displayValue) : displayValue);
+				        	}
                         }
                     }
                 }
@@ -2935,9 +3004,14 @@ function buildDetail1(options) {
                     data.area && $('#area-model').html(data.area);
                 } else {
                     if (displayValue) {
-                        $('#' + item.field + "-model").html(((item.amount || item.amount1) ?
-                            moneyFormat(displayValue) :
-                            displayValue) || '-');
+                    	
+                    	if(item.coin=="SC"){
+							$('#' + item.field + "-model").html(((item.amount || item.amount1) ? moneyFormat(displayValue,'','SC') : displayValue) || '-');
+			        	}else if(item.coin=="BTC"){
+							$('#' + item.field + "-model").html(((item.amount || item.amount1) ? moneyFormat(displayValue,'','BTC') : displayValue) || '-');
+			        	}else{
+							$('#' + item.field + "-model").html(((item.amount || item.amount1) ? moneyFormat(displayValue) : displayValue) || '-');
+						}
                     } else {
                         $('#' + item.field + "-model").html('-');
                     }
@@ -3038,7 +3112,14 @@ function buildDetail1(options) {
                     $('#' + item.field + "-model").val((item.type == 'datetime' ?
                         dateTimeFormat : dateFormat)(displayValue));
                 } else {
-                    $('#' + item.field + "-model").val(item.amount ? moneyFormat(displayValue) : displayValue);
+                	if(item.coin=="SC"){
+						$('#' + item.field + "-model").val(item.amount ? moneyFormat(displayValue,'','SC') : displayValue);
+		        	}else if(item.coin=="BTC"){
+						$('#' + item.field + "-model").val(item.amount ? moneyFormat(displayValue,'','BTC') : displayValue);
+		        	}else{
+						$('#' + item.field + "-model").val(item.amount ? moneyFormat(displayValue) : displayValue);
+					}
+                    
                 }
             }
 
@@ -3046,9 +3127,13 @@ function buildDetail1(options) {
                 if (item.value && item.value.call) {
                     $('#' + item.field + "-model").val(item.value(data));
                 } else {
-                    $('#' + item.field + "-model").val(item.amount ?
-                        moneyFormat(item.value) :
-                        item.value);
+                	if(item.coin=="SC"){
+						$('#' + item.field + "-model").val(item.amount ? moneyFormat(item.value,'','SC') : item.value);
+		        	}else if(item.coin=="BTC"){
+						$('#' + item.field + "-model").val(item.amount ? moneyFormat(item.value,'','BTC') : item.value);
+		        	}else{
+						$('#' + item.field + "-model").val(item.amount ? moneyFormat(item.value) : item.value);
+					}
                 }
             }
             if (item.type == 'select') {

@@ -94,12 +94,15 @@ $(function() {
         pageCode: '802755',
         singleSelect: false,
         searchParams: {
+        	currency: 'ETH',
             companyCode: OSS.company
         },
         beforeDetail: function(data) {
             window.location.href = "./TBunderline_detail.html?v=1&code=" + data.code;
         }
     });
+    
+    //代申请  add
     
     //提币广播
     $('#spBtn').click(function() {

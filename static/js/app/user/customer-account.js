@@ -34,7 +34,7 @@ $(function() {
 
             var amount = new BigDecimal(data.amountString);
             var frozenAmount = new BigDecimal(data.frozenAmountString);
-            return moneyFormat(amount.subtract(frozenAmount).toString());
+            return moneyFormat(amount.subtract(frozenAmount).toString(),'','SC');
         }
     }, {
         field: 'status',

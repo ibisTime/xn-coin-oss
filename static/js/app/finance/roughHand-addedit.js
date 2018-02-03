@@ -199,7 +199,7 @@ $(function() {
             title: '生成说明'
         }, ]
     }, {
-        field: 'transList',
+        field: 'ethTransList',
         title: '区块链流水',
         readonly: true,
         type: 'o2m',

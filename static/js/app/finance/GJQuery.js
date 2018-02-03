@@ -34,7 +34,7 @@ $(function() {
     }];
     buildList({
         columns: columns,
-        pageCode: '625105',
+        pageCode: '802115',
         searchParams: {
             companyCode: OSS.company
         }

@@ -13,9 +13,9 @@ $(function() {
     }];
     buildList({
         columns: columns,
-        pageCode: '625915',
+        pageCode: '660915',
         searchParams: {
-            type: 'collection_rule',
+            type: 'collection_rule_eth',
             companyCode: OSS.company,
 			updater: ''
         }

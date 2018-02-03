@@ -49,6 +49,7 @@ $(function() {
         singleSelect: false,
         searchParams: {
             channelType: "90",
+            currency: "ETH",
             companyCode: OSS.company
         },
         beforeDetail: function(data) {

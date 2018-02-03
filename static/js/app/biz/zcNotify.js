@@ -10,7 +10,7 @@ $(function() {
     }];
     buildList({
         columns: columns,
-        pageCode: '625905',
+        pageCode: '660905',
         searchParams: {
             companyCode: OSS.company,
             systemCode: OSS.company,
@@ -27,7 +27,7 @@ $(function() {
             id: selRecords[0].id
         }
         confirm('确认删除吗').then(function () {
-            reqApi({ code: '625901', json: data, sync: true }, true).then(function () {
+            reqApi({ code: '660901', json: data, sync: true }, true).then(function () {
                 sucList();
             })
         },function () {})

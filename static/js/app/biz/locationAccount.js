@@ -21,7 +21,16 @@ $(function() {
     }, {
         title: '余额',
         field: 'amountString',
-        formatter: moneyFormat
+        formatter: function(v, data){
+        	if(data.currency=="SC"){
+        		return moneyFormatSC(v);
+        	}else if(data.currency=="BTC"){
+        		return moneyFormatBTC(v);
+        	}else if(data.currency=="ETH"){
+        		return moneyFormat(v);
+        	}
+        	
+        }
     }, {
         title: '冻结金额',
         field: 'frozenAmountString',

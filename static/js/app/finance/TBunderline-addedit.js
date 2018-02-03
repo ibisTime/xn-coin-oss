@@ -14,7 +14,7 @@ $(function() {
             ['type', 'account_type']
         ],
         params: {
-            // currency: 'CNY',
+        	currency: 'ETH',
             // currencyList: ['CNY', "XJK"],
             userId: userId,
             type:'C'

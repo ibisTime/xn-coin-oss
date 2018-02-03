@@ -95,7 +95,7 @@ $(function() {
             },
             readonly: true
         }, {
-            field: 'collectionData',
+            field: 'ethCollection',
             title: '归集订单:',
             readonly: true,
             type: 'o2m',
@@ -195,7 +195,7 @@ $(function() {
                 formatter: dateTimeFormat
             }]
         }, {
-            field: 'transList',
+            field: 'ethTransList',
             title: '区块链流水',
             readonly: true,
             type: 'o2m',

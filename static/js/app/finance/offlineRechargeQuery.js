@@ -54,6 +54,7 @@ $(function() {
         pageCode: '802705',
         // singleSelect: false,
         searchParams: {
+            currency: "ETH",
             companyCode: OSS.company
         },
         beforeDetail: function(data) {

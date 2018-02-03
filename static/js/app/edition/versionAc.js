@@ -13,7 +13,7 @@ $(function() {
 	}];
 	buildList({
 		columns: columns,
-		pageCode: '625915',
+		pageCode: '660915',
 		searchParams: {
 			type: 'android-c',
 			companyCode: OSS.company,
