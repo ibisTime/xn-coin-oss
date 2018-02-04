@@ -34,8 +34,14 @@ $(function() {
     }, {
         title: "交易数量",
         field: "countString",
-        formatter: function(v, data) {
-            return moneyFormat(v)
+        formatter: function(v, data){
+        	if(data.tradeCoin=="SC"){
+        		return moneyFormatSC(v)+ "云储币";
+        	}else if(data.tradeCoin=="BTC"){
+        		return moneyFormatBTC(v)+ "比特币";
+        	}else if(data.tradeCoin=="ETH"){
+        		return moneyFormat(v)+ "以太币";
+        	}
         }
     }, {
         title: "交易金额",
@@ -43,7 +49,15 @@ $(function() {
     }, {
         title: "手续费",
         field: "feeString",
-        formatter: moneyFormat
+        formatter: function(v, data){
+        	if(data.tradeCoin=="SC"){
+        		return moneyFormatSC(v);
+        	}else if(data.tradeCoin=="BTC"){
+        		return moneyFormatBTC(v);
+        	}else if(data.tradeCoin=="ETH"){
+        		return moneyFormat(v);
+        	}
+        }
     }, {
         title: "交易虚拟币币种",
         field: "tradeCoin",

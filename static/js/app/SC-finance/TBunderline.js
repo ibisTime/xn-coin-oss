@@ -121,85 +121,19 @@ $(function() {
             toastr.info("只有审批通过的记录才可以广播");
             return;
         }
-
-        var balanceStart;
-        showLoading();
-        reqApi({
-            code: '625800',
-            json: {}
-        }).then(function(data) {
-            var amount1 = data.bcoinGasPrice;
-            var amount2 = 21000;
-            // amount1*amount2 = 矿工费
-            var amount3 = selRecords[0].amountString;      // 提现金额
-            var amount4 = selRecords[0].feeString;         // 手续费
-            var balanceStart1 = amount3 - amount4;
-            balanceStart = amount1 * amount2;
-            balanceStart= balanceStart1 + balanceStart;
-
-            hideLoading();
-
-
-            var dw = dialog({
-                content: '<form class="pop-form pop-form-uRef " id="popForm" novalidate="novalidate">' +
-                '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">提币广播</li></ul>' +
-                '</form>'
-            });
-
-            dw.showModal();
-
-            buildDetail({
-                container: $('#formContainer'),
-                fields: [{
-                    field: 'mAddressCode',
-                    title: '地址',
-                    required: true,
-                    type: "select",
-                    pageCode: "625205",
-                    params: {
-                        type: 'M',
-                        statusList: ['0'],
-                        companyCode: OSS.company,
-                        balanceStart: balanceStart
-                        // balanceStart: '0'
-                    },
-                    keyName: "code",
-                    valueName: "{{address.DATA}}--{{balanceString.DATA}}",
-                    searchName: "address",
-                    valueFormatter: {
-                        balanceString: moneyFormatSC
-                    }
-                }],
-                buttons: [{
-                    title: '确定',
-                    handler: function() {
-                        if($('#popForm').valid()){
-                            showLoading();
-
-                            var data = $('#popForm').serializeObject();
-                            data.approveUser = getUserName();
-                            data.code = selRecords[0].code;
-                            reqApi({
-                                code: '802754',
-                                json: data
-                            }).then(function() {
-                                hideLoading();
-                                sucList();
-                                dw.close().remove();
-                            },hideLoading);
-                        }
-
-                    }
-                }, {
-                    title: '取消',
-                    handler: function() {
-                        dw.close().remove();
-                    }
-                }]
-            });
-
-            dw.__center();
-        });
+		
+		confirm("确定广播这条记录？").then(function() {
+	    	reqApi({
+				code: '802754',
+				json: {
+					approveUser: selRecords[0].approveUser,
+					code: selRecords[0].code
+				}
+			}).then(function() {
+				sucList();
+			});
+		
+		},function() {})
 
     });
 	

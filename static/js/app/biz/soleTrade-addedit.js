@@ -31,11 +31,27 @@ $(function() {
     } ,  {
         title: "售卖总量",
         field: "totalCountString",
-        formatter: moneyFormat
+        formatter: function(v, data){
+        	if(data.tradeCoin=="SC"){
+        		return moneyFormatSC(v);
+        	}else if(data.tradeCoin=="BTC"){
+        		return moneyFormatBTC(v);
+        	}else if(data.tradeCoin=="ETH"){
+        		return moneyFormat(v);
+        	}
+        }
     }, {
         field: "leftCountString",
         title: "剩余可售卖",
-        formatter: moneyFormat
+        formatter: function(v, data){
+        	if(data.tradeCoin=="SC"){
+        		return moneyFormatSC(v);
+        	}else if(data.tradeCoin=="BTC"){
+        		return moneyFormatBTC(v);
+        	}else if(data.tradeCoin=="ETH"){
+        		return moneyFormat(v);
+        	}
+        }
     }, {
         title: "行情价格",
         field: "marketPrice",

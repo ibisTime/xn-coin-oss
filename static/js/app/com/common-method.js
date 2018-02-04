@@ -352,9 +352,9 @@ $.fn.serializeObject = function() {
             //入参判断是金额则金额放大,
             if ($('#' + this.name).parent('li').attr('type') == 'amount') {
             	//不同币种放大
-            	if($('#' + this.name).parent('li').attr('coin') == 'SC'){
+            	if($('#' + this.name).parent('li').attr('data-coin') == 'SC'){
             		value = moneyParse(value,"","SC");
-            	}else if($('#' + this.name).parent('li').attr('coin') == 'BTC'){
+            	}else if($('#' + this.name).parent('li').attr('data-coin') == 'BTC'){
             		value = moneyParse(value,"","BTC");
             	}else{
             		value = moneyParse(value);
@@ -1247,6 +1247,7 @@ function buildDetail(options) {
                 html += '</li>';
             } else {
                 html += '<li class="clearfix" type="' + ((item.amount || item.amount1) ? 'amount' : '') +
+                    '" data-coin="' + (item.coin ? item.coin : '') +
                     '" style="' + (item.width ? ('width: ' + item.width + ';display:inline-block;') : '') +
                     (item.hidden ? 'display: none;' : '') + '"><label>' +
                     (item.help ? '<i data-help="' + item.help + '" class="zmdi zmdi-help-outline field-help"></i>' : '') +
@@ -1255,6 +1256,7 @@ function buildDetail(options) {
             }
         } else {
             html += '<li class="clearfix" type="' + ((item.amount || item.amount1) ? 'amount' : '') +
+            '" data-coin="' + (item.coin ? item.coin : '') +
                 '" style="' + (item.width ? ('width: ' + item.width + ';display:inline-block;') : '') +
                 (item.hidden ? 'display: none;' : '') + '"><label>' + (item.help ?
                     '<i data-help="' + item.help + '" class="zmdi zmdi-help-outline field-help"></i>' : '') +

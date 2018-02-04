@@ -9,7 +9,7 @@ $(function() {
         required: true,
         type: 'select',
         pageCode: userId ? '802503' : '802500',
-        keyCode1: '625907',
+        keyCode1: '660906',
         dict: [
             ['currency', 'coin'],
             ['type', 'account_type']
@@ -28,6 +28,8 @@ $(function() {
         required: true,
         number: true,
         maxlength: 13,
+        amount: 'true',
+        coin:"ETH",
         formatter: moneyFormat
     }, {
         field: 'payCardInfo',
@@ -49,8 +51,8 @@ $(function() {
         view: view,
         beforeSubmit: function(data) {
             var BIGvalue = new BigDecimal(data.amount);
-            value = BIGvalue.multiply(new BigDecimal("1000000000000000000")).toString();
-            data.amount = value;
+//          value = BIGvalue.multiply(new BigDecimal("1000000000000000000")).toString();
+//          data.amount = value;
             data.applyUser = getUserId();
             return data;
         }

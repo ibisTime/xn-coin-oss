@@ -195,7 +195,7 @@ $(function() {
                 formatter: dateTimeFormat
             }]
         }, {
-            field: 'ethTransList',
+            field: 'scTransList',
             title: '区块链流水',
             readonly: true,
             type: 'o2m',

@@ -29,7 +29,6 @@ $(function() {
         	}else if(data.currency=="ETH"){
         		return moneyFormat(v);
         	}
-        	
         }
     }, {
         title: '冻结金额',
