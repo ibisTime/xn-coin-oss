@@ -88,6 +88,7 @@ $(function() {
         searchParams: {
             type: "sell",
             statusList: ["2","3"],
+            tradeCoin: 'ETH',
             companyCode: OSS.company
         },
         beforeSearch:function(data){

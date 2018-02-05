@@ -46,35 +46,38 @@ $(function() {
     }, hideLoading);
     
     reqApi({
-        code: '802900',
+        code: '802902',
         sync: true
     }).then(function(data) {
     	hideLoading()
         var tableData = [{
+	        	name: '冷钱包余额',
+	        	amount: data.coldCount
+	        },{
+	        	name: '盈亏余额',
+	        	amount: data.platCount
+	        },{
 	        	name: '平台所有币',
 	        	amount: data.totalCount
-	        },{
-	        	name: '客户未归集总额',
-	        	amount: data.toCollectCount
-	        },{
-	        	name: '当前散取地址余额',
-	        	amount: data.toWithdrawCount
 	        },{
 	        	name: '历史归集总额',
 	        	amount: data.totolCollectCount
 	        },{
 	        	name: '历史散取总额',
 	        	amount: data.totolWithdrawCount
+	        },{
+	        	name: '当前钱包余额',
+	        	amount: data.walletCount
 	        }]
         
         $('#tableList').bootstrapTable('prepend', tableData)
     }, hideLoading);
     
     $("#CNYls-Btn").click(function() {
-        location.href = "ledger.html?accountNumber=" + accountNumberCNY;
+        location.href = "./ledger.html?accountNumber=" + accountNumberCNY;
     });
     $("#accoutGrantBtn").click(function() {
-        location.href = "ledger.html?accountNumber=" + accountNumberTG + "&kind=TG";
+        location.href = "./ledger.html?accountNumber=" + accountNumberTG + "&kind=TG";
     });
 
 });

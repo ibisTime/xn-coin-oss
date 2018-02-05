@@ -25,6 +25,18 @@ $(function() {
         title: '提现金额',
         formatter: moneyFormatSC
     }, {
+        field: 'amount',
+        title: '实际到账金额',
+        formatter: function(v, data) {
+            var amount = new BigDecimal(data.amountString);
+            var feeString = new BigDecimal(data.feeString);
+            return moneyFormatSC(amount.subtract(feeString).toString());
+        }
+    }, {
+        field: 'feeString',
+        title: '手续费',
+        formatter: moneyFormatSC
+    }, {
         field: 'channelType',
         title: '渠道',
         type: 'select',

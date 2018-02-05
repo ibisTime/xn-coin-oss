@@ -88,6 +88,7 @@ $(function() {
         searchParams: {
             type: "buy",
             statusList: ["2","3"],
+            tradeCoin: 'SC',
             companyCode: OSS.company
         },
         beforeSearch:function(data){

@@ -5,28 +5,25 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'amountString',
+        title: "交易ID",
+        field: 'transactionid'
+    }, {
+        field: 'value',
         title: '交易数量',
         formatter: moneyFormatSC
     }, {
-        field: 'fromAddress',
+        field: 'from',
         title: '来方归集',
     }, {
         title: "去方归集地址",
-        field: "toAddress"
+        field: "to"
     }, {
-        title: "交易HASH",
-        field: 'txHash'
+        title: "确认高度",
+        field: "confirmationheight"
     }, {
-        field: 'status',
-        title: '状态',
-        type: 'select',
-        data: {
-            "0": "广播中",
-            "1": "广播成功",
-            "2": "广播失败"
-        },
-        search: true
+        title: "确认时间",
+        field: "confirmationtimestamp",
+        formatter: dateTimeFormat
     }, {
         field: 'createDatetime',
         title: '归集时间',
@@ -34,7 +31,7 @@ $(function() {
     }];
     buildList({
         columns: columns,
-        pageCode: '802165',
+        pageCode: '802157',
         searchParams: {
             companyCode: OSS.company
         }

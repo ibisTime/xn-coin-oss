@@ -64,9 +64,8 @@ $(function() {
 
         },
         searchParams: {
-            channelType: "",
-            status: "3",
             currency: "SC",
+            status: "3",
             companyCode: OSS.company
         },
         beforeSearch: function(data) {

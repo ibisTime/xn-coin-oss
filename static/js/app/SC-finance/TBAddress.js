@@ -25,12 +25,6 @@ $(function() {
         field: 'useAmountString',
         title: '提币金额',
         formatter: moneyFormatSC
-    }, {
-        title: "余额",
-        field: "balanceString",
-        formatter: function (v, data) {
-            return moneyFormatSC(data.balanceString) + '云储币'
-        }
     }];
     buildList({
         columns: columns,
