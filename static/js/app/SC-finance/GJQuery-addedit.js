@@ -12,7 +12,7 @@ $(function() {
         formatter: moneyFormatSC
     }, {
         field: 'fromAddress',
-        title: '来方归集',
+        title: '来方归集地址',
     }, {
         title: "去方归集地址",
         field: "toAddress"
@@ -43,7 +43,7 @@ $(function() {
 
     var options = {
         fields: fields,
-        detailCode: '625106',
+        detailCode: '802116',
         code: code,
         view: true
     };

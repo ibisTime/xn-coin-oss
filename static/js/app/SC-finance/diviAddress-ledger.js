@@ -18,9 +18,9 @@ $(function() {
         formatter: moneyFormatSC
     }, {
         field: 'from',
-        title: '来方归集',
+        title: '来方地址',
     }, {
-        title: "去方归集地址",
+        title: "去方地址",
         field: "to"
     }, {
         title: "确认高度",

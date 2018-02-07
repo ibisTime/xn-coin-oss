@@ -13,7 +13,7 @@ $(function() {
         formatter: moneyFormatSC
     }, {
         field: 'from',
-        title: '来方归集',
+        title: '来方归集地址',
     }, {
         title: "去方归集地址",
         field: "to"
@@ -31,7 +31,7 @@ $(function() {
     }];
     buildList({
         columns: columns,
-        pageCode: '802157',
+        pageCode: '802165',
         searchParams: {
             companyCode: OSS.company
         }

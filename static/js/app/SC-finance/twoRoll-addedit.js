@@ -60,7 +60,7 @@ $(function() {
             title: "手续费",
             field: "feeString",
             formatter: function(v, data) {
-                return moneyFomoneyFormatSCrmat(data.tradeOrder.feeString);
+                return moneyFormatSC(data.tradeOrder.feeString);
             },
             readonly: true
         }, {
@@ -68,7 +68,7 @@ $(function() {
             field: "tradeCoin",
             formatter: function(v, data) {
                 if (data.tradeOrder) {
-            		return Dict.getNameForList1('channel_type','',data.withdraw.channelType);
+            		return Dict.getNameForList1('channel_type','',data.tradeOrder.tradeCoin);
                 }
 
             },

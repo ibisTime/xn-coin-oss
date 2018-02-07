@@ -204,59 +204,31 @@ $(function() {
         readonly: true,
         type: 'o2m',
         columns: [{
-            field: 'blockNumber',
-            title: 'blockNumber',
-        }, {
-            field: 'from',
-            title: 'from'
-        }, {
-            field: 'to',
-            title: 'to'
-        }, {
-            field: 'gas',
-            title: 'gasLimit',
-        }, {
-            field: 'gasPrice',
-            title: 'gasPrice',
-            formatter: moneyFormatSC,
-        }, {
-            field: 'gasUsed',
-            title: 'gasUsed'
-        }, {
-	        title: "矿工费",
-	        field: 'kgPrice',
-	        formatter: function(v,data){
-	        	var gasPrice = new BigDecimal(data.gasPrice);
-	        	var gasUsed = new BigDecimal(data.gasUsed);
-	        	kgPrice =  gasPrice.multiply(gasUsed).toString();
-	        	return moneyFormatSC(kgPrice);
-	        	}
-        },{
-            field: 'nonce',
-            title: 'nonce'
-        }, {
-            field: 'refNo',
-            title: 'refNo'
-        }, {
-            title: "交易Hash",
-            field: "hash"
-        }, {
-            field: 'transactionIndex',
-            title: 'transactionIndex'
-        }, {
-            title: "value",
-            field: "value",
-            formatter: moneyFormatSC,
+            title: "交易ID",
+	        field: 'transactionid'
+	    }, {
+	        field: 'value',
+	        title: '交易数量',
+	        formatter: moneyFormatSC
+	    }, {
+	        field: 'from',
+	        title: '来方地址',
+	    }, {
+	        title: "去方地址",
+	        field: "to"
+	    }, {
+	        title: "确认高度",
+	        field: "confirmationheight"
+	    }, {
+	        title: "确认时间",
+	        field: "confirmationtimestamp",
+	        formatter: dateTimeFormat
+	    }, {
+	        field: 'createDatetime',
+	        title: '归集时间',
+	        formatter: dateTimeFormat
         }]
     }, {
-//      title: '对账说明',
-//      field: 'checkNote',
-//      // type: "textarea",
-//      // normalArea: true,
-//      required: true,
-//      readonly: view,
-//      maxlength: 250
-//  }, {
         field: 'checkUser',
         type: 'hidden',
         value: getUserName()
