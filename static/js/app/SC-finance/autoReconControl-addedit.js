@@ -101,41 +101,43 @@ $(function() {
             type: 'o2m',
             useData: collectionData,
             columns: [{
-                field: 'amountString',
-                title: '归集数量',
-                formatter: moneyFormatSC
-            }, {
-                field: 'txFeeString',
-                title: '矿工费',
-                formatter: moneyFormatSC
-            }, {
-                field: 'refNo',
-                title: '关联充值订单号'
-            }, {
-                field: 'fromAddress',
-                title: 'from'
-            }, {
-                field: 'toAddress',
-                title: 'to'
-            }, {
-                field: 'txHash',
-                title: '交易Hash'
-            }, {
-                field: 'status',
-                title: '状态',
-                type: 'select',
-                key: 'collection_status',
-                formatter: Dict.getNameForList('collection_status'),
-                search: true
-            }, {
-                field: 'createDatetime',
-                title: '归集发起时间',
-                formatter: dateTimeFormat
-            }, {
-                field: 'ethDatetime',
-                title: '网络记账时间',
-                formatter: dateTimeFormat
-            }]
+               field: 'amountString',
+		        title: '交易数量',
+		        formatter: moneyFormatSC
+		    }, {
+		        title: "矿工费",
+		        field: 'txFeeString',
+		        formatter: moneyFormatSC
+		    }, {
+		        field: 'fromAddress',
+		        title: '来方归集地址',
+		    }, {
+		        title: "去方归集地址",
+		        field: "toAddress"
+		    }, {
+		        title: "交易HASH",
+		        field: 'txHash'
+		    }, {
+		        title: "关联订单号",
+		        field: 'refNo'
+		    }, {
+		        field: 'status',
+		        title: '状态',
+		        type: 'select',
+		        data: {
+		            "0": "广播中",
+		            "1": "广播成功",
+		            "2": "广播失败"
+		        }
+		    }, {
+		        field: 'ethDatetime',
+		        title: '网络记账时间',
+		        formatter: dateTimeFormat
+		    }, {
+		        field: 'createDatetime',
+		        title: '归集时间',
+		        formatter: dateTimeFormat
+		            }]
         }, {
             field: 'jourList',
             title: '本地流水:',
@@ -200,50 +202,32 @@ $(function() {
             readonly: true,
             type: 'o2m',
             columns: [{
-                field: 'blockNumber',
-                title: 'blockNumber',
-            }, {
-                field: 'from',
-                title: 'from'
-            }, {
-                field: 'to',
-                title: 'to'
-            }, {
-                field: 'gas',
-                title: 'gasLimit',
-            }, {
-                field: 'gasPrice',
-                title: 'gasPrice',
-                formatter: moneyFormatSC,
-            }, {
-                field: 'gasUsed',
-                title: 'gasUsed'
-            }, {
+                title: "交易ID",
+		        field: 'transactionid'
+		    }, {
+		        field: 'value',
+		        title: '交易数量',
+		        formatter: moneyFormatSC
+		    }, {
 		        title: "矿工费",
-		        field: 'kgPrice',
-        		coin: 'SC',
-		        formatter: function(v,data){
-		        	var gasPrice = new BigDecimal(data.gasPrice);
-		        	var gasUsed = new BigDecimal(data.gasUsed);
-		        	kgPrice =  gasPrice.multiply(gasUsed).toString();
-		        	return moneyFormatSC(kgPrice);
-		        	}
-	        },{
-                field: 'nonce',
-                title: 'nonce'
-            }, {
-                field: 'refNo',
-                title: 'refNo'
-            }, {
-                title: "交易Hash",
-                field: "hash"
-            }, {
-                field: 'transactionIndex',
-                title: 'transactionIndex'
-            }, {
-                title: "value",
-                field: "value",
-                formatter: moneyFormatSC,
+		        field: 'minerfee',
+		        formatter: moneyFormatSC
+		    }, {
+		        field: 'from',
+		        title: '来方地址',
+		    }, {
+		        title: "去方地址",
+		        field: "to"
+		    }, {
+		        title: "确认高度",
+		        field: "confirmationheight"
+		    }, {
+		        title: "确认时间",
+		        field: "confirmationtimestamp",
+		        formatter: dateTimeFormat
+		    }, {
+		        field: 'refNo',
+		        title: '关联订单号',
             }]
         }, {
 //          title: '对账说明',

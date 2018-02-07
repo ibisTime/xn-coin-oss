@@ -18,13 +18,13 @@ $(function() {
         title: "创建日期",
         field: "createDatetime",
         formatter: dateTimeFormat
-    }, {
-        title: "使用次数",
-        field: "useCount"
-    }, {
-        field: 'useAmountString',
-        title: '提币金额',
-        formatter: moneyFormatSC
+//  }, {
+//      title: "使用次数",
+//      field: "useCount"
+//  }, {
+//      field: 'useAmountString',
+//      title: '提币金额',
+//      formatter: moneyFormatSC
     }];
     buildList({
         columns: columns,

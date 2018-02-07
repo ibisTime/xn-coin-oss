@@ -137,7 +137,7 @@ $(function() {
         var balanceStart;
         showLoading();
         reqApi({
-            code: '625800',
+            code: '802901',
             json: {}
         }).then(function(data) {
             var amount1 = data.bcoinGasPrice;
@@ -150,7 +150,6 @@ $(function() {
             balanceStart= balanceStart1 + balanceStart;
 
             hideLoading();
-
 
             var dw = dialog({
                 content: '<form class="pop-form pop-form-uRef " id="popForm" novalidate="novalidate">' +
@@ -167,7 +166,7 @@ $(function() {
                     title: '地址',
                     required: true,
                     type: "select",
-                    pageCode: "625205",
+                    pageCode: "802105",
                     params: {
                         type: 'M',
                         statusList: ['0'],

@@ -5,28 +5,42 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        title: "交易ID",
-        field: 'transactionid'
+        title: "交易编号",
+        field: 'txHash'
     }, {
-        field: 'value',
-        title: '交易数量',
+        title: "归集订单编号",
+        field: 'code'
+    }, {
+        field: 'amountString',
+        title: '归集数量',
         formatter: moneyFormatSC
     }, {
-        field: 'from',
+        field: 'fromAddress',
         title: '来方归集地址',
     }, {
         title: "去方归集地址",
-        field: "to"
+        field: "toAddress"
     }, {
-        title: "确认高度",
-        field: "confirmationheight"
+        field: 'txFeeString',
+        title: '矿工费',
+        formatter: moneyFormatSC
     }, {
-        title: "确认时间",
-        field: "confirmationtimestamp",
+        field: 'status',
+        title: '状态',
+        type: 'select',
+        data: {
+            "0": "广播中",
+            "1": "广播成功",
+            "2": "广播失败"
+        },
+        search: true
+    }, {
+        title: "区块生成时间",
+        field: "scDatetime",
         formatter: dateTimeFormat
     }, {
         field: 'createDatetime',
-        title: '归集时间',
+        title: '归集发起时间',
         formatter: dateTimeFormat
     }];
     buildList({

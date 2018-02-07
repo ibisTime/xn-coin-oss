@@ -43,7 +43,7 @@ $(function() {
 
     var options = {
         fields: fields,
-        detailCode: '625106',
+        detailCode: '802116',
         code: code,
         view: true
     };
