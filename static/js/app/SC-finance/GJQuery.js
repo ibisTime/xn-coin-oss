@@ -5,25 +5,18 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        title: "交易编号",
-        field: 'txHash'
-    }, {
-        title: "归集订单编号",
-        field: 'code'
-    }, {
         field: 'amountString',
-        title: '归集数量',
+        title: '交易数量',
         formatter: moneyFormatSC
     }, {
         field: 'fromAddress',
-        title: '来方归集地址',
+        title: '来方归集',
     }, {
         title: "去方归集地址",
         field: "toAddress"
     }, {
-        field: 'txFeeString',
-        title: '矿工费',
-        formatter: moneyFormatSC
+        title: "交易HASH",
+        field: 'txHash'
     }, {
         field: 'status',
         title: '状态',
@@ -35,18 +28,15 @@ $(function() {
         },
         search: true
     }, {
-        title: "区块生成时间",
-        field: "scDatetime",
-        formatter: dateTimeFormat
-    }, {
         field: 'createDatetime',
-        title: '归集发起时间',
+        title: '归集时间',
         formatter: dateTimeFormat
     }];
     buildList({
         columns: columns,
-        pageCode: '802165',
+        pageCode: '802115',
         searchParams: {
+        	currency:'SC',
             companyCode: OSS.company
         }
     });

@@ -9,7 +9,7 @@ $(function() {
         },
         sync: true
     }).then(function(data) {
-        collectionData = data.ethCollection?[data.ethCollection]:[]
+        collectionData = data.collection?[data.collection]:[]
     });
     var fields = [{
             title: '户名',
@@ -132,9 +132,9 @@ $(function() {
                 title: '归集发起时间',
                 formatter: dateTimeFormat
             }, {
-                field: 'ethDatetime',
-                title: '网络记账时间',
-                formatter: dateTimeFormat
+				field: 'confirmDatetime',
+				title: '区块确认时间',
+				formatter: dateTimeFormat
             }]
         }, {
             field: 'jourList',

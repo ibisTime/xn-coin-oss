@@ -221,8 +221,7 @@ $(function() {
 	        field: "confirmationheight"
 	    }, {
 	        title: "确认时间",
-	        field: "confirmationtimestamp",
-	        formatter: dateTimeFormat
+	        field: "confirmationtime"
 	    }, {
 	        field: 'createDatetime',
 	        title: '归集时间',

@@ -36,6 +36,7 @@ $(function() {
         columns: columns,
         pageCode: '802115',
         searchParams: {
+        	currency:'ETH',
             companyCode: OSS.company
         }
     });

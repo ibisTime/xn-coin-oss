@@ -9,7 +9,7 @@ $(function() {
         },
         sync: true
     }).then(function(data) {
-        collectionData = data.ethCollection?[data.ethCollection]:[]
+        collectionData = data.collection?[data.collection]:[]
     });
     var fields = [{
             title: '户名',
@@ -101,43 +101,41 @@ $(function() {
             type: 'o2m',
             useData: collectionData,
             columns: [{
-               field: 'amountString',
-		        title: '交易数量',
-		        formatter: moneyFormatSC
-		    }, {
-		        title: "矿工费",
-		        field: 'txFeeString',
-		        formatter: moneyFormatSC
-		    }, {
-		        field: 'fromAddress',
-		        title: '来方归集地址',
-		    }, {
-		        title: "去方归集地址",
-		        field: "toAddress"
-		    }, {
-		        title: "交易HASH",
-		        field: 'txHash'
-		    }, {
-		        title: "关联订单号",
-		        field: 'refNo'
-		    }, {
-		        field: 'status',
-		        title: '状态',
-		        type: 'select',
-		        data: {
-		            "0": "广播中",
-		            "1": "广播成功",
-		            "2": "广播失败"
-		        }
-		    }, {
-		        field: 'ethDatetime',
-		        title: '网络记账时间',
-		        formatter: dateTimeFormat
-		    }, {
-		        field: 'createDatetime',
-		        title: '归集时间',
-		        formatter: dateTimeFormat
-		            }]
+                field: 'amountString',
+                title: '归集数量',
+                formatter: moneyFormatSC
+            }, {
+                field: 'txFeeString',
+                title: '矿工费',
+                formatter: moneyFormatSC
+            }, {
+                field: 'refNo',
+                title: '关联充值订单号'
+            }, {
+                field: 'fromAddress',
+                title: 'from'
+            }, {
+                field: 'toAddress',
+                title: 'to'
+            }, {
+                field: 'txHash',
+                title: '交易Hash'
+            }, {
+                field: 'status',
+                title: '状态',
+                type: 'select',
+                key: 'collection_status',
+                formatter: Dict.getNameForList('collection_status'),
+                search: true
+            }, {
+                field: 'createDatetime',
+                title: '归集发起时间',
+                formatter: dateTimeFormat
+            }, {
+				field: 'confirmDatetime',
+				title: '区块确认时间',
+				formatter: dateTimeFormat
+            }]
         }, {
             field: 'jourList',
             title: '本地流水:',
@@ -223,8 +221,8 @@ $(function() {
 		        field: "confirmationheight"
 		    }, {
 		        title: "确认时间",
-		        field: "confirmationtimestamp",
-		        formatter: dateTimeFormat
+		        field: "confirmationtime",
+                formatter: dateTimeFormat
 		    }, {
 		        field: 'refNo',
 		        title: '关联订单号',

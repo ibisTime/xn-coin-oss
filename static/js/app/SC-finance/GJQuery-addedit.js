@@ -32,8 +32,8 @@ $(function() {
             "2": "广播失败"
         }
     }, {
-        field: 'ethDatetime',
-        title: '网络记账时间',
+        field: 'confirmDatetime',
+        title: '区块确认时间',
         formatter: dateTimeFormat
     }, {
         field: 'createDatetime',

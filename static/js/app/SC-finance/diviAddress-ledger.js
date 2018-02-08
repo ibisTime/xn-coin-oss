@@ -27,8 +27,7 @@ $(function() {
         field: "confirmationheight"
     }, {
         title: "确认时间",
-        field: "confirmationtimestamp",
-        formatter: dateTimeFormat
+        field: "confirmationtime"
     }, {
         field: 'refNo',
         title: '关联订单号',
