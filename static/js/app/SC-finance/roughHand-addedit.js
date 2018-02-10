@@ -221,10 +221,7 @@ $(function() {
 	        field: "confirmationheight"
 	    }, {
 	        title: "确认时间",
-	        field: "confirmationtime"
-	    }, {
-	        field: 'createDatetime',
-	        title: '归集时间',
+	        field: "confirmationtime",
 	        formatter: dateTimeFormat
         }]
     }, {
