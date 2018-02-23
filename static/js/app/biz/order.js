@@ -61,11 +61,9 @@ $(function() {
         field: "countString",
         formatter: function(v, data){
         	if(data.tradeCoin=="SC"){
-        		return moneyFormatSC(v)+ "云储币";
-        	}else if(data.tradeCoin=="BTC"){
-        		return moneyFormatBTC(v)+ "比特币";
-        	}else if(data.tradeCoin=="ETH"){
-        		return moneyFormat(v)+ "以太币";
+        		return moneyFormatSC(v)+Dict.getNameForList1("coin","",data.tradeCoin);
+        	}else{
+        		return moneyFormat(v)+Dict.getNameForList1("coin","",data.tradeCoin);
         	}
         }
     }, {
@@ -77,9 +75,7 @@ $(function() {
         formatter: function(v, data){
         	if(data.tradeCoin=="SC"){
         		return moneyFormatSC(v);
-        	}else if(data.tradeCoin=="BTC"){
-        		return moneyFormatBTC(v);
-        	}else if(data.tradeCoin=="ETH"){
+        	}else{
         		return moneyFormat(v);
         	}
         }

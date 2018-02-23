@@ -21,7 +21,7 @@ $(function() {
     }, {
         field: 'amountString',
         title: '充值金额',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: "bizNote",
         title: "充值说明"
@@ -49,6 +49,7 @@ $(function() {
         singleSelect: false,
         searchParams: {
             channelType: "90",
+            currency: "BTC",
             companyCode: OSS.company
         },
         beforeDetail: function(data) {
@@ -111,9 +112,7 @@ $(function() {
                                 code: '802701',
                                 json: data
                             }).done(function(data) {
-                                toastr.info("操作成功");
-
-                                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                            	sucList();
                                 dw.close().remove();
                             });
                         }
@@ -133,8 +132,7 @@ $(function() {
                                 code: '802701',
                                 json: data
                             }).done(function(data) {
-                                toastr.info("操作成功");
-                                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                            	sucList();
                                 dw.close().remove();
                             });
                         }

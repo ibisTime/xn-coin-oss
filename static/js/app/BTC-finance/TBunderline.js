@@ -25,6 +25,18 @@ $(function() {
         title: '提现金额',
         formatter: moneyFormat
     }, {
+        field: 'amount',
+        title: '实际到账金额',
+        formatter: function(v, data) {
+            var amount = new BigDecimal(data.amountString);
+            var feeString = new BigDecimal(data.feeString);
+            return moneyFormat(amount.subtract(feeString).toString());
+        }
+    }, {
+        field: 'feeString',
+        title: '手续费',
+        formatter: moneyFormat
+    }, {
         field: 'channelType',
         title: '渠道',
         type: 'select',
@@ -94,43 +106,47 @@ $(function() {
         pageCode: '802755',
         singleSelect: false,
         searchParams: {
+        	currency: 'SC',
             companyCode: OSS.company
         },
         beforeDetail: function(data) {
             window.location.href = "./TBunderline_detail.html?v=1&code=" + data.code;
         }
     });
-
+    
+    //提币广播
     $('#spBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
             return;
         }
-        var dataCode = []
-
-        for (var i = 0; i < selRecords.length; i++) {
-            dataCode.push(selRecords[i].code)
-
-            if (selRecords[i].status != 3) {
-                toastr.info(selRecords[i].code + "状态不能广播，只有审批通过才可以广播!");
-                return;
-            }
-
+        
+        if (selRecords.length > 1) {
+            toastr.info("请选择一条记录");
+            return;
         }
-        confirm("确定进行广播？").then(function() {
-            reqApi({
-                code: '802754',
-                json: {
-                    codeList: dataCode,
-                    approveUser: getUserName()
-                }
-            }).then(function() {
-                sucList();
-            });
+		
+		if (selRecords[0].status !="3") {
+            toastr.info("只有审批通过的记录才可以广播");
+            return;
+        }
+		
+		confirm("确定广播这条记录？").then(function() {
+	    	reqApi({
+				code: '802754',
+				json: {
+					approveUser: selRecords[0].approveUser,
+					code: selRecords[0].code
+				}
+			}).then(function() {
+				sucList();
+			});
+		
+		},function() {})
 
-        }, function() {});
     });
+	
     //审核
     $('#multiCheckBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
@@ -181,8 +197,7 @@ $(function() {
 	                            code: '802752',
 	                            json: data
 	                        }).done(function(data) {
-	                            toastr.info("操作成功");
-	                            $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+	                        	sucList();
 	                            dw.close().remove();
 	                        });
 	                    }
@@ -202,8 +217,7 @@ $(function() {
 	                            code: '802752',
 	                            json: data
 	                        }).done(function(data) {
-	                            toastr.info("操作成功");
-	                            $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+	                        	sucList();
 	                            dw.close().remove();
 	                        });
 	                    }

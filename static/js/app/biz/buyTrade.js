@@ -37,9 +37,7 @@ $(function() {
         formatter: function(v, data){
         	if(data.tradeCoin=="SC"){
         		return moneyFormatSC(v);
-        	}else if(data.tradeCoin=="BTC"){
-        		return moneyFormatBTC(v);
-        	}else if(data.tradeCoin=="ETH"){
+        	}else{
         		return moneyFormat(v);
         	}
         }
@@ -49,9 +47,7 @@ $(function() {
         formatter: function(v, data){
         	if(data.tradeCoin=="SC"){
         		return moneyFormatSC(v);
-        	}else if(data.tradeCoin=="BTC"){
-        		return moneyFormatBTC(v);
-        	}else if(data.tradeCoin=="ETH"){
+        	}else{
         		return moneyFormat(v);
         	}
         }

@@ -12,7 +12,6 @@ $(function() {
         title: '数值'
     }];
     buildList({
-        // router: "GJRule",
         columns: columns,
         pageCode: '660915',
         searchParams: {

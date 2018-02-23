@@ -15,7 +15,7 @@ $(function() {
         columns: columns,
         pageCode: '660915',
         searchParams: {
-            type: 'collection_rule',
+            type: 'collection_rule_btc',
             companyCode: OSS.company,
 			updater: ''
         }

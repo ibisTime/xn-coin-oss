@@ -93,6 +93,8 @@ function moneyFormat(money, format, coin) {
     }
     if(coin=="SC"){
     	unit = "1e24";
+    }else if(coin=="BTC"){
+    	unit = "1e8";
     }
     //钱除以1000并保留两位小数
     money = new BigDecimal(money);
@@ -121,7 +123,7 @@ function moneyFormatSC(money, format, coin) {
 }
 //BTC
 function moneyFormatBTC(money, format, coin) {
-    var unit = "1e24";
+    var unit = "1e8";
     if (isNaN(money)) {
         return '-';
     }
@@ -147,6 +149,8 @@ function moneyParse(money, rate, coin) {
 	var unit = "1e18";
 	if(coin=="SC"){
     	unit = "1e24";
+    }else if(coin=="BTC"){
+    	unit = "1e8";
     }
     rate = rate || new BigDecimal(unit);
 	money = new BigDecimal(money);

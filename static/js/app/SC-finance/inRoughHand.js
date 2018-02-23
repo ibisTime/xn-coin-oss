@@ -51,7 +51,7 @@ $(function() {
         title: "交易数量",
         field: "countString",
         formatter: function(v, data) {
-            return moneyFormatSC(v) + "云储币";
+            return moneyFormatSC(v) + Dict.getNameForList1("coin",'',data.tradeOrder.tradeCoin);
         }
     }, {
         title: "交易金额",

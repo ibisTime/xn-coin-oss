@@ -24,9 +24,7 @@ $(function() {
         formatter: function(v, data){
         	if(data.currency=="SC"){
         		return moneyFormatSC(v);
-        	}else if(data.currency=="BTC"){
-        		return moneyFormatBTC(v);
-        	}else if(data.currency=="ETH"){
+        	}else{
         		return moneyFormat(v);
         	}
         }

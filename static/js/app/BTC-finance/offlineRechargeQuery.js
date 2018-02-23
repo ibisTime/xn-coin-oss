@@ -25,8 +25,11 @@ $(function() {
         field: 'channelType',
         title: '支付渠道',
         type: 'select',
-        key: 'channel_type',
-        formatter: Dict.getNameForList('channel_type'),
+        data:{
+        	"BTC" : '比特币',
+        	"90" : "人工线下"
+        },
+        search: true,
     }, {
         field: "bizNote",
         title: "充值说明"
@@ -54,6 +57,7 @@ $(function() {
         pageCode: '802705',
         // singleSelect: false,
         searchParams: {
+            currency: "BTC",
             companyCode: OSS.company
         },
         beforeDetail: function(data) {
@@ -115,9 +119,7 @@ $(function() {
                                 code: '802701',
                                 json: data
                             }).done(function(data) {
-                                toastr.info("操作成功");
-
-                                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                            	sucList();
                                 dw.close().remove();
                             });
                         }
@@ -137,8 +139,7 @@ $(function() {
                                 code: '802701',
                                 json: data
                             }).done(function(data) {
-                                toastr.info("操作成功");
-                                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                            	sucList();
                                 dw.close().remove();
                             });
                         }

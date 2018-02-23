@@ -51,7 +51,7 @@ $(function() {
         title: "交易数量",
         field: "countString",
         formatter: function(v, data) {
-            return moneyFormat(v) + "以太币";
+            return moneyFormat(v) + Dict.getNameForList1('channel_type','',data.tradeOrder.tradeCoin);
         }
     }, {
         title: "交易金额",

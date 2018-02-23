@@ -24,11 +24,9 @@ $(function() {
         title: '余额',
         formatter: function(v, data){
         	if(data.currency=="SC"){
-        		return moneyFormatSC(v)+ "云储币";
-        	}else if(data.currency=="BTC"){
-        		return moneyFormatBTC(v)+ "比特币";
-        	}else if(data.currency=="ETH"){
-        		return moneyFormat(v)+ "以太币";
+        		return moneyFormatSC(v)+ Dict.getNameForList1('coin','',data.currency);
+        	}else{
+        		return moneyFormat(v)+ Dict.getNameForList1('coin','',data.currency);
         	}
         }
     }, {
@@ -36,11 +34,9 @@ $(function() {
         title: '冻结金额',
         formatter: function(v, data){
         	if(data.currency=="SC"){
-        		return moneyFormatSC(v)+ "云储币";
-        	}else if(data.currency=="BTC"){
-        		return moneyFormatBTC(v)+ "比特币";
-        	}else if(data.currency=="ETH"){
-        		return moneyFormat(v)+ "以太币";
+        		return moneyFormatSC(v)+ Dict.getNameForList1('coin','',data.currency);
+        	}else{
+        		return moneyFormat(v)+ Dict.getNameForList1('coin','',data.currency);
         	}
         }
     }, {
@@ -51,11 +47,9 @@ $(function() {
             var amount = new BigDecimal(data.amountString);
             var frozenAmount = new BigDecimal(data.frozenAmountString);
         	if(data.currency=="SC"){
-        		return moneyFormatSC(amount.subtract(frozenAmount).toString())+ "云储币";
-        	}else if(data.currency=="BTC"){
-        		return moneyFormatBTC(amount.subtract(frozenAmount).toString())+ "比特币";
-        	}else if(data.currency=="ETH"){
-        		return moneyFormat(amount.subtract(frozenAmount).toString())+ "以太币";
+        		return moneyFormatSC(amount.subtract(frozenAmount).toString())+ Dict.getNameForList1('coin','',data.currency);
+        	}else{
+        		return moneyFormat(amount.subtract(frozenAmount).toString())+ Dict.getNameForList1('coin','',data.currency);
         	}
         }
     }, {

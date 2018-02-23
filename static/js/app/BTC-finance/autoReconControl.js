@@ -64,7 +64,7 @@ $(function() {
 
         },
         searchParams: {
-            channelType: "",
+            currency: "BTC",
             status: "3",
             companyCode: OSS.company
         },

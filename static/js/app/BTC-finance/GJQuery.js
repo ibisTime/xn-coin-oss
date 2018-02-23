@@ -34,8 +34,9 @@ $(function() {
     }];
     buildList({
         columns: columns,
-        pageCode: '625105',
+        pageCode: '802115',
         searchParams: {
+        	currency:'BTC',
             companyCode: OSS.company
         }
     });

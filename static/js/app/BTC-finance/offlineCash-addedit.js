@@ -1,58 +1,60 @@
 $(function() {
+    var code = getQueryString('code');
     var view = !!getQueryString('v');
     var userId = getQueryString('userId') || '';
 
-
     var fields = [{
+        field: 'bizType',
+        type: 'hidden',
+        value: '-11'
+    }, {
         field: 'accountNumber',
-        title: '充值账户',
+        title: '用户账户',
         required: true,
         type: 'select',
-        pageCode: userId ? '802503' : '802500',
-        keyCode1: '660906',
+        pageCode: '802500',
+        keyCode1: '625907',
         dict: [
-            ['currency', 'coin'],
+            ['currency', 'currency'],
             ['type', 'account_type']
         ],
         params: {
-            userId: userId,
-            currency:'BTC'
+            currency: 'CNY',
+            userId: userId
         },
         keyName: 'accountNumber',
         valueName: '{{realName.DATA}} - {{currencyName.DATA}} - {{typeName.DATA}}',
         searchName: 'realName',
         help: '支持户名查询'
     }, {
-        title: "充值数量",
         field: 'amount',
+        title: '取现金额',
         required: true,
-        number: true,
-        maxlength: 13,
-        amount: 'true',
-        coin:"BTC",
+        amount: true,
         formatter: moneyFormat
     }, {
         field: 'payCardInfo',
-        title: '打币渠道',
-        maxlength: 255
+        title: '银行类型',
+        required: true,
     }, {
         field: 'payCardNo',
-        title: '打币地址',
-        maxlength: 255
+        title: '银行卡号',
+        number: true,
+        minlength: 15,
+        required: true,
     }, {
         field: 'applyNote',
-        title: '充值说明',
+        title: '申请说明',
         maxlength: 255
     }];
 
     var options = {
         fields: fields,
-        addCode: '802700',
+        code: code,
+        addCode: '802751',
+        detailCode: '802756',
         view: view,
         beforeSubmit: function(data) {
-            var BIGvalue = new BigDecimal(data.amount);
-            value = BIGvalue.multiply(new BigDecimal("1000000000000000000")).toString();
-//          data.amount = value;
             data.applyUser = getUserId();
             return data;
         }
@@ -60,4 +62,4 @@ $(function() {
 
     buildDetail(options);
 
-})
+});

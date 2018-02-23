@@ -9,7 +9,7 @@ $(function() {
         },
         sync: true
     }).then(function(data) {
-        collectionData = data.ethCollection?[data.ethCollection]:[]
+        collectionData = data.collection?[data.collection]:[]
     });
     var fields = [{
             title: '户名',
@@ -95,7 +95,7 @@ $(function() {
             },
             readonly: true
         }, {
-            field: 'collectionData',
+            field: 'ethCollection',
             title: '归集订单:',
             readonly: true,
             type: 'o2m',
@@ -132,9 +132,9 @@ $(function() {
                 title: '归集发起时间',
                 formatter: dateTimeFormat
             }, {
-                field: 'ethDatetime',
-                title: '网络记账时间',
-                formatter: dateTimeFormat
+				field: 'confirmDatetime',
+				title: '区块确认时间',
+				formatter: dateTimeFormat
             }]
         }, {
             field: 'jourList',
@@ -195,54 +195,37 @@ $(function() {
                 formatter: dateTimeFormat
             }]
         }, {
-            field: 'transList',
+            field: 'scTransList',
             title: '区块链流水',
             readonly: true,
             type: 'o2m',
             columns: [{
-                field: 'blockNumber',
-                title: 'blockNumber',
-            }, {
-                field: 'from',
-                title: 'from'
-            }, {
-                field: 'to',
-                title: 'to'
-            }, {
-                field: 'gas',
-                title: 'gasLimit',
-            }, {
-                field: 'gasPrice',
-                title: 'gasPrice',
-                formatter: moneyFormat,
-            }, {
-                field: 'gasUsed',
-                title: 'gasUsed'
-            }, {
+                title: "交易ID",
+		        field: 'transactionid'
+		    }, {
+		        field: 'value',
+		        title: '交易数量',
+		        formatter: moneyFormat
+		    }, {
 		        title: "矿工费",
-		        field: 'kgPrice',
-		        formatter: function(v,data){
-		        	var gasPrice = new BigDecimal(data.gasPrice);
-		        	var gasUsed = new BigDecimal(data.gasUsed);
-		        	kgPrice =  gasPrice.multiply(gasUsed).toString();
-		        	return moneyFormat(kgPrice);
-		        	}
-	        },{
-                field: 'nonce',
-                title: 'nonce'
-            }, {
-                field: 'refNo',
-                title: 'refNo'
-            }, {
-                title: "交易Hash",
-                field: "hash"
-            }, {
-                field: 'transactionIndex',
-                title: 'transactionIndex'
-            }, {
-                title: "value",
-                field: "value",
-                formatter: moneyFormat,
+		        field: 'minerfee',
+		        formatter: moneyFormat
+		    }, {
+		        field: 'from',
+		        title: '来方地址',
+		    }, {
+		        title: "去方地址",
+		        field: "to"
+		    }, {
+		        title: "确认高度",
+		        field: "confirmationheight"
+		    }, {
+		        title: "确认时间",
+		        field: "confirmationtime",
+                formatter: dateTimeFormat
+		    }, {
+		        field: 'refNo',
+		        title: '关联订单号',
             }]
         }, {
 //          title: '对账说明',

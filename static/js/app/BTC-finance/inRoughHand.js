@@ -51,7 +51,7 @@ $(function() {
         title: "交易数量",
         field: "countString",
         formatter: function(v, data) {
-            return moneyFormat(v) + "以太币";
+            return moneyFormat(v) + Dict.getNameForList1("coin",'',data.tradeOrder.tradeCoin);
         }
     }, {
         title: "交易金额",
@@ -88,6 +88,7 @@ $(function() {
         searchParams: {
             type: "sell",
             statusList: ["2","3"],
+            tradeCoin: 'BTC',
             companyCode: OSS.company
         },
         beforeSearch:function(data){

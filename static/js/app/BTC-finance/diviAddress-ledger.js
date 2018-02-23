@@ -6,61 +6,38 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        title: "交易HASH",
-        field: 'hash'
+        title: "交易ID",
+        field: 'transactionid'
     }, {
         field: 'value',
-        title: '交易金额',
-        formatter: function(v,data){
-        	if(data.from==address){
-        		return '-'+moneyFormat(v);
-        	}else{
-        		return moneyFormat(v);
-        	}
-        }
-    }, {
-        field: 'fromTo',
-        title: '对方地址',
-        formatter: function(v,data){
-        	if(data.from==address){
-        		return data.to;
-        	}else{
-        		return data.from;
-        	}
-        }
-    }, {
-        title: "gasLimit",
-        field: 'gas'
-    }, {
-        title: "gas价格",
-        field: 'gasPrice',
-        formatter:moneyFormat
-    }, {
-        title: "消耗gas",
-        field: 'gasUsed'
+        title: '交易数量',
+        formatter: moneyFormat
     }, {
         title: "矿工费",
-        field: 'kgPrice',
-        formatter: function(v,data){
-        	var gasPrice = new BigDecimal(data.gasPrice);
-        	var gasUsed = new BigDecimal(data.gasUsed);
-        	kgPrice =  gasPrice.multiply(gasUsed).toString();
-        	return moneyFormat(kgPrice);
-        }
+        field: 'minerfee',
+        formatter: moneyFormat
+    }, {
+        field: 'from',
+        title: '来方地址',
+    }, {
+        title: "去方地址",
+        field: "to"
+    }, {
+        title: "确认高度",
+        field: "confirmationheight"
+    }, {
+        title: "确认时间",
+        field: "confirmationtime"
     }, {
         field: 'refNo',
         title: '关联订单号',
-    }, {
-        field: 'creates',
-        title: '网络记账时间',
-        formatter: dateTimeFormat
     }];
     buildList({
         columns: columns,
-        pageCode: '625207',
+        pageCode: '802157',
         searchParams: {
-            kind:'0',
-            address: address,
+        	address: address,
+            companyCode: OSS.company
         }
     });
     $(".tools .toolbar").html('<li style="display:block;" id="goBackBtn"><span><img src="/static/images/t01.png"></span>返回</li>')

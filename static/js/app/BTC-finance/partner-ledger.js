@@ -1,5 +1,7 @@
 $(function() {
-    var accountCode = getQueryString('accountCode') || '';
+    var accountNumber = getQueryString('accountNumber');
+    var accountCode = getQueryString('accountCode');
+    var kind = getQueryString('kind')||'0';
     var columns = [{
         field: '',
         title: '',
@@ -25,8 +27,8 @@ $(function() {
         field: 'bizType',
         title: '业务类型',
         type: 'select',
-        key: 'jour_biz_type',
-        formatter: Dict.getNameForList('jour_biz_type'),
+        key: kind=='1'?'frezon_jour_biz_type_user':'jour_biz_type_user',
+        formatter: kind=='1'?Dict.getNameForList('frezon_jour_biz_type_user'):Dict.getNameForList('jour_biz_type_user'),
         search: true
     }, {
         field: 'transAmountString',
@@ -55,29 +57,23 @@ $(function() {
         title1: '创建时间',
         type: 'date',
         field2: 'dateEnd',
+        type2: 'datetime',
         twoDate: true,
-        search: true,
+        search: true
     }];
     buildList({
         columns: columns,
         pageCode: '802520',
         searchParams: {
-            accountNumber: accountCode,
-            type: 'P',
-            kind:'0',
-            currency: 'BTC',
+            kind:kind,
+            accountNumber: accountNumber ? accountNumber : accountCode,
             companyCode: OSS.company
         }
     });
-    $("#detailBtn").off("click").on("click", function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        } else if (selRecords.length >= 2) {
-            toastr.info("请选择一条记录");
-            return;
-        }
-        location.href = "./ledger_addedit.html?v=1&code=" + selRecords[0].code;
+    $(".tools .toolbar").html('<li style="display:block;" id="goBackBtn"><span><img src="/static/images/t01.png"></span>返回</li>')
+
+    $("#goBackBtn").on("click", function() {
+        goBack();
     });
+
 });

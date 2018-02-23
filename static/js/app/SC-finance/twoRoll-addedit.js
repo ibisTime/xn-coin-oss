@@ -46,7 +46,7 @@ $(function() {
             title: "交易数量",
             field: "countString",
             formatter: function(v, data) {
-                return moneyFormatSC(data.tradeOrder.countString) + "云储币";
+                return moneyFormatSC(data.tradeOrder.countString) + Dict.getNameForList1('channel_type','',data.tradeOrder.tradeCoin);
             },
             readonly: true
         }, {

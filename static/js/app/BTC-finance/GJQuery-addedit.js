@@ -9,10 +9,10 @@ $(function() {
     }, {
         title: "矿工费",
         field: 'txFeeString',
-        formatter: moneyFormat
+        formatter: moneyFormatSC
     }, {
         field: 'fromAddress',
-        title: '来方归集',
+        title: '来方归集地址',
     }, {
         title: "去方归集地址",
         field: "toAddress"
@@ -32,8 +32,8 @@ $(function() {
             "2": "广播失败"
         }
     }, {
-        field: 'ethDatetime',
-        title: '网络记账时间',
+        field: 'confirmDatetime',
+        title: '区块确认时间',
         formatter: dateTimeFormat
     }, {
         field: 'createDatetime',
@@ -43,7 +43,7 @@ $(function() {
 
     var options = {
         fields: fields,
-        detailCode: '625106',
+        detailCode: '802116',
         code: code,
         view: true
     };

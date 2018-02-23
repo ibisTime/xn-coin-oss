@@ -19,7 +19,7 @@ $(function() {
         columns: columns,
         pageCode: '660915',
         searchParams: {
-            type: 'withdraw_rule',
+            type: 'withdraw_rule_btc',
             companyCode: OSS.company,
 			updater: ''
         },
