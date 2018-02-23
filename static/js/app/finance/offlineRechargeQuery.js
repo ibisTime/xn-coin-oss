@@ -10,7 +10,7 @@ $(function() {
     }, {
         field: 'accountName',
         title: '户名',
-        search: true
+        search: true,
     }, {
         field: 'currency',
         title: '币种',
@@ -25,8 +25,11 @@ $(function() {
         field: 'channelType',
         title: '支付渠道',
         type: 'select',
-        key: 'channel_type',
-        formatter: Dict.getNameForList('channel_type'),
+        data:{
+        	"ETH" : '以太坊',
+        	"90" : "人工线下"
+        },
+        search: true,
     }, {
         field: "bizNote",
         title: "充值说明"

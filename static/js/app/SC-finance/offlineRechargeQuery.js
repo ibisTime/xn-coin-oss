@@ -25,8 +25,11 @@ $(function() {
         field: 'channelType',
         title: '支付渠道',
         type: 'select',
-        key: 'channel_type',
-        formatter: Dict.getNameForList('channel_type'),
+        data:{
+        	"SC" : '云储币',
+        	"90" : "人工线下"
+        },
+        search: true,
     }, {
         field: "bizNote",
         title: "充值说明"
