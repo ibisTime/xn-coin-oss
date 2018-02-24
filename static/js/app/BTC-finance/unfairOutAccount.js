@@ -29,7 +29,7 @@ $(function() {
     }, {
         field: 'amount',
         title: '金额',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'applyUser',
         title: '申请人'

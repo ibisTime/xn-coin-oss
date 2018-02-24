@@ -28,7 +28,7 @@ $(function() {
     }, {
         field: 'useAmountString',
         title: '归集总额',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }];
     buildList({
         columns: columns,

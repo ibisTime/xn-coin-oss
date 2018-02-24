@@ -6,7 +6,7 @@ $(function() {
         sync: true
     }).then(function(data) {
     	hideLoading()
-        walletCount = moneyFormat(data.walletCount);
+        walletCount = moneyFormatBTC(data.walletCount);
         
         var fields = [{
 		        field: 'walletCount',

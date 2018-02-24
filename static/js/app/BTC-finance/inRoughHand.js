@@ -51,7 +51,7 @@ $(function() {
         title: "交易数量",
         field: "countString",
         formatter: function(v, data) {
-            return moneyFormat(v) + Dict.getNameForList1("coin",'',data.tradeOrder.tradeCoin);
+            return moneyFormatBTC(v) + Dict.getNameForList1('coin','',data.tradeCoin);
         }
     }, {
         title: "交易金额",
@@ -59,7 +59,7 @@ $(function() {
     }, {
         title: "手续费",
         field: "feeString",
-        formatter: moneyFormat
+        formatter:  moneyFormatBTC
     }, {
         title: "状态",
         field: "status",

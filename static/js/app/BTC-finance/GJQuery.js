@@ -7,7 +7,7 @@ $(function() {
     }, {
         field: 'amountString',
         title: '交易数量',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'fromAddress',
         title: '来方归集',

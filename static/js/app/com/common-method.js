@@ -105,7 +105,7 @@ function moneyFormat(money, format, coin) {
     return money;
 }
 //SC
-function moneyFormatSC(money, format, coin) {
+function moneyFormatSC(money, format) {
     var unit = "1e24";
     if (isNaN(money)) {
         return '-';
@@ -122,7 +122,7 @@ function moneyFormatSC(money, format, coin) {
     return money;
 }
 //BTC
-function moneyFormatBTC(money, format, coin) {
+function moneyFormatBTC(money, format) {
     var unit = "1e8";
     if (isNaN(money)) {
         return '-';

@@ -14,14 +14,14 @@ $(function() {
         field: 'amountString',
         title: '取现金额',
         formatter: function(v, data) {
-            return moneyFormat(data.withdraw.amountString);
+            return moneyFormatBTC(data.withdraw.amountString);
         },
         readonly: true
     }, {
         field: 'feeString',
         title: '手续费',
         formatter: function(v, data) {
-            return moneyFormat(data.withdraw.feeString);
+            return moneyFormatBTC(data.withdraw.feeString);
         },
         readonly: true
     }, {
@@ -30,14 +30,14 @@ $(function() {
         formatter: function(v, data) {
             var amount = new BigDecimal(data.withdraw.amountString);
             var feeString = new BigDecimal(data.withdraw.feeString);
-            return moneyFormat(amount.subtract(feeString).toString());
+            return moneyFormatBTC(amount.subtract(feeString).toString());
         },
         readonly: true
     }, {
         field: 'payFeeString',
         title: '实际支付矿工费',
         formatter: function(v, data) {
-            return moneyFormat(data.withdraw.payFeeString);
+            return moneyFormatBTC(data.withdraw.payFeeString);
         },
         readonly: true
     }, {
@@ -174,15 +174,15 @@ $(function() {
         }, {
             field: 'transAmountString',
             title: '变动金额',
-            formatter: moneyFormat
+            formatter: moneyFormatBTC
         }, {
             field: 'preAmountString',
             title: '变动前金额',
-            formatter: moneyFormat
+            formatter: moneyFormatBTC
         }, {
             field: 'postAmountString',
             title: '变动后金额',
-            formatter: moneyFormat
+            formatter: moneyFormatBTC
         }, {
             field: 'status',
             title: '状态',
@@ -209,7 +209,7 @@ $(function() {
 	    }, {
 	        field: 'value',
 	        title: '交易数量',
-	        formatter: moneyFormat
+	        formatter: moneyFormatBTC
 	    }, {
 	        field: 'from',
 	        title: '来方地址',

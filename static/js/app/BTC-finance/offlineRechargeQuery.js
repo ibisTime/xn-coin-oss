@@ -20,7 +20,7 @@ $(function() {
     }, {
         field: 'amountString',
         title: '充值金额',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'channelType',
         title: '支付渠道',

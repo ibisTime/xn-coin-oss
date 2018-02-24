@@ -39,7 +39,7 @@ $(function() {
 //      field: 'balanceString',
 //      title: '当前余额',
 //      amount: true,
-//      formatter: moneyFormat
+//      formatter: moneyFormatBTC
     }];
     buildList({
         columns: columns,

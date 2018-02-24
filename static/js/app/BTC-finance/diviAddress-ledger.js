@@ -11,11 +11,11 @@ $(function() {
     }, {
         field: 'value',
         title: '交易数量',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         title: "矿工费",
         field: 'minerfee',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'from',
         title: '来方地址',

@@ -22,16 +22,14 @@ $(function() {
         title: '余额',
         field: 'amountString',
         formatter: function(v, data){
-        	if(data.currency=="SC"){
-        		return moneyFormatSC(v);
-        	}else{
-        		return moneyFormat(v);
-        	}
+    		return moneyFormat(v,'',data.currency);
         }
     }, {
         title: '冻结金额',
         field: 'frozenAmountString',
-        formatter: moneyFormat
+        formatter: function(v, data){
+    		return moneyFormat(v,'',data.currency);
+        }
     }, {
         title: '可用余额',
         field: 'amount',
@@ -39,7 +37,7 @@ $(function() {
         	var amount = new BigDecimal(data.amountString);
         	var frozenAmount = new BigDecimal(data.frozenAmountString);
         	amount =  amount.subtract(frozenAmount).toString();
-        	return moneyFormat(amount);
+        	return moneyFormat(amount,'',data.currency);
         	
         }
     }, {

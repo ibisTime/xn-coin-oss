@@ -35,21 +35,13 @@ $(function() {
         title: "购买总量",
         field: "totalCountString",
         formatter: function(v, data){
-        	if(data.tradeCoin=="SC"){
-        		return moneyFormatSC(v);
-        	}else{
-        		return moneyFormat(v);
-        	}
+    		return moneyFormat(v,'',data.tradeCoin);
         }
     }, {
         field: "leftCountString",
         title: "剩余可购买",
         formatter: function(v, data){
-        	if(data.tradeCoin=="SC"){
-        		return moneyFormatSC(v);
-        	}else{
-        		return moneyFormat(v);
-        	}
+    		return moneyFormat(v,'',data.tradeCoin);
         }
     }, {
         title: "行情价格",

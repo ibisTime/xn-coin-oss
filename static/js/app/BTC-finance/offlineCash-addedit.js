@@ -31,7 +31,7 @@ $(function() {
         title: '取现金额',
         required: true,
         amount: true,
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'payCardInfo',
         title: '银行类型',

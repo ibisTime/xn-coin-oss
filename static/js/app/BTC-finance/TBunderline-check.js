@@ -50,11 +50,11 @@ $(function() {
     }, {
         field: 'amountString',
         title: '取现金额',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'feeString',
         title: '手续费',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'channelType',
         title: '渠道',

@@ -13,7 +13,7 @@ $(function() {
         title: '取现金额',
         required: true,
         amount: true,
-        formatter: moneyFormat,
+        formatter: moneyFormatBTC,
         coin: 'SC'
     }, {
         title: "支付时间",

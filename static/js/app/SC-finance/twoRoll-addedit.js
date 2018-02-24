@@ -46,7 +46,7 @@ $(function() {
             title: "交易数量",
             field: "countString",
             formatter: function(v, data) {
-                return moneyFormatSC(data.tradeOrder.countString) + Dict.getNameForList1('channel_type','',data.tradeOrder.tradeCoin);
+                return moneyFormatSC(data.tradeOrder.countString) + Dict.getNameForList1('coin','',data.tradeOrder.tradeCoin);
             },
             readonly: true
         }, {
@@ -68,7 +68,7 @@ $(function() {
             field: "tradeCoin",
             formatter: function(v, data) {
                 if (data.tradeOrder) {
-            		return Dict.getNameForList1('channel_type','',data.tradeOrder.tradeCoin);
+            		return Dict.getNameForList1('coin','',data.tradeOrder.tradeCoin);
                 }
 
             },

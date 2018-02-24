@@ -30,7 +30,7 @@ $(function() {
         maxlength: 13,
         amount: 'true',
         coin:"BTC",
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'payCardInfo',
         title: '打币渠道',

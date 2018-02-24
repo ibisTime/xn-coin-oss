@@ -68,7 +68,7 @@ $(function() {
             field: 'amountString',
             title: '交易金额',
             formatter: function(v, data) {
-                return moneyFormat(data.charge.amountString)
+                return moneyFormatBTC(data.charge.amountString)
             },
             readonly: true
         }, {
@@ -103,11 +103,11 @@ $(function() {
             columns: [{
                 field: 'amountString',
                 title: '归集数量',
-                formatter: moneyFormat
+                formatter: moneyFormatBTC
             }, {
                 field: 'txFeeString',
                 title: '矿工费',
-                formatter: moneyFormat
+                formatter: moneyFormatBTC
             }, {
                 field: 'refNo',
                 title: '关联充值订单号'
@@ -173,15 +173,15 @@ $(function() {
             }, {
                 field: 'transAmountString',
                 title: '变动金额',
-                formatter: moneyFormat
+                formatter: moneyFormatBTC
             }, {
                 field: 'preAmountString',
                 title: '变动前金额',
-                formatter: moneyFormat
+                formatter: moneyFormatBTC
             }, {
                 field: 'postAmountString',
                 title: '变动后金额',
-                formatter: moneyFormat
+                formatter: moneyFormatBTC
             }, {
                 field: 'status',
                 title: '状态',
@@ -205,11 +205,11 @@ $(function() {
 		    }, {
 		        field: 'value',
 		        title: '交易数量',
-		        formatter: moneyFormat
+		        formatter: moneyFormatBTC
 		    }, {
 		        title: "矿工费",
 		        field: 'minerfee',
-		        formatter: moneyFormat
+		        formatter: moneyFormatBTC
 		    }, {
 		        field: 'from',
 		        title: '来方地址',

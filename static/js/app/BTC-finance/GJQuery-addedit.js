@@ -5,11 +5,11 @@ $(function() {
     var fields = [{
         field: 'amountString',
         title: '交易数量',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         title: "矿工费",
         field: 'txFeeString',
-        formatter: moneyFormatSC
+        formatter: moneyFormatBTCSC
     }, {
         field: 'fromAddress',
         title: '来方归集地址',

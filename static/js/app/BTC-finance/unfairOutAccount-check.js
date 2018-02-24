@@ -33,7 +33,7 @@ $(function() {
     }, {
         field: 'amount',
         title: '金额',
-        formatter: moneyFormat,
+        formatter: moneyFormatBTC,
         readonly: true
     }, {
         field: 'applyUser',
@@ -84,15 +84,15 @@ $(function() {
         }, {
             field: 'transAmountString',
             title: '变动金额',
-            formatter: moneyFormat
+            formatter: moneyFormatBTC
         }, {
             field: 'preAmountString',
             title: '变动前金额',
-            formatter: moneyFormat
+            formatter: moneyFormatBTC
         }, {
             field: 'postAmountString',
             title: '变动后金额',
-            formatter: moneyFormat
+            formatter: moneyFormatBTC
         }, {
             field: 'status',
             title: '状态',

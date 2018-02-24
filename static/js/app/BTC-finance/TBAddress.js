@@ -24,7 +24,7 @@ $(function() {
 //  }, {
 //      field: 'useAmountString',
 //      title: '提币金额',
-//      formatter: moneyFormat
+//      formatter: moneyFormatBTC
     }];
     buildList({
         columns: columns,

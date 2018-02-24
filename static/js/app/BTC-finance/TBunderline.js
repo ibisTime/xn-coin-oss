@@ -23,19 +23,19 @@ $(function() {
     }, {
         field: 'amountString',
         title: '提现金额',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'amount',
         title: '实际到账金额',
         formatter: function(v, data) {
             var amount = new BigDecimal(data.amountString);
             var feeString = new BigDecimal(data.feeString);
-            return moneyFormat(amount.subtract(feeString).toString());
+            return moneyFormatBTC(amount.subtract(feeString).toString());
         }
     }, {
         field: 'feeString',
         title: '手续费',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'channelType',
         title: '渠道',
@@ -106,7 +106,7 @@ $(function() {
         pageCode: '802755',
         singleSelect: false,
         searchParams: {
-        	currency: 'SC',
+        	currency: 'BTC',
             companyCode: OSS.company
         },
         beforeDetail: function(data) {

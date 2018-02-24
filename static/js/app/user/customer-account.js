@@ -23,21 +23,13 @@ $(function() {
         field: 'amountString',
         title: '余额',
         formatter: function(v, data){
-        	if(data.currency=="SC"){
-        		return moneyFormatSC(v)+ Dict.getNameForList1('coin','',data.currency);
-        	}else{
-        		return moneyFormat(v)+ Dict.getNameForList1('coin','',data.currency);
-        	}
+    		return moneyFormat(v,'',data.currency);
         }
     }, {
         field: 'frozenAmountString',
         title: '冻结金额',
         formatter: function(v, data){
-        	if(data.currency=="SC"){
-        		return moneyFormatSC(v)+ Dict.getNameForList1('coin','',data.currency);
-        	}else{
-        		return moneyFormat(v)+ Dict.getNameForList1('coin','',data.currency);
-        	}
+    		return moneyFormat(v,'',data.currency);
         }
     }, {
         field: 'amount',
@@ -46,11 +38,8 @@ $(function() {
 
             var amount = new BigDecimal(data.amountString);
             var frozenAmount = new BigDecimal(data.frozenAmountString);
-        	if(data.currency=="SC"){
-        		return moneyFormatSC(amount.subtract(frozenAmount).toString())+ Dict.getNameForList1('coin','',data.currency);
-        	}else{
-        		return moneyFormat(amount.subtract(frozenAmount).toString())+ Dict.getNameForList1('coin','',data.currency);
-        	}
+            
+    		return moneyFormat(amount.subtract(frozenAmount).toString(),'',data.currency);
         }
     }, {
         field: 'status',
@@ -90,7 +79,7 @@ $(function() {
     		window.location.href = "../SC-finance/partner_ledger.html?&a=1&accountNumber=" + selRecords[0].accountNumber + "&kind=0";
     	}else if(selRecords[0].currency=="BTC"){
     		window.location.href = "../BTC-finance/partner_ledger.html?&a=1&accountNumber=" + selRecords[0].accountNumber + "&kind=0";
-    	}else if(selRecords[0].currency=="ETH"){
+    	}else{
     		window.location.href = "../finance/partner_ledger.html?&a=1&accountNumber=" + selRecords[0].accountNumber + "&kind=0";
     	}
     });
@@ -105,7 +94,7 @@ $(function() {
     		window.location.href = "../SC-finance/partner_ledger.html?&a=1&accountNumber=" + selRecords[0].accountNumber + "&kind=1";
     	}else if(selRecords[0].currency=="BTC"){
     		window.location.href = "../BTC-finance/partner_ledger.html?&a=1&accountNumber=" + selRecords[0].accountNumber + "&kind=1";
-    	}else if(selRecords[0].currency=="ETH"){
+    	}else{
     		window.location.href = "../finance/partner_ledger.html?&a=1&accountNumber=" + selRecords[0].accountNumber + "&kind=1";
     	}
     });

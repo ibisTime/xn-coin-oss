@@ -14,7 +14,7 @@ $(function() {
     }, {
         field: 'amountString',
         title: '提现金额',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'channelType',
         title: '渠道',

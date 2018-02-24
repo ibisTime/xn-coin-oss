@@ -28,7 +28,7 @@ $(function() {
     }, {
         field: 'amount',
         title: '取现金额',
-        formatter: moneyFormat
+        formatter: moneyFormatBTC
     }, {
         field: 'status',
         title: '状态',

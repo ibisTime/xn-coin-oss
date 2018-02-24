@@ -60,11 +60,7 @@ $(function() {
         title: "交易数量",
         field: "countString",
         formatter: function(v, data){
-        	if(data.tradeCoin=="SC"){
-        		return moneyFormatSC(v)+Dict.getNameForList1("coin","",data.tradeCoin);
-        	}else{
-        		return moneyFormat(v)+Dict.getNameForList1("coin","",data.tradeCoin);
-        	}
+    		return moneyFormat(v,'',data.tradeCoin)+Dict.getNameForList1("coin","",data.tradeCoin);
         }
     }, {
         title: "交易金额",
@@ -73,11 +69,7 @@ $(function() {
         title: "手续费",
         field: "feeString",
         formatter: function(v, data){
-        	if(data.tradeCoin=="SC"){
-        		return moneyFormatSC(v);
-        	}else {
-        		return moneyFormat(v);
-        	}
+    		return moneyFormat(v,'',data.tradeCoin)+Dict.getNameForList1("coin","",data.tradeCoin);
         }
     }, {
         title: "状态",

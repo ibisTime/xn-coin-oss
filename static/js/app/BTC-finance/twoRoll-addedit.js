@@ -46,7 +46,7 @@ $(function() {
             title: "交易数量",
             field: "countString",
             formatter: function(v, data) {
-                return moneyFormat(data.tradeOrder.countString) + Dict.getNameForList1('channel_type','',data.tradeOrder.tradeCoin);
+                return moneyFormatBTC(data.tradeOrder.countString) + Dict.getNameForList1('coin','',data.tradeOrder.tradeCoin);
             },
             readonly: true
         }, {
@@ -60,7 +60,7 @@ $(function() {
             title: "手续费",
             field: "feeString",
             formatter: function(v, data) {
-                return moneyFormat(data.tradeOrder.feeString);
+                return moneyFormatBTC(data.tradeOrder.feeString);
             },
             readonly: true
         }, {
@@ -178,15 +178,15 @@ $(function() {
             }, {
                 field: 'transAmountString',
                 title: '变动金额',
-                formatter: moneyFormat
+                formatter: moneyFormatBTC
             }, {
                 field: 'preAmountString',
                 title: '变动前金额',
-                formatter: moneyFormat
+                formatter: moneyFormatBTC
             }, {
                 field: 'postAmountString',
                 title: '变动后金额',
-                formatter: moneyFormat
+                formatter: moneyFormatBTC
             }, {
                 field: 'status',
                 title: '状态',

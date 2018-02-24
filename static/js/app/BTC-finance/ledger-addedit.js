@@ -48,17 +48,17 @@ $(function() {
     }, {
         field: 'transAmountString',
         title: '变动金额',
-        formatter: moneyFormat,
+        formatter: moneyFormatBTC,
         readonly: view
     }, {
         field: 'preAmountString',
         title: '变动前金额',
-        formatter: moneyFormat,
+        formatter: moneyFormatBTC,
         readonly: view
     }, {
         field: 'postAmountString',
         title: '变动后金额',
-        formatter: moneyFormat,
+        formatter: moneyFormatBTC,
         readonly: view
     }, {
         field: 'createDatetime',

@@ -46,7 +46,7 @@ $(function() {
             title: "交易数量",
             field: "countString",
             formatter: function(v, data) {
-                return moneyFormat(data.tradeOrder.countString) + "以太币";
+                return moneyFormat(data.tradeOrder.countString) + Dict.getNameForList1("coin",'',data.tradeOrder.tradeCoin);
             },
             readonly: true
         }, {
@@ -68,11 +68,7 @@ $(function() {
             field: "tradeCoin",
             formatter: function(v, data) {
                 if (data.tradeOrder) {
-                    if (data.tradeOrder.tradeCoin == "ETH") {
-                        return "以太币"
-                    } else if (data.tradeOrder.tradeCoin == "BTC") {
-                        return "比特币"
-                    }
+                	return Dict.getNameForList1("coin",'',data.tradeOrder.tradeCoin)
                 }
 
             },
