@@ -33,6 +33,7 @@ $(function() {
 	                                code: '802160',
 	                                json: data
 	                            }).done(function(data) {
+								    toastr.success('操作成功');
 	                                location.reload(true);
 	                            });
 	                        },function () {})

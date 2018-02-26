@@ -9,7 +9,7 @@ $(function() {
     }, {
         title: "矿工费",
         field: 'txFeeString',
-        formatter: moneyFormatBTCSC
+        formatter: moneyFormatBTC
     }, {
         field: 'fromAddress',
         title: '来方归集地址',

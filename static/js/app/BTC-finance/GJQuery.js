@@ -9,9 +9,6 @@ $(function() {
         title: '交易数量',
         formatter: moneyFormatBTC
     }, {
-        field: 'fromAddress',
-        title: '来方归集',
-    }, {
         title: "去方归集地址",
         field: "toAddress"
     }, {

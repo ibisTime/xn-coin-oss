@@ -112,9 +112,6 @@ $(function() {
                 field: 'refNo',
                 title: '关联充值订单号'
             }, {
-                field: 'fromAddress',
-                title: 'from'
-            }, {
                 field: 'toAddress',
                 title: 'to'
             }, {
@@ -195,47 +192,31 @@ $(function() {
                 formatter: dateTimeFormat
             }]
         }, {
-            field: 'scTransList',
+            field: 'btcTransList',
             title: '区块链流水',
             readonly: true,
             type: 'o2m',
             columns: [{
                 title: "交易ID",
-		        field: 'transactionid'
-		    }, {
-		        field: 'value',
-		        title: '交易数量',
-		        formatter: moneyFormatBTC
+		        field: 'txid'
 		    }, {
 		        title: "矿工费",
-		        field: 'minerfee',
-		        formatter: moneyFormatBTC
-		    }, {
-		        field: 'from',
-		        title: '来方地址',
-		    }, {
-		        title: "去方地址",
-		        field: "to"
+		        field: 'fees',
+		        formatter: function(v, data){
+		        	return moneyFormatBTC(v.toString())
+		        }
 		    }, {
 		        title: "确认高度",
-		        field: "confirmationheight"
+		        field: "blockheight"
 		    }, {
 		        title: "确认时间",
-		        field: "confirmationtime",
+		        field: "blocktime",
                 formatter: dateTimeFormat
 		    }, {
 		        field: 'refNo',
 		        title: '关联订单号',
             }]
         }, {
-//          title: '对账说明',
-//          field: 'checkNote',
-//          // type: "textarea",
-//          // normalArea: true,
-//          required: true,
-//          readonly: view,
-//          maxlength: 250
-//      }, {
             field: 'checkUser',
             type: 'hidden',
             value: getUserName()

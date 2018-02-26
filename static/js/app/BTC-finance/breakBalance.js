@@ -46,7 +46,7 @@ $(function() {
     }, hideLoading);
     
     reqApi({
-        code: '802902',
+        code: '802904',
         sync: true
     }).then(function(data) {
     	hideLoading()
@@ -60,14 +60,17 @@ $(function() {
 	        	name: '平台所有币',
 	        	amount: data.totalCount
 	        },{
+	        	name: '客户未归集总额',
+	        	amount: data.toCollectCount
+	        },{
+	        	name: '当前散取地址余额',
+	        	amount: data.toWithdrawCount
+	        },{
 	        	name: '历史归集总额',
 	        	amount: data.totolCollectCount
 	        },{
 	        	name: '历史散取总额',
 	        	amount: data.totolWithdrawCount
-	        },{
-	        	name: '当前钱包余额',
-	        	amount: data.walletCount
 	        }]
         
         $('#tableList').bootstrapTable('prepend', tableData)

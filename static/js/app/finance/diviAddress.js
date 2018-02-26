@@ -36,19 +36,10 @@ $(function() {
         },
         search: true
     }, {
-//      field: '',
-//      title: '本地使用次数'
-//  }, {
-//      field: '',
-//      title: '网络使用次数'
-//  }, {
         field: 'balanceString',
         title: '当前余额',
         amount: true,
         formatter: moneyFormat
-//  }, {
-//      field: 'remark',
-//      title: '备注'
     }];
     buildList({
         columns: columns,
