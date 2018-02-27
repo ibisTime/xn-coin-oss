@@ -834,14 +834,11 @@ function buildList(options) {
             for (var j = 0, len1 = data.length; j < len1; j++) {
                 dataDict[data[j][item.keyName]] = data[j][item.valueName] || item.valueName.temp(data[j]);
                 if (item.amount) {
-                	if(item.coin=="SC"){
-		        		dataDict[data[j][item.keyName]] = moneyFormat(dataDict[data[j][item.keyName]],'','SC');
-		        	}else if(item.coin=="BTC"){
-		        		dataDict[data[j][item.keyName]] = moneyFormat(dataDict[data[j][item.keyName]],'','BTC');
-		        	}else{
-		        		dataDict[data[j][item.keyName]] = moneyFormat(dataDict[data[j][item.keyName]]);
-		        	}
-                    
+                	if(item.coin){
+                		dataDict[data[j][item.keyName]] = moneyFormat(dataDict[data[j][item.keyName]],'',item.coin);	
+                	}else{
+                		dataDict[data[j][item.keyName]] = moneyFormat(dataDict[data[j][item.keyName]]);
+                	}
                 }
             }
 

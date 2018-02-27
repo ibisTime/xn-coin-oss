@@ -28,7 +28,7 @@ $(function() {
                 handler: function() {
                 	if($('#jsForm').valid()){
                         var data = $('#jsForm').serializeObject();
-                        confirm('所有余额大于'+data.balanceStart+'的地址都将进行归集，确定进行操作吗？').then(function () {
+                        confirm('未归集的UTXO总额大于'+data.balanceStart+'都将被归集，确定进行操作吗？').then(function () {
                             reqApi({
                                 code: '802210',
                                 json: data
