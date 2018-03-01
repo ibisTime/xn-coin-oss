@@ -22,7 +22,7 @@ $(function() {
         title: "余额",
         field: "balanceString",
         formatter: function (v, data) {
-            return moneyFormat(data.balanceString) + 'BTC'
+            return moneyFormatBTC(data.balanceString) + 'BTC'
         }
     }];
     buildList({
