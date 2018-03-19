@@ -84,17 +84,12 @@ Number.prototype.toFixed = function(length) {
  * @param coin 币种
  */
 function moneyFormat(money, format, coin) {
-    var unit = "1e18";
+    var unit = coin&&getCoinList()[coin]?getCoinUnit(coin):"1e18";
     if (isNaN(money)) {
         return '-';
     }
     if (format == '' || format == null || format == undefined || typeof format == 'object') {
         format = 8;
-    }
-    if(coin=="SC"){
-    	unit = "1e24";
-    }else if(coin=="BTC"){
-    	unit = "1e8";
     }
     //钱除以1000并保留两位小数
     money = new BigDecimal(money);
@@ -146,17 +141,39 @@ function moneyFormatBTC(money, format) {
  * @param coin 币种
  */
 function moneyParse(money, rate, coin) {
-	var unit = "1e18";
-	if(coin=="SC"){
-    	unit = "1e24";
-    }else if(coin=="BTC"){
-    	unit = "1e8";
+    var unit = coin&&getCoinList()[coin]?getCoinUnit(coin):"1e18";
+    if(!getCoinList()[coin]){
+        return '-';
     }
     rate = rate || new BigDecimal(unit);
 	money = new BigDecimal(money);
 	money = money.multiply(rate).toString();
     return money;
 }
+/**
+ * 币种
+ */
+//获取币种列表
+function getCoinList(){
+	return JSON.parse(sessionStorage.getItem('coinList'));
+}
+//获取币种名字
+function getCoinName(coin){
+	var n = getCoinList()[coin].name
+	return n;
+}
+//获取币种unit
+function getCoinUnit(coin){
+	var n = getCoinList()[coin].unit
+	return n;
+}
+//获取币种type  1是token币
+function getCoinType(coin){
+	var n = getCoinList()[coin].type
+	return n;
+}
+
+
 /**
  * 编辑金额格式转化
  * @param money

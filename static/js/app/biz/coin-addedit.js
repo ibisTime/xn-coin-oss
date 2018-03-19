@@ -1,0 +1,141 @@
+$(function() {
+    var symbol = getQueryString('symbol');
+    var view = !!getQueryString('v');
+    var isDetail = !!getQueryString('isDetail');
+    
+    var fields = [{
+        title: "符号",
+        field: "symbol",
+        required: true,
+    }, {
+        title: "英文名称",
+        field: "ename",
+        required: true,
+    }, {
+        title: "中文名称",
+        field: "cname",
+        required: true,
+    }, {
+        title: "图标",
+        field: "icon",
+        type: "img",
+        single: true,
+        required: true,
+    }, {
+        title: "钱包水印图标",
+        field: "pic1",
+        type: "img",
+        single: true,
+        required: true,
+    }, {
+        title: "流水加钱图标",
+        field: "pic2",
+        type: "img",
+        single: true,
+        required: true,
+    }, {
+        title: "流水减钱图标",
+        field: "pic3",
+        type: "img",
+        single: true,
+        required: true,
+    }, {
+        title: "单位",
+        field: "unit",
+        readonly: !!symbol,
+        required: true,
+    }, {
+        title: "归集阀值",
+        field: "collectStart",
+        formatter: function(v, data){
+        	return moneyFormat(data.collectStartString,"",data.symbol)
+        },
+        coinAmount: true,
+        required: true,
+    }, {
+        title: "取现手续费",
+        field: "withdrawFee",
+        formatter: function(v, data){
+        	return moneyFormat(data.withdrawFeeString,"",data.symbol)
+        },
+        coinAmount: true,
+        required: true,
+    }, {
+        title: "归集阀值",
+        field: "collectStartString",
+        required: true,
+        formatter: function(v, data){
+        	return moneyFormat(v,"",data.symbol)
+        },
+        readonly: !!symbol,
+        hidden: !isDetail
+    }, {
+        title: "取现手续费",
+        field: "withdrawFeeString",
+        required: true,
+        formatter: function(v, data){
+        	return moneyFormat(v,"",data.symbol)
+        },
+        readonly: !!symbol,
+        hidden: !isDetail
+    }, {
+        title: "合约地址",
+        field: "contractAddress",
+        required: true,
+        readonly: !!symbol,
+    }, {
+        title: "合约ABI",
+        field: "contractABI",
+        required: true,
+        readonly: !!symbol,
+        type:"textarea",
+        normalArea: true
+    }, {
+        title: "序号",
+        field: "orderNo"
+    }, {
+        title: "类型",
+        field: "type",
+        type: "select",
+        key: "coin_type",
+        formatter: Dict.getNameForList("coin_type"),
+        hidden: !isDetail
+    }, {
+        title: "状态",
+        field: "status",
+        type: "select",
+        key: "coin_status",
+        formatter: Dict.getNameForList("coin_status"),
+        hidden: !isDetail
+    }, {
+        title: "更新时间",
+        field: "updater",
+        hidden: !isDetail
+    }, {
+        title: "更新时间",
+        field: "updateDatetime",
+        formatter: dateTimeFormat,
+        hidden: !isDetail
+    }, {
+        title: "备注",
+        field: "remark"
+    }];
+    
+    var options = {
+        fields: fields,
+        code: {
+        	symbol: symbol
+        },
+        view: view,
+        addCode: "802250",
+        editCode: "802252",
+        detailCode: "802266",
+        beforeSubmit: function(data){
+        	delete data.collectStartString;
+        	delete data.withdrawFeeString;
+        	return data;
+        }
+    };
+    buildDetail(options);
+
+});
