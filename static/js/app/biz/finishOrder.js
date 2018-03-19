@@ -1,4 +1,11 @@
 $(function() {
+	getCoinReq().then(function(data){
+		var currencyData = {};
+		var currencyList = []
+		for(var i = 0; i < data.length ; i ++){
+			currencyData[data[i].symbol] = data[i].cname;
+			currencyList.push(data[i].symbol)
+		}
 
     var columns = [{
         field: '',
@@ -48,10 +55,7 @@ $(function() {
         field: "tradeCoin",
         title: "币种",
         type: 'select',
-        key: 'coin',
-        formatter: function (v, data) {
-            return Dict.getNameForList1("coin","",data.tradeCoin)
-        },
+        data: currencyData,
         search: true
     } ,{
         title: "交易价格",
@@ -60,7 +64,7 @@ $(function() {
         title: "交易数量",
         field: "countString",
         formatter: function(v, data){
-    		return moneyFormat(v,'',data.tradeCoin)+Dict.getNameForList1("coin","",data.tradeCoin);
+    		return moneyFormat(v,'',data.tradeCoin)+getCoinName(data.tradeCoin);
         }
     }, {
         title: "交易金额",
@@ -69,7 +73,7 @@ $(function() {
         title: "手续费",
         field: "feeString",
         formatter: function(v, data){
-    		return moneyFormat(v,'',data.tradeCoin)+Dict.getNameForList1("coin","",data.tradeCoin);
+    		return moneyFormat(v,'',data.tradeCoin)+getCoinName(data.tradeCoin);
         }
     }, {
         title: "状态",
@@ -104,6 +108,7 @@ $(function() {
         pageCode: '625250',
         searchParams: {
             statusList: ["2","3"],
+            currencyList: currencyList,
             companyCode: OSS.company,
         },
         beforeSearch:function(data){
@@ -112,8 +117,14 @@ $(function() {
 	        	statusList.push(data.statusList)
 	        	data.statusList = statusList;
         	}
+        	
+        	if(data.tradeCoin){
+        		data.currencyList = [data.tradeCoin];
+        		delete data.tradeCoin;
+        	}
         	return data;
         }
     });
 
+    },hideLoading);
 });

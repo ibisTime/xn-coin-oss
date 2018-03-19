@@ -1,79 +1,40 @@
 $(function() {
-    var accountNumberCNY;
-    var accountNumberJF;
-    var accountNumberTG;
     
-    showLoading();
-    $('#tableList').bootstrapTable({
-        columns: [{
-	        field: 'name',
-	        title: '名称',
-	    }, {
-	        title: "数量",
-	        field: "amount",
-	    }],
-        singleSelect: true, //禁止多选
-        clickToSelect: true, //自动选中
-        uniqueId: 'id'
-    });
-    
-    
-    reqApi({
-        code: '802500',
-        json: {
-            "start": 1,
-            "limit": 10,
-            "type": "P"
+	var columnsP = [{
+        field: '',
+        title: '',
+        checkbox: true
+    },{
+        title: "符号",
+        field: "symbol",
+        search: true
+    }, {
+        title: "中文名称",
+        field: "cname"
+    }, {
+        title: "单位",
+        field: "unit"
+    }];
+    buildList({
+        columns: columnsP,
+        pageCode: '802265',
+        searchParams: {
+        	status:'0',
+        	type: '1',
+            companyCode: OSS.company
         },
-        sync: true
-    }).then(function(data) {
-    	hideLoading()
-    	var lists = data.list;
-        lists.forEach(function(d){
-        	//平台ETH冷钱包
-        	if(d.accountNumber=="SYS_ACOUNT_ETH_COLD"){
-        		$("#amount-TG").text(moneyFormat(d.amountString));
-        		accountNumberTG = d.accountNumber;
-        	}
-        	//平台ETH盈亏账户
-        	if(d.accountNumber=="SYS_ACOUNT_ETH"){
-        		$("#amount-CNY").text(moneyFormat(d.amountString));
-        		accountNumberCNY = d.accountNumber;
-        	}
-        })
-        
-    }, hideLoading);
-    
-    reqApi({
-        code: '802900',
-        sync: true
-    }).then(function(data) {
-    	hideLoading()
-        var tableData = [{
-	        	name: '平台所有币',
-	        	amount: data.totalCount
-	        },{
-	        	name: '客户未归集总额',
-	        	amount: data.toCollectCount
-	        },{
-	        	name: '当前散取地址余额',
-	        	amount: data.toWithdrawCount
-	        },{
-	        	name: '历史归集总额',
-	        	amount: data.totolCollectCount
-	        },{
-	        	name: '历史散取总额',
-	        	amount: data.totolWithdrawCount
-	        }]
-        
-        $('#tableList').bootstrapTable('prepend', tableData)
-    }, hideLoading);
-    
-    $("#CNYls-Btn").click(function() {
-        location.href = "ledger.html?accountNumber=" + accountNumberCNY;
     });
-    $("#accoutGrantBtn").click(function() {
-        location.href = "ledger.html?accountNumber=" + accountNumberTG + "&kind=TG";
+    
+    $(".tools .toolbar").html('<li style="display:block;" id="accountBtn"><span><img src="/static/images/t01.png"></span>查询账户</li>')
+		
+    $("#accountBtn").click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+    	
+        location.href = "breakBalance_detail.html?currency=" + selRecords[0].symbol;
     });
 
 });

@@ -1,69 +1,87 @@
 $(function() {
-
-    var columns = [{
-        field: '',
-        title: '',
-        checkbox: true
-    }, {
-        field: 'code',
-        title: '编号',
-    }, {
-        field: 'accountName',
-        title: '户名',
-        search: true,
-    }, {
-        field: 'currency',
-        title: '币种',
-        type: 'select',
-        key: 'coin',
-        formatter: Dict.getNameForList("coin"),
-    }, {
-        field: 'amountString',
-        title: '充值金额',
-        formatter: moneyFormat
-    }, {
-        field: 'channelType',
-        title: '支付渠道',
-        type: 'select',
-        data:{
-        	"ETH" : '以太坊',
-        	"90" : "人工线下"
-        },
-        search: true,
-    }, {
-        field: "bizNote",
-        title: "充值说明"
-    }, {
-        field: 'applyDatetime',
-        title: '充值时间',
-        formatter: dateTimeFormat,
-        field1: 'applyDateStart',
-        title1: '充值时间',
-        type: 'date',
-        field2: 'applyDateEnd',
-        twoDate: true,
-        search: true
-    }, {
-        title: "状态",
-        field: "status",
-        type: "select",
-        key: "charge_status",
-        formatter: Dict.getNameForList("charge_status"),
-        search: true
-    }];
-    buildList({
-        router: "offlineRecharge",
-        columns: columns,
-        pageCode: '802705',
-        // singleSelect: false,
-        searchParams: {
-            currency: "ETH",
-            companyCode: OSS.company
-        },
-        beforeDetail: function(data) {
-            location.href = "offlineRecharge_check.html?code=" + data.code + "&detail=1";
-        }
-    });
+	
+	getCoinReq().then(function(data){
+		hideLoading()
+		var currencyData = {};
+		var currencyList = []
+		var hasCurrency = false;
+		for(var i = 0; i < data.length ; i ++){
+			if(data[i].type=='1'){
+				hasCurrency = true;
+				currencyData[data[i].symbol] = data[i].cname;
+				currencyList.push(data[i].symbol)
+			}
+		}
+		if(!hasCurrency){
+			currencyList.push("无")
+		}
+	    var columns = [{
+	        field: '',
+	        title: '',
+	        checkbox: true
+	    }, {
+	        field: 'code',
+	        title: '编号',
+	    }, {
+	        field: 'accountName',
+	        title: '户名',
+	        search: true,
+	    }, {
+	        field: 'currency',
+	        title: '币种',
+	        type: 'select',
+	        data: currencyData,
+	        search: true,
+	    }, {
+	        field: 'amountString',
+	        title: '充值金额',
+	        formatter: function(v, data) {
+	            return moneyFormat(v,"",data.currency);
+	        },
+	    }, {
+	        field: 'channelType',
+	        title: '支付渠道',
+	        type: 'select',
+	        data:{
+	        	"90" : "人工线下",
+	        	"1" : "线上"
+	        },
+	        search: true,
+	    }, {
+	        field: "bizNote",
+	        title: "充值说明"
+	    }, {
+	        field: 'applyDatetime',
+	        title: '充值时间',
+	        formatter: dateTimeFormat,
+	        field1: 'applyDateStart',
+	        title1: '充值时间',
+	        type: 'date',
+	        field2: 'applyDateEnd',
+	        twoDate: true,
+	        search: true
+	    }, {
+	        title: "状态",
+	        field: "status",
+	        type: "select",
+	        key: "charge_status",
+	        formatter: Dict.getNameForList("charge_status"),
+	        search: true
+	    }];
+	    buildList({
+	        router: "offlineRecharge",
+	        columns: columns,
+	        pageCode: '802705',
+	        searchParams: {
+	        	currencyList: currencyList,
+	            companyCode: OSS.company
+	        },
+	        beforeDetail: function(data) {
+	            location.href = "offlineRecharge_check.html?code=" + data.code + "&detail=1";
+	        }
+	    });
+	    
+    },hideLoading);
 
     //审核
     $('#examineBtn').click(function() {

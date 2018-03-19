@@ -52,9 +52,8 @@ $(function() {
         field: "tradeCoin",
         formatter: function(v, data) {
             if (data.tradeOrder) {
-                return Dict.getNameForList1("coin","",data.tradeOrder.tradeCoin)
+                return getCoinName(data.tradeOrder.tradeCoin)
             }
-
         },
     } ,{
         title: "申请原因",

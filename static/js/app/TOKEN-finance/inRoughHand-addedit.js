@@ -46,7 +46,7 @@ $(function() {
             title: "交易数量",
             field: "countString",
             formatter: function(v, data) {
-                return moneyFormat(data.tradeOrder.countString) + Dict.getNameForList1("coin",'',data.tradeOrder.tradeCoin);
+                return moneyFormat(data.tradeOrder.countString,"",data.tradeOrder.tradeCoin) + getCoinName(data.tradeOrder.tradeCoin);
             },
             readonly: true
         }, {
@@ -60,7 +60,7 @@ $(function() {
             title: "手续费",
             field: "feeString",
             formatter: function(v, data) {
-                return moneyFormat(data.tradeOrder.feeString);
+                return moneyFormat(data.tradeOrder.feeString,'',data.tradeOrder.tradeCoin);
             },
             readonly: true
         }, {
@@ -68,9 +68,8 @@ $(function() {
             field: "tradeCoin",
             formatter: function(v, data) {
                 if (data.tradeOrder) {
-                	return Dict.getNameForList1("coin",'',data.tradeOrder.tradeCoin)
+                	return getCoinName(data.tradeOrder.tradeCoin);
                 }
-
             },
             readonly: true
         }, {
@@ -161,7 +160,7 @@ $(function() {
                 field: 'currency',
                 title: '币种',
                 key: 'coin',
-                formatter: Dict.getNameForList('coin'),
+                formatter: getCoinName,
             }, {
                 field: 'channelType',
                 title: '渠道',
@@ -179,15 +178,21 @@ $(function() {
             }, {
                 field: 'transAmountString',
                 title: '变动金额',
-                formatter: moneyFormat
+		        formatter: function(v, data){
+		    		return moneyFormat(v,'',data.currency);
+		        }
             }, {
                 field: 'preAmountString',
                 title: '变动前金额',
-                formatter: moneyFormat
+		        formatter: function(v, data){
+		    		return moneyFormat(v,'',data.currency);
+		        }
             }, {
                 field: 'postAmountString',
                 title: '变动后金额',
-                formatter: moneyFormat
+		        formatter: function(v, data){
+		    		return moneyFormat(v,'',data.currency);
+		        }
             }, {
                 field: 'status',
                 title: '状态',

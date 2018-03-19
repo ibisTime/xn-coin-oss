@@ -2,6 +2,8 @@ $(function() {
     var code = getQueryString('code');
     var view = !!getQueryString('v');
     var collectionData;
+    var currencyVal = ''
+    
     reqApi({
         code: "802707",
         json: {
@@ -11,6 +13,7 @@ $(function() {
     }).then(function(data) {
         collectionData = data.collection?[data.collection]:[]
     });
+    
     var fields = [{
             title: '户名',
             field: 'accountName',
@@ -32,7 +35,8 @@ $(function() {
             type: 'select',
             formatter: function(v, data) {
                 if (data.charge) {
-            		return Dict.getNameForList1('coin','',data.charge.currency);
+                	currencyVal = data.charge.currency;
+            		return getCoinName(data.charge.currency);
             	}
             },
             readonly: true,
@@ -68,7 +72,7 @@ $(function() {
             field: 'amountString',
             title: '交易金额',
             formatter: function(v, data) {
-                return moneyFormat(data.charge.amountString)
+                return moneyFormat(data.charge.amountString,'',data.charge.currency)
             },
             readonly: true
         }, {
@@ -95,48 +99,52 @@ $(function() {
             },
             readonly: true
         }, {
-            field: 'ethCollection',
-            title: '归集订单:',
-            readonly: true,
-            type: 'o2m',
-            useData: collectionData,
-            columns: [{
-                field: 'amountString',
-                title: '归集数量',
-                formatter: moneyFormat
-            }, {
-                field: 'txFeeString',
-                title: '矿工费',
-                formatter: moneyFormat
-            }, {
-                field: 'refNo',
-                title: '关联充值订单号'
-            }, {
-                field: 'fromAddress',
-                title: 'from'
-            }, {
-                field: 'toAddress',
-                title: 'to'
-            }, {
-                field: 'txHash',
-                title: '交易Hash'
-            }, {
-                field: 'status',
-                title: '状态',
-                type: 'select',
-                key: 'collection_status',
-                formatter: Dict.getNameForList('collection_status'),
-                search: true
-            }, {
-                field: 'createDatetime',
-                title: '归集发起时间',
-                formatter: dateTimeFormat
-            }, {
-				field: 'confirmDatetime',
-				title: '区块确认时间',
-				formatter: dateTimeFormat
-            }]
-        }, {
+//          field: 'ethCollection',
+//          title: '归集订单:',
+//          readonly: true,
+//          type: 'o2m',
+//          useData: collectionData,
+//          columns: [{
+//              field: 'amountString',
+//              title: '归集数量',
+//		        formatter: function(v, data){
+//		    		return moneyFormat(v,'',currencyVal);
+//		        }
+//          }, {
+//              field: 'txFeeString',
+//              title: '矿工费',
+//		        formatter: function(v, data){
+//		    		return moneyFormat(v,'',currencyVal);
+//		        }
+//          }, {
+//              field: 'refNo',
+//              title: '关联充值订单号'
+//          }, {
+//              field: 'fromAddress',
+//              title: 'from'
+//          }, {
+//              field: 'toAddress',
+//              title: 'to'
+//          }, {
+//              field: 'txHash',
+//              title: '交易Hash'
+//          }, {
+//              field: 'status',
+//              title: '状态',
+//              type: 'select',
+//              key: 'collection_status',
+//              formatter: Dict.getNameForList('collection_status'),
+//              search: true
+//          }, {
+//              field: 'createDatetime',
+//              title: '归集发起时间',
+//              formatter: dateTimeFormat
+//          }, {
+//				field: 'confirmDatetime',
+//				title: '区块确认时间',
+//				formatter: dateTimeFormat
+//          }]
+//      }, {
             field: 'jourList',
             title: '本地流水:',
             readonly: true,
@@ -156,8 +164,9 @@ $(function() {
             }, {
                 field: 'currency',
                 title: '币种',
-                key: 'coin',
-                formatter: Dict.getNameForList('coin'),
+                formatter: function(v,data){
+                	return getCoinName(data.currency);
+                },
             }, {
                 field: 'channelType',
                 title: '渠道',
@@ -173,15 +182,21 @@ $(function() {
             }, {
                 field: 'transAmountString',
                 title: '变动金额',
-                formatter: moneyFormat
+		        formatter: function(v, data){
+		    		return moneyFormat(v,'',data.currency);
+		        }
             }, {
                 field: 'preAmountString',
                 title: '变动前金额',
-                formatter: moneyFormat
+		        formatter: function(v, data){
+		    		return moneyFormat(v,'',data.currency);
+		        }
             }, {
                 field: 'postAmountString',
                 title: '变动后金额',
-                formatter: moneyFormat
+		        formatter: function(v, data){
+		    		return moneyFormat(v,'',data.currency);
+		        }
             }, {
                 field: 'status',
                 title: '状态',
@@ -245,14 +260,6 @@ $(function() {
                 formatter: moneyFormat,
             }]
         }, {
-//          title: '对账说明',
-//          field: 'checkNote',
-//          // type: "textarea",
-//          // normalArea: true,
-//          required: true,
-//          readonly: view,
-//          maxlength: 250
-//      }, {
             field: 'checkUser',
             type: 'hidden',
             value: getUserName()

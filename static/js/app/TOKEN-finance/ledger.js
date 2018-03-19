@@ -34,15 +34,21 @@ $(function() {
     }, {
         field: 'transAmountString',
         title: '变动金额',
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v,"",data.currency);
+        },
     }, {
         field: 'preAmountString',
         title: '变动前金额',
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v,"",data.currency);
+        },
     }, {
         field: 'postAmountString',
         title: '变动后金额',
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v,"",data.currency);
+        },
     }, {
         title: "创建时间",
         field: "createDatetime",

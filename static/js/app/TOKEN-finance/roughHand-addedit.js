@@ -2,6 +2,7 @@ $(function() {
     var code = getQueryString('code');
     var view = !!getQueryString('v');
     var accountNumber = getQueryString('accountNumber');
+    var currencyVal = ''
 
     var fields = [{
         field: 'accountName',
@@ -14,14 +15,21 @@ $(function() {
         field: 'amountString',
         title: '取现金额',
         formatter: function(v, data) {
-            return moneyFormat(data.withdraw.amountString);
+            return moneyFormat(data.withdraw.amountString,'',data.currency);
         },
         readonly: true
+    }, {
+        field: 'currency',
+        title: '币种',
+        formatter: function(v,data){
+        	currencyVal = v;
+        	return getCoinName(data.withdraw.currency)
+        }
     }, {
         field: 'feeString',
         title: '手续费',
         formatter: function(v, data) {
-            return moneyFormat(data.withdraw.feeString);
+            return moneyFormat(data.withdraw.feeString,'',data.withdraw.currency);
         },
         readonly: true
     }, {
@@ -30,14 +38,14 @@ $(function() {
         formatter: function(v, data) {
             var amount = new BigDecimal(data.withdraw.amountString);
             var feeString = new BigDecimal(data.withdraw.feeString);
-            return moneyFormat(amount.subtract(feeString).toString());
+            return moneyFormat(amount.subtract(feeString).toString(),'',data.withdraw.currency);
         },
         readonly: true
     }, {
         field: 'payFeeString',
         title: '实际支付矿工费',
         formatter: function(v, data) {
-            return moneyFormat(data.withdraw.payFeeString);
+            return moneyFormat(data.withdraw.payFeeString,'',data.withdraw.currency);
         },
         readonly: true
     }, {
@@ -45,10 +53,8 @@ $(function() {
         title: '渠道',
         formatter: function(v, data) {
             if (data.withdraw) {
-            	
             	return Dict.getNameForList1('channel_type','',data.withdraw.channelType);
             }
-
         },
         readonly: true
     }, {
@@ -155,8 +161,7 @@ $(function() {
         }, {
             field: 'currency',
             title: '币种',
-            key: 'coin',
-            formatter: Dict.getNameForList('coin'),
+        	formatter: getCoinName
         }, {
             field: 'channelType',
             title: '渠道',
@@ -174,15 +179,21 @@ $(function() {
         }, {
             field: 'transAmountString',
             title: '变动金额',
-            formatter: moneyFormat
+	        formatter: function(v, data) {
+	            return moneyFormat(v,'',data.currency);
+	        },
         }, {
             field: 'preAmountString',
             title: '变动前金额',
-            formatter: moneyFormat
+	        formatter: function(v, data) {
+	            return moneyFormat(v,'',data.currency);
+	        },
         }, {
             field: 'postAmountString',
             title: '变动后金额',
-            formatter: moneyFormat
+	        formatter: function(v, data) {
+	            return moneyFormat(v,'',data.currency);
+	        },
         }, {
             field: 'status',
             title: '状态',
@@ -218,7 +229,9 @@ $(function() {
         }, {
             field: 'gasPrice',
             title: 'gasPrice',
-            formatter: moneyFormat,
+	        formatter: function(v, data) {
+	            return moneyFormat(v,'',currencyVal);
+	        },
         }, {
             field: 'gasUsed',
             title: 'gasUsed'
@@ -229,8 +242,8 @@ $(function() {
 	        	var gasPrice = new BigDecimal(data.gasPrice);
 	        	var gasUsed = new BigDecimal(data.gasUsed);
 	        	kgPrice =  gasPrice.multiply(gasUsed).toString();
-	        	return moneyFormat(kgPrice);
-	        	}
+	        	return moneyFormat(kgPrice,'',currencyVal);
+        	}
         },{
             field: 'nonce',
             title: 'nonce'
@@ -246,17 +259,11 @@ $(function() {
         }, {
             title: "value",
             field: "value",
-            formatter: moneyFormat,
+	        formatter: function(v, data) {
+	            return moneyFormat(v,'',currencyVal);
+	        },
         }]
     }, {
-//      title: '对账说明',
-//      field: 'checkNote',
-//      // type: "textarea",
-//      // normalArea: true,
-//      required: true,
-//      readonly: view,
-//      maxlength: 250
-//  }, {
         field: 'checkUser',
         type: 'hidden',
         value: getUserName()

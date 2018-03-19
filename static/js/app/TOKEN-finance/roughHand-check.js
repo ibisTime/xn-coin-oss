@@ -18,8 +18,9 @@ $(function() {
         field: 'currency',
         title: '币种',
         type: 'select',
-        key: 'currency',
-        formatter: Dict.getNameForList("currency"),
+        formatter: function(v, data) {
+        	return getCoinName(data.currency);
+        },
         readonly: true
     }, {
         field: 'direction',

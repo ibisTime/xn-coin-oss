@@ -1,4 +1,19 @@
 $(function() {
+	getCoinReq().then(function(data){
+		
+		var currencyData = {};
+		var currencyList = []
+		var hasCurrency = false;
+		for(var i = 0; i < data.length ; i ++){
+			if(data[i].type=='1'){
+				hasCurrency = true;
+				currencyData[data[i].symbol] = data[i].cname;
+				currencyList.push(data[i].symbol)
+			}
+		}
+		if(!hasCurrency){
+			currencyList.push("无")
+		}
 
     var columns = [{
         field: '',
@@ -21,20 +36,24 @@ $(function() {
         searchName: 'realName',
         search: true
     }, {
-        field: 'amountString',
-        title: '提现金额',
-        formatter: moneyFormat
+        field: 'currency',
+        title: '币种',
+        type: 'select',
+        data: currencyData,
+        search: true,
     }, {
         field: 'amountString',
         title: '提现金额',
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v,'',data.currency);
+        },
     }, {
         field: 'amount',
         title: '实际到账金额',
         formatter: function(v, data) {
             var amount = new BigDecimal(data.amountString);
             var feeString = new BigDecimal(data.feeString);
-            return moneyFormat(amount.subtract(feeString).toString());
+            return moneyFormat(amount.subtract(feeString).toString(),"",data.currency);
         }
     }, {
         field: 'channelType',
@@ -106,7 +125,7 @@ $(function() {
         pageCode: '802755',
         singleSelect: false,
         searchParams: {
-        	currency: 'ETH',
+        	currencyList: currencyList,
             companyCode: OSS.company
         },
         beforeDetail: function(data) {
@@ -114,7 +133,7 @@ $(function() {
         }
     });
     
-    //代申请  add
+    },hideLoading);
     
     //提币广播
     $('#spBtn').click(function() {

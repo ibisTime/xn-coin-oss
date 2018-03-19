@@ -1,8 +1,7 @@
 $(function() {
     var code = getQueryString('code');
     var view = getQueryString('v');
-    var kind = !!getQueryString('kind') || "";
-    
+
     var fields = [{
         title: '流水编号',
         field: 'code1',
@@ -24,9 +23,11 @@ $(function() {
     }, {
         field: 'currency',
         title: '币种',
+        type: 'select',
         formatter: function(v, data) {
         	return getCoinName(data.currency);
         },
+        readonly: view
     }, {
         field: 'channelType',
         title: '渠道类型',
@@ -114,5 +115,4 @@ $(function() {
     };
 
     buildDetail(options);
-	    
 });

@@ -1,5 +1,12 @@
 $(function() {
-    var coin,coin1;
+	getCoinReq().then(function(data){
+		var currencyData = {};
+		var currencyList = []
+		for(var i = 0; i < data.length ; i ++){
+			currencyData[data[i].symbol] = data[i].cname;
+			currencyList.push(data[i].symbol)
+		}
+    
     var columns = [{
         field: '',
         title: '',
@@ -23,14 +30,17 @@ $(function() {
         },
         search: true
     },{
+        field: "tradeCoin",
+        title: "币种",
+        type: 'select',
+        data: currencyData
+    } ,{
         field: "coin",
         title: "币种",
         type: 'select',
-        key: 'coin',
-        formatter: function (v, data) {
-            return Dict.getNameForList1("coin","",data.tradeCoin)
-        },
-        search: true
+        data: currencyData,
+        search: true,
+        visible: false
     } ,{
         title: "购买总量",
         field: "totalCountString",
@@ -94,8 +104,10 @@ $(function() {
         pageCode: '625227',
         searchParams: {
             tradeType: '0',
+            currencyList: currencyList,
             companyCode: OSS.company
         },
     });
 
+    },hideLoading);
 });

@@ -1,5 +1,19 @@
 $(function() {
-
+	getCoinReq().then(function(data){
+		hideLoading()
+		var currencyData = {};
+		var currencyList = []
+		var hasCurrency = false;
+		for(var i = 0; i < data.length ; i ++){
+			if(data[i].type=='1'){
+				hasCurrency = true;
+				currencyData[data[i].symbol] = data[i].cname;
+				currencyList.push(data[i].symbol)
+			}
+		}
+		if(!hasCurrency){
+			currencyList.push("无")
+		}
     var columns = [{
         field: '',
         title: '',
@@ -8,6 +22,12 @@ $(function() {
         field: 'address',
         title: '地址',
         search: true
+    }, {
+        field: 'symbol',
+        title: '币种',
+        type: 'select',
+        data: currencyData,
+        search: true,
     }, {
         title: "拥有者",
         field: "userId",
@@ -39,16 +59,21 @@ $(function() {
         field: 'balanceString',
         title: '当前余额',
         amount: true,
-        formatter: moneyFormat
+        formatter: function(v, data){
+    		return moneyFormat(v,'',data.symbol);
+        }
     }];
     buildList({
         columns: columns,
-        pageCode: '802105',
+        pageCode: '802305',
         searchParams: {
             type: 'X',
+            currencyList: currencyList,
             companyCode: OSS.company
         },
     });
+    
+    },hideLoading);
 
     $('#diviLedgerBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');

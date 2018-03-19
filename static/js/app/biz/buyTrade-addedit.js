@@ -29,7 +29,7 @@ $(function() {
     }, {
         title: "币种",
         field: "tradeCoin",
-        formatter: Dict.getNameForList('coin')
+        formatter: getCoinName
     } , {
         title: "购买总量",
         field: "totalCountString",

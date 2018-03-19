@@ -63,7 +63,7 @@ $(function() {
             	}
             },hideLoading);
             
-            // 获取七牛地址
+            // 获取币种
             reqApi({
                 code: '802267',
                 json: {

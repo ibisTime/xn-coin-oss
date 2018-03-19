@@ -43,18 +43,25 @@ $(function() {
         }
     }];
     
-
     var fields = [{
         field: 'accountName',
         title: '账号'
     }, {
         field: 'amountString',
         title: '取现金额',
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v,'',data.currency);
+        },
+    }, {
+        field: 'currency',
+        title: '币种',
+        formatter: getCoinName
     }, {
         field: 'feeString',
         title: '手续费',
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v,'',data.currency);
+        },
     }, {
         field: 'channelType',
         title: '渠道',
@@ -110,4 +117,5 @@ $(function() {
     };
 
     buildDetail(options);
+	    
 });

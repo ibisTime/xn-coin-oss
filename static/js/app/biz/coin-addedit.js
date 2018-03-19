@@ -108,7 +108,7 @@ $(function() {
         formatter: Dict.getNameForList("coin_status"),
         hidden: !isDetail
     }, {
-        title: "更新时间",
+        title: "更新人",
         field: "updater",
         hidden: !isDetail
     }, {
@@ -133,9 +133,15 @@ $(function() {
         beforeSubmit: function(data){
         	delete data.collectStartString;
         	delete data.withdrawFeeString;
+        	delete data.updater;
+        	delete data.updateDatetime;
+        	delete data.status;
+        	delete data.type;
         	return data;
+        },
+        submitSuccess: function(data){
+        	getCoinUpdate();
         }
     };
     buildDetail(options);
-
 });

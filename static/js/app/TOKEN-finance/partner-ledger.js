@@ -2,6 +2,13 @@ $(function() {
     var accountNumber = getQueryString('accountNumber');
     var accountCode = getQueryString('accountCode');
     var kind = getQueryString('kind')||'0';
+    
+	getCoinReq().then(function(data){
+		hideLoading()
+		var currencyData = {};
+		for(var i = 0; i < data.length ; i ++){
+			currencyData[data[i].symbol] = data[i].cname;
+		}
     var columns = [{
         field: '',
         title: '',
@@ -14,8 +21,7 @@ $(function() {
         field: 'currency',
         title: '币种',
         type: 'select',
-        key: 'coin',
-        formatter: Dict.getNameForList("coin"),
+        data: currencyData
     }, {
         field: 'channelType',
         title: '渠道',
@@ -33,15 +39,21 @@ $(function() {
     }, {
         field: 'transAmountString',
         title: '变动金额',
-        formatter: moneyFormat
+        formatter: function(v, data){
+    		return moneyFormat(v,'',data.currency);
+        }
     }, {
         field: 'preAmountString',
         title: '变动前金额',
-        formatter: moneyFormat
+        formatter: function(v, data){
+    		return moneyFormat(v,'',data.currency);
+        }
     }, {
         field: 'postAmountString',
         title: '变动后金额',
-        formatter: moneyFormat
+        formatter: function(v, data){
+    		return moneyFormat(v,'',data.currency);
+        }
     }, {
         field: 'status',
         title: '状态',
@@ -70,6 +82,9 @@ $(function() {
             companyCode: OSS.company
         }
     });
+    
+    },hideLoading);
+    
     $(".tools .toolbar").html('<li style="display:block;" id="goBackBtn"><span><img src="/static/images/t01.png"></span>返回</li>')
 
     $("#goBackBtn").on("click", function() {

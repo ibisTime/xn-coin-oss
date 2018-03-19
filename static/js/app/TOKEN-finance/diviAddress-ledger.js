@@ -1,6 +1,17 @@
 $(function() {
     var address = getQueryString('address');
     
+    getCoinReq().then(function(data){
+		hideLoading()
+		var currencyData = {};
+		var currencyList = []
+		for(var i = 0; i < data.length ; i ++){
+			if(data[i].type=='1'){
+				currencyData[data[i].symbol] = data[i].cname;
+				currencyList.push(data[i].symbol)
+			}
+		}
+    
     var columns = [{
         field: '',
         title: '',
@@ -13,11 +24,16 @@ $(function() {
         title: '交易金额',
         formatter: function(v,data){
         	if(data.from==address){
-        		return '-'+moneyFormat(v);
+        		return '-'+moneyFormat(v,"",data.symbol);
         	}else{
-        		return moneyFormat(v);
+        		return moneyFormat(v,"",data.symbol);
         	}
         }
+    }, {
+        field: 'symbol',
+        title: '币种',
+        type: 'select',
+        data: currencyData,
     }, {
         field: 'fromTo',
         title: '对方地址',
@@ -34,7 +50,9 @@ $(function() {
     }, {
         title: "gas价格",
         field: 'gasPrice',
-        formatter:moneyFormat
+        formatter: function(v, data){
+    		return moneyFormat(v,'',data.currency);
+        }
     }, {
         title: "消耗gas",
         field: 'gasUsed'
@@ -45,7 +63,7 @@ $(function() {
         	var gasPrice = new BigDecimal(data.gasPrice);
         	var gasUsed = new BigDecimal(data.gasUsed);
         	kgPrice =  gasPrice.multiply(gasUsed).toString();
-        	return moneyFormat(kgPrice);
+        	return moneyFormat(kgPrice,"",data.currency);
         }
     }, {
         field: 'refNo',
@@ -63,6 +81,9 @@ $(function() {
             address: address,
         }
     });
+    
+    },hideLoading);
+    
     $(".tools .toolbar").html('<li style="display:block;" id="goBackBtn"><span><img src="/static/images/t01.png"></span>返回</li>')
 
     $("#goBackBtn").on("click", function() {

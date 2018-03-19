@@ -1,4 +1,20 @@
 $(function() {
+	getCoinReq().then(function(data){
+		hideLoading()
+		
+		var currencyData = {};
+		var currencyList = []
+		var hasCurrency = false;
+		for(var i = 0; i < data.length ; i ++){
+			if(data[i].type=='1'){
+				hasCurrency = true;
+				currencyData[data[i].symbol] = data[i].cname;
+				currencyList.push(data[i].symbol)
+			}
+		}
+		if(!hasCurrency){
+			currencyList.push("无")
+		}
 
     var columns = [{
         field: '',
@@ -14,7 +30,15 @@ $(function() {
     }, {
         field: 'amountString',
         title: '提现金额',
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v,'',data.currency);
+        },
+    }, {
+        field: 'currency',
+        title: '币种',
+        type: 'select',
+        data: currencyData,
+        search: true,
     }, {
         field: 'channelType',
         title: '渠道',
@@ -83,7 +107,7 @@ $(function() {
         pageCode: '802755',
         searchParams: {
             status: "6",
-            channelType: "ETH",
+        	currencyList: currencyList,
             companyCode: OSS.company
         },
         // beforeDetail: function(data) {
@@ -91,5 +115,6 @@ $(function() {
         // }
     });
 
+    },hideLoading);
 
 });

@@ -1,5 +1,20 @@
 $(function() {
-
+	
+	getCoinReq().then(function(data){
+		var currencyData = {};
+		var currencyList = [];
+		var hasCurrency = false;
+		for(var i = 0; i < data.length ; i ++){
+			if(data[i].type=='1'){
+				hasCurrency = true;
+				currencyData[data[i].symbol] = data[i].cname;
+				currencyList.push(data[i].symbol)
+			}
+		}
+		if(!hasCurrency){
+			currencyList.push("无")
+		}
+		
     var columns = [{
         field: '',
         title: '',
@@ -45,13 +60,19 @@ $(function() {
         searchName: "mobile",
         search: true
     }, {
+        field: "tradeCoin",
+        title: "交易币种",
+        type: 'select',
+        data: currencyData,
+        search: true,
+    } ,{
         title: "交易价格",
         field: "tradePrice"
     }, {
         title: "交易数量",
         field: "countString",
-        formatter: function(v, data) {
-            return moneyFormat(v) + Dict.getNameForList1('coin','',data.tradeCoin);
+        formatter: function(v, data){
+    		return moneyFormat(v,'',data.tradeCoin)+getCoinName(data.tradeCoin);
         }
     }, {
         title: "交易金额",
@@ -59,7 +80,9 @@ $(function() {
     }, {
         title: "手续费",
         field: "feeString",
-        formatter: moneyFormat
+        formatter: function(v, data){
+    		return moneyFormat(v,'',data.tradeCoin);
+        }
     }, {
         title: "状态",
         field: "status",
@@ -88,7 +111,7 @@ $(function() {
         searchParams: {
             type: "buy",
             statusList: ["2","3"],
-            tradeCoin: 'ETH',
+            currencyList: currencyList,
             companyCode: OSS.company
         },
         beforeSearch:function(data){
@@ -97,9 +120,15 @@ $(function() {
 	        	statusList.push(data.statusList)
 	        	data.statusList = statusList;
         	}
+        	if(data.tradeCoin){
+        		data.currencyList = [data.tradeCoin];
+        		delete data.tradeCoin;
+        	}
         	return data;
         }
     });
+    
+    },hideLoading);
 	
 	
 	

@@ -2,31 +2,43 @@ $(function() {
     var code = getQueryString('code');
     var view = !!getQueryString('v');
     var userId = getQueryString('userId') || '';
-
+    
     var fields = [{
         field: 'accountName',
         title: '账号'
     }, {
         field: 'amountString',
         title: '取现金额',
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v,'',data.currency);
+        },
+    }, {
+        field: 'currency',
+        title: '币种',
+        formatter: function(v, data) {
+        	return getCoinName(data.currency);
+        },
     }, {
         field: 'feeString',
         title: '手续费',
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v,'',data.currency);
+        },
     }, {
         field: 'amount',
         title: '实际到账金额',
         formatter: function(v, data) {
             var amount = new BigDecimal(data.amountString);
             var feeString = new BigDecimal(data.feeString);
-            return moneyFormat(amount.subtract(feeString).toString());
+            return moneyFormat(amount.subtract(feeString).toString(),"",data.currency);
         },
         readonly: true
     }, {
         field: 'payFeeString',
         title: '实际支付矿工费',
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v,'',data.currency);
+        },
     }, {
         field: 'channelType',
         title: '渠道',
@@ -98,4 +110,5 @@ $(function() {
     };
 
     buildDetail(options);
+	    
 });

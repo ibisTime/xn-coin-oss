@@ -1,4 +1,11 @@
 $(function() {
+	getCoinReq().then(function(data){
+		var currencyData = {};
+		var currencyList = []
+		for(var i = 0; i < data.length ; i ++){
+			currencyData[data[i].symbol] = data[i].cname;
+			currencyList.push(data[i].symbol)
+		}
 
     var columns = [{
         field: '',
@@ -45,14 +52,17 @@ $(function() {
         searchName: "mobile",
         search: true
     },{
+        field: "tradeCoin",
+        title: "币种",
+        type: 'select',
+        data: currencyData
+    } ,{
         field: "coin",
         title: "币种",
         type: 'select',
-        key: 'coin',
-        formatter: function (v, data) {
-            return Dict.getNameForList1("coin","",data.tradeCoin)
-        },
-        search: true
+        data: currencyData,
+        search: true,
+        visible: false
     } ,{
         title: "交易价格",
         field: "tradePrice"
@@ -60,7 +70,7 @@ $(function() {
         title: "交易数量",
         field: "countString",
         formatter: function(v, data){
-    		return moneyFormat(v,'',data.tradeCoin)+Dict.getNameForList1("coin","",data.tradeCoin);
+    		return moneyFormat(v,'',data.tradeCoin)+getCoinName(data.tradeCoin);
         }
     }, {
         title: "交易金额",
@@ -69,7 +79,7 @@ $(function() {
         title: "手续费",
         field: "feeString",
         formatter: function(v, data){
-    		return moneyFormat(v,'',data.tradeCoin)+Dict.getNameForList1("coin","",data.tradeCoin);
+    		return moneyFormat(v,'',data.tradeCoin)+getCoinName(data.tradeCoin);
         }
     }, {
         title: "状态",
@@ -105,6 +115,7 @@ $(function() {
         pageCode: '625250',
         searchParams: {
             statusList: ["0", "1", "5"],
+            currencyList: currencyList,
             companyCode: OSS.company
         },
         beforeSearch:function(data){
@@ -116,5 +127,7 @@ $(function() {
         	return data;
         }
     });
+    
+    },hideLoading);
 
 });

@@ -35,7 +35,7 @@ $(function() {
         title: "交易数量",
         field: "countString",
         formatter: function(v, data){
-			return moneyFormat(v,'',data.tradeCoin)+Dict.getNameForList1("coin","",data.tradeCoin);
+			return moneyFormat(v,'',data.tradeCoin)+getCoinName(data.tradeCoin);
         }
     }, {
         title: "交易金额",
@@ -44,14 +44,13 @@ $(function() {
         title: "手续费",
         field: "feeString",
         formatter: function(v, data){
-    		return moneyFormat(v,'',data.tradeCoin)+Dict.getNameForList1("coin","",data.tradeCoin);
+    		return moneyFormat(v,'',data.tradeCoin)+getCoinName(data.tradeCoin);
         }
     }, {
         title: "交易虚拟币币种",
         field: "tradeCoin",
         type: "select",
-        key: "coin",
-        formatter: Dict.getNameForList("coin"),
+        formatter: getCoinName,
         search: true
     }, {
         title: "交易法币币种",

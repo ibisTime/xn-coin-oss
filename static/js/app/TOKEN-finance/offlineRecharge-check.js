@@ -73,7 +73,7 @@ $(function() {
             formatter: dateTimeFormat
         }, approveNoteField]
     }
-
+	
     var fields = [{
         title: '编号',
         field: 'code1',
@@ -91,13 +91,15 @@ $(function() {
     }, {
         field: 'amountString',
         title: '金额',
-        formatter: moneyFormat
+        formatter: function(v, data) {
+            return moneyFormat(v,"",data.currency);
+        },
     }, {
         field: 'currency',
         title: '币种',
-        type: 'select',
-        key: 'coin',
-        formatter: Dict.getNameForList("coin"),
+        formatter: function(v, data) {
+        	return getCoinName(data.currency);
+        },
     }, {
         field: 'channelType',
         title: '支付渠道',
@@ -154,4 +156,5 @@ $(function() {
     };
 
     buildDetail(options);
+	    
 });

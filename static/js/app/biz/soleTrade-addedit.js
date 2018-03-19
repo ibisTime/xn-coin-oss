@@ -27,19 +27,17 @@ $(function() {
     }, {
         title: "币种",
         field: "tradeCoin",
-        formatter: Dict.getNameForList('coin')
+        formatter: getCoinName
     } ,  {
         title: "售卖总量",
         field: "totalCountString",
         formatter: function(v, data){
-        	
     		return moneyFormat(v,'',data.tradeCoin);
         }
     }, {
         field: "leftCountString",
         title: "剩余可售卖",
         formatter: function(v, data){
-        	
     		return moneyFormat(v,'',data.tradeCoin);
         }
     }, {

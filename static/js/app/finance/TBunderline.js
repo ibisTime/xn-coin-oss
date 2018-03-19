@@ -25,10 +25,6 @@ $(function() {
         title: '提现金额',
         formatter: moneyFormat
     }, {
-        field: 'amountString',
-        title: '提现金额',
-        formatter: moneyFormat
-    }, {
         field: 'amount',
         title: '实际到账金额',
         formatter: function(v, data) {

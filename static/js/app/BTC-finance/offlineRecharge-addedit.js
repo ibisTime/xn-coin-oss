@@ -16,7 +16,8 @@ $(function() {
         ],
         params: {
             userId: userId,
-            currency:'BTC'
+            currency:'BTC',
+            type:"C"
         },
         keyName: 'accountNumber',
         valueName: '{{realName.DATA}} - {{currencyName.DATA}} - {{typeName.DATA}}',
