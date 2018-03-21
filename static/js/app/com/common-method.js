@@ -406,10 +406,8 @@ $.fn.serializeObject = function() {
             //入参判断是金额则金额放大,
             if ($('#' + this.name).parent('li').attr('type') == 'amount') {
             	//不同币种放大
-            	if($('#' + this.name).parent('li').attr('data-coin') == 'SC'){
-            		value = moneyParse(value,"","SC");
-            	}else if($('#' + this.name).parent('li').attr('data-coin') == 'BTC'){
-            		value = moneyParse(value,"","BTC");
+            	if($('#' + this.name).parent('li').attr('data-coin')){
+            		value = moneyParse(value,"",$('#' + this.name).parent('li').attr('data-coin'));
             	}else{
             		value = moneyParse(value);
             	}
@@ -1926,19 +1924,15 @@ function buildDetail(options) {
                         data.area && $('#area').html(data.area);
                     } else {
                         if (item.field && item.field.indexOf('-') > -1) {
-                        	if(item.coin=="SC"){
-								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(displayValue,'','SC') : displayValue) || '-');
-				        	}else if(item.coin=="BTC"){
-								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(displayValue,'','BTC') : displayValue) || '-');
+                        	if(item.coin){
+								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(displayValue,'',item.coin) : displayValue) || '-');
 				        	}else{
 								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(displayValue) : displayValue) || '-');
 				        	}
 						}
 						else if (item.field in data) {
-							if(item.coin=="SC"){
-								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(data[item.field],'','SC') : data[item.field]));
-				        	}else if(item.coin=="BTC"){
-								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(data[item.field],'','BTC') : data[item.field]));
+							if(item.coin){
+								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(data[item.field],'',item.coin) : data[item.field]));
 				        	}else{
 								$('#' + item.field).html(((item.amount || item.amount1) ? moneyFormat(data[item.field]) : data[item.field]));
 				        	}
@@ -2062,10 +2056,8 @@ function buildDetail(options) {
                         if (item.formatter) {
                             $('#' + item.field).val(item.formatter(displayValue, data));
                         } else {
-                        	if(item.coin=="SC"){
-								$('#' + item.field).val((item.amount || item.amount1) ? moneyFormat(displayValue,'','SC') : displayValue);
-				        	}else if(item.coin=="BTC"){
-								$('#' + item.field).val((item.amount || item.amount1) ? moneyFormat(displayValue,'','BTC') : displayValue);
+                        	if(item.coin){
+								$('#' + item.field).val((item.amount || item.amount1) ? moneyFormat(displayValue,'',item.coin) : displayValue);
 				        	}else{
                             	$('#' + item.field).val((item.amount || item.amount1) ? moneyFormat(displayValue) : displayValue);
 				        	}
@@ -3065,11 +3057,8 @@ function buildDetail1(options) {
                     data.area && $('#area-model').html(data.area);
                 } else {
                     if (displayValue) {
-                    	
-                    	if(item.coin=="SC"){
-							$('#' + item.field + "-model").html(((item.amount || item.amount1) ? moneyFormat(displayValue,'','SC') : displayValue) || '-');
-			        	}else if(item.coin=="BTC"){
-							$('#' + item.field + "-model").html(((item.amount || item.amount1) ? moneyFormat(displayValue,'','BTC') : displayValue) || '-');
+                    	if(item.coin){
+							$('#' + item.field + "-model").html(((item.amount || item.amount1) ? moneyFormat(displayValue,'',item.coin) : displayValue) || '-');
 			        	}else{
 							$('#' + item.field + "-model").html(((item.amount || item.amount1) ? moneyFormat(displayValue) : displayValue) || '-');
 						}
@@ -3188,10 +3177,8 @@ function buildDetail1(options) {
                 if (item.value && item.value.call) {
                     $('#' + item.field + "-model").val(item.value(data));
                 } else {
-                	if(item.coin=="SC"){
-						$('#' + item.field + "-model").val(item.amount ? moneyFormat(item.value,'','SC') : item.value);
-		        	}else if(item.coin=="BTC"){
-						$('#' + item.field + "-model").val(item.amount ? moneyFormat(item.value,'','BTC') : item.value);
+                	if(item.coin){
+						$('#' + item.field + "-model").val(item.amount ? moneyFormat(item.value,'',item.coin) : item.value);
 		        	}else{
 						$('#' + item.field + "-model").val(item.amount ? moneyFormat(item.value) : item.value);
 					}

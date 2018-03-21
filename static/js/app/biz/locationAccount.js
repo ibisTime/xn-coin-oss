@@ -80,7 +80,7 @@ $(function() {
     	}else if(selRecords[0].currency=="BTC"){
     		window.location.href = "../BTC-finance/partner_ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
     	}else if(selRecords[0].currency=="ETH"){
-    		window.location.href = "../ETH-finance/partner_ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
+    		window.location.href = "../finance/partner_ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
     	}else{
     		window.location.href = "../TOKEN-finance/partner_ledger.html?accountCode=" + selRecords[0].accountNumber + "&yk=1";
     	}

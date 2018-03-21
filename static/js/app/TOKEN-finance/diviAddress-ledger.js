@@ -51,7 +51,7 @@ $(function() {
         title: "gas价格",
         field: 'gasPriceString',
         formatter: function(v, data){
-    		return moneyFormat(v,'',data.symbol);
+    		return moneyFormat(v,'','ETH')+'ETH';
         }
     }, {
         title: "消耗gas",

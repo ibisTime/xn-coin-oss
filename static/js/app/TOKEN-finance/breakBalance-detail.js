@@ -12,6 +12,9 @@ $(function() {
 	    }, {
 	        title: "数量",
 	        field: "amount",
+	        formatter: function(v, data){
+	        	return moneyFormat(v,'',currency)
+	        }
 	    }],
         singleSelect: true, //禁止多选
         clickToSelect: true, //自动选中

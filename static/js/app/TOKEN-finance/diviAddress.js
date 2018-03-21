@@ -58,7 +58,6 @@ $(function() {
     }, {
         field: 'balanceString',
         title: '当前余额',
-        amount: true,
         formatter: function(v, data){
     		return moneyFormat(v,'',data.symbol);
         }

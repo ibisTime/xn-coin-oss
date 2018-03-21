@@ -534,6 +534,8 @@
 
 								if(el.pageOptions.keyCode1) {
 									var dictData = Dict.getName2(item[1], el.pageOptions.keyCode1);
+								}else if(el.pageOptions.dictData){
+									var dictData = el.pageOptions.dictData;
 								} else {
 									var dictData = Dict.getName(item[1]);
 								}
@@ -789,7 +791,9 @@
 								dict.forEach(function(item) {
 									if(el.pageOptions.keyCode1) {
 										var dictData = Dict.getName2(item[1], el.pageOptions.keyCode1);
-									} else {
+									}  else if(el.pageOptions.dictData){
+										var dictData = el.pageOptions.dictData;
+									}  else {
 										var dictData = Dict.getName(item[1]);
 									}
 									data.forEach(function(i) {

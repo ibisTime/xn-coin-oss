@@ -38,7 +38,7 @@ $(function() {
 	        valueName: '{{realName.DATA}} - {{currencyName.DATA}}',
 	        searchName: 'realName',
 	        onChange: function(v, data){
-	        	coin = data.currency;
+	        	coin = data.currency || '';
 	        }
 	    }, {
 	        title: "充值数量",

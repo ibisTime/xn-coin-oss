@@ -229,7 +229,9 @@ $(function() {
             }, {
                 field: 'gasPriceString',
                 title: 'gasPrice',
-                formatter: moneyFormat,
+		        formatter: function(v,data){
+		        	return moneyFormat(v,'','ETH')+'ETH';
+	        	}
             }, {
                 field: 'gasUsed',
                 title: 'gasUsed'

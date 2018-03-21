@@ -161,14 +161,9 @@ $(function() {
             code: '802901',
             json: {}
         }).then(function(data) {
-            var amount1 = data.bcoinGasPrice;
-            var amount2 = 21000;
-            // amount1*amount2 = 矿工费
             var amount3 = selRecords[0].amountString;      // 提现金额
             var amount4 = selRecords[0].feeString;         // 手续费
-            var balanceStart1 = amount3 - amount4;
-            balanceStart = amount1 * amount2;
-            balanceStart= balanceStart1 + balanceStart;
+            balanceStart = amount3 - amount4;
 
             hideLoading();
 
@@ -187,19 +182,21 @@ $(function() {
                     title: '地址',
                     required: true,
                     type: "select",
-                    pageCode: "802105",
+                    pageCode: "802305",
                     params: {
                         type: 'M',
                         statusList: ['0'],
+                        symbol: selRecords[0].payCardInfo,
                         companyCode: OSS.company,
                         balanceStart: balanceStart
-                        // balanceStart: '0'
                     },
                     keyName: "code",
                     valueName: "{{address.DATA}}--{{balanceString.DATA}}",
                     searchName: "address",
                     valueFormatter: {
-                        balanceString: moneyFormat
+                        balanceString: function(v){
+                        	return moneyFormat(v,'',selRecords[0].payCardInfo)
+                        }
                     }
                 }],
                 buttons: [{
