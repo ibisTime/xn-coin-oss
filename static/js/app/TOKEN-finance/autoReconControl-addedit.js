@@ -210,7 +210,7 @@ $(function() {
                 formatter: dateTimeFormat
             }]
         }, {
-            field: 'ethTransList',
+            field: 'tokenTransList',
             title: '区块链流水',
             readonly: true,
             type: 'o2m',
@@ -218,16 +218,16 @@ $(function() {
                 field: 'blockNumber',
                 title: 'blockNumber',
             }, {
-                field: 'from',
+                field: 'tokenFrom',
                 title: 'from'
             }, {
-                field: 'to',
+                field: 'tokenTo',
                 title: 'to'
             }, {
-                field: 'gas',
+                field: 'gasLimit',
                 title: 'gasLimit',
             }, {
-                field: 'gasPrice',
+                field: 'gasPriceString',
                 title: 'gasPrice',
                 formatter: moneyFormat,
             }, {
@@ -235,29 +235,25 @@ $(function() {
                 title: 'gasUsed'
             }, {
 		        title: "矿工费",
-		        field: 'kgPrice',
+		        field: 'gasFeeString',
 		        formatter: function(v,data){
-		        	var gasPrice = new BigDecimal(data.gasPrice);
-		        	var gasUsed = new BigDecimal(data.gasUsed);
-		        	kgPrice =  gasPrice.multiply(gasUsed).toString();
-		        	return moneyFormat(kgPrice);
-		        	}
+		        	return moneyFormat(v,'','ETH')+'ETH';
+	        	}
 	        },{
                 field: 'nonce',
-                title: 'nonce'
-            }, {
-                field: 'refNo',
-                title: 'refNo'
+                title: '交易次数'
             }, {
                 title: "交易Hash",
                 field: "hash"
             }, {
                 field: 'transactionIndex',
-                title: 'transactionIndex'
+                title: '交易索引'
             }, {
                 title: "value",
-                field: "value",
-                formatter: moneyFormat,
+                field: "tokenValueString",
+		        formatter: function(v, data) {
+		            return moneyFormat(v,'',data.symbol);
+		        },
             }]
         }, {
             field: 'checkUser',

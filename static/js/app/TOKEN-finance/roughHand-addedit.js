@@ -210,7 +210,7 @@ $(function() {
             title: '生成说明'
         }, ]
     }, {
-        field: 'ethTransList',
+        field: 'tokenTransList',
         title: '区块链流水',
         readonly: true,
         type: 'o2m',
@@ -218,38 +218,32 @@ $(function() {
             field: 'blockNumber',
             title: 'blockNumber',
         }, {
-            field: 'from',
+            field: 'tokenFrom',
             title: 'from'
         }, {
-            field: 'to',
+            field: 'tokenTo',
             title: 'to'
         }, {
             field: 'gas',
             title: 'gasLimit',
         }, {
             field: 'gasPrice',
-            title: 'gasPrice',
+            title: 'gasPriceString',
 	        formatter: function(v, data) {
-	            return moneyFormat(v,'',currencyVal);
+	            return moneyFormat(v,'',data.symbol);
 	        },
         }, {
             field: 'gasUsed',
             title: 'gasUsed'
         }, {
 	        title: "矿工费",
-	        field: 'kgPrice',
+	        field: 'gasFeeString',
 	        formatter: function(v,data){
-	        	var gasPrice = new BigDecimal(data.gasPrice);
-	        	var gasUsed = new BigDecimal(data.gasUsed);
-	        	kgPrice =  gasPrice.multiply(gasUsed).toString();
-	        	return moneyFormat(kgPrice,'',currencyVal);
+	        	return moneyFormat(v,'','ETH')+'ETH';
         	}
         },{
             field: 'nonce',
             title: 'nonce'
-        }, {
-            field: 'refNo',
-            title: 'refNo'
         }, {
             title: "交易Hash",
             field: "hash"
@@ -258,9 +252,9 @@ $(function() {
             title: 'transactionIndex'
         }, {
             title: "value",
-            field: "value",
+            field: "tokenValueString",
 	        formatter: function(v, data) {
-	            return moneyFormat(v,'',currencyVal);
+	            return moneyFormat(v,'',data.symbol);
 	        },
         }]
     }, {

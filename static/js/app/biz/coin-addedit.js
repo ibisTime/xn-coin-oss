@@ -52,6 +52,7 @@ $(function() {
         },
         coinAmount: true,
         required: true,
+        hidden: isDetail
     }, {
         title: "取现手续费",
         field: "withdrawFee",
@@ -60,6 +61,7 @@ $(function() {
         },
         coinAmount: true,
         required: true,
+        hidden: isDetail
     }, {
         title: "归集阀值",
         field: "collectStartString",
@@ -92,7 +94,9 @@ $(function() {
         normalArea: true
     }, {
         title: "序号",
-        field: "orderNo"
+        field: "orderNo",
+        number: true,
+        required: true
     }, {
         title: "类型",
         field: "type",

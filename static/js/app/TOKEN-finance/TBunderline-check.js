@@ -50,17 +50,13 @@ $(function() {
         field: 'amountString',
         title: '取现金额',
         formatter: function(v, data) {
-            return moneyFormat(v,'',data.currency);
+            return moneyFormat(v,'',data.payCardInfo);
         },
-    }, {
-        field: 'currency',
-        title: '币种',
-        formatter: getCoinName
     }, {
         field: 'feeString',
         title: '手续费',
         formatter: function(v, data) {
-            return moneyFormat(v,'',data.currency);
+            return moneyFormat(v,'',data.payCardInfo);
         },
     }, {
         field: 'channelType',

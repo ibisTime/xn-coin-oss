@@ -1,13 +1,16 @@
 $(function() {
 	getCoinReq().then(function(data){
 		
-		var currencyData = {};
 		var currencyList = []
+		var coinList = [];
 		var hasCurrency = false;
 		for(var i = 0; i < data.length ; i ++){
 			if(data[i].type=='1'){
 				hasCurrency = true;
-				currencyData[data[i].symbol] = data[i].cname;
+				coinList.push({
+					'dkey':data[i].symbol,
+					'dvalue':data[i].cname
+				})
 				currencyList.push(data[i].symbol)
 			}
 		}
@@ -29,23 +32,22 @@ $(function() {
         type: 'select',
         pageCode: '802500',
         params: {
-            type:'C'
+            type:'C',
+            currencyList:currencyList
         },
+        dict: [
+            ['currency'],
+        ],
+        dictData:coinList,
         keyName: 'realName',
-        valueName: '{{realName.DATA}}',
+        valueName: '{{realName.DATA}} - {{currencyName.DATA}}',
         searchName: 'realName',
         search: true
-    }, {
-        field: 'currency',
-        title: '币种',
-        type: 'select',
-        data: currencyData,
-        search: true,
     }, {
         field: 'amountString',
         title: '提现金额',
         formatter: function(v, data) {
-            return moneyFormat(v,'',data.currency);
+            return moneyFormat(v,'',data.payCardInfo);
         },
     }, {
         field: 'amount',
@@ -53,7 +55,7 @@ $(function() {
         formatter: function(v, data) {
             var amount = new BigDecimal(data.amountString);
             var feeString = new BigDecimal(data.feeString);
-            return moneyFormat(amount.subtract(feeString).toString(),"",data.currency);
+            return moneyFormat(amount.subtract(feeString).toString(),"",data.payCardInfo);
         }
     }, {
         field: 'channelType',

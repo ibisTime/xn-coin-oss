@@ -20,10 +20,10 @@ $(function() {
         title: "交易HASH",
         field: 'hash'
     }, {
-        field: 'value',
+        field: 'tokenValueString',
         title: '交易金额',
         formatter: function(v,data){
-        	if(data.from==address){
+        	if(data.tokenFrom==address){
         		return '-'+moneyFormat(v,"",data.symbol);
         	}else{
         		return moneyFormat(v,"",data.symbol);
@@ -38,44 +38,38 @@ $(function() {
         field: 'fromTo',
         title: '对方地址',
         formatter: function(v,data){
-        	if(data.from==address){
-        		return data.to;
+        	if(data.tokenFrom==address){
+        		return data.tokenTo;
         	}else{
-        		return data.from;
+        		return data.tokenFrom;
         	}
         }
     }, {
         title: "gasLimit",
-        field: 'gas'
+        field: 'gasLimit'
     }, {
         title: "gas价格",
-        field: 'gasPrice',
+        field: 'gasPriceString',
         formatter: function(v, data){
-    		return moneyFormat(v,'',data.currency);
+    		return moneyFormat(v,'',data.symbol);
         }
     }, {
         title: "消耗gas",
         field: 'gasUsed'
     }, {
         title: "矿工费",
-        field: 'kgPrice',
+        field: 'gasFeeString',
         formatter: function(v,data){
-        	var gasPrice = new BigDecimal(data.gasPrice);
-        	var gasUsed = new BigDecimal(data.gasUsed);
-        	kgPrice =  gasPrice.multiply(gasUsed).toString();
-        	return moneyFormat(kgPrice,"",data.currency);
+        	return moneyFormat(v,"",'ETH')+'ETH';
         }
     }, {
-        field: 'refNo',
-        title: '关联订单号',
-    }, {
-        field: 'creates',
+        field: 'syncDatetime',
         title: '网络记账时间',
         formatter: dateTimeFormat
     }];
     buildList({
         columns: columns,
-        pageCode: '802107',
+        pageCode: '802307',
         searchParams: {
             kind:'0',
             address: address,

@@ -70,7 +70,7 @@ $(function() {
             return;
         }
 		
-        if (selRecords[0].status != '1') {
+        if (selRecords[0].status == '0') {
             toastr.info("不是可发布状态！");
             return;
         }

@@ -45,8 +45,7 @@ $(function() {
 	        field: 'amount',
 	        required: true,
 	        number: true,
-	        maxlength: 13,
-	        amount: 'true',
+	        coinAmount: true,
 	        formatter: moneyFormat
 	    }, {
 	        field: 'payCardInfo',

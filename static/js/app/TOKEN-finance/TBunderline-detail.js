@@ -10,19 +10,19 @@ $(function() {
         field: 'amountString',
         title: '取现金额',
         formatter: function(v, data) {
-            return moneyFormat(v,'',data.currency);
+            return moneyFormat(v,'',data.payCardInfo);
         },
     }, {
-        field: 'currency',
+        field: 'payCardInfo',
         title: '币种',
         formatter: function(v, data) {
-        	return getCoinName(data.currency);
+        	return getCoinName(v);
         },
     }, {
         field: 'feeString',
         title: '手续费',
         formatter: function(v, data) {
-            return moneyFormat(v,'',data.currency);
+            return moneyFormat(v,'',data.payCardInfo);
         },
     }, {
         field: 'amount',
@@ -30,14 +30,14 @@ $(function() {
         formatter: function(v, data) {
             var amount = new BigDecimal(data.amountString);
             var feeString = new BigDecimal(data.feeString);
-            return moneyFormat(amount.subtract(feeString).toString(),"",data.currency);
+            return moneyFormat(amount.subtract(feeString).toString(),"",data.payCardInfo);
         },
         readonly: true
     }, {
         field: 'payFeeString',
         title: '实际支付矿工费',
         formatter: function(v, data) {
-            return moneyFormat(v,'',data.currency);
+            return moneyFormat(v,'',data.payCardInfo);
         },
     }, {
         field: 'channelType',
