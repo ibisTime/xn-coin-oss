@@ -24,7 +24,8 @@ $(function() {
         json: {
             "start": 1,
             "limit": 10,
-            "type": "P"
+            "type": "P",
+            "currency": 'BTC'
         },
         sync: true
     }).then(function(data) {
@@ -33,12 +34,12 @@ $(function() {
         lists.forEach(function(d){
         	//平台冷钱包
         	if(d.accountNumber=="SYS_ACOUNT_BTC_COLD"){
-        		$("#amount-TG").text(moneyFormatBTC(d.amountString));
+        		$("#amount-TG").text(moneyFormat(d.amountString,'','BTC'));
         		accountNumberTG = d.accountNumber;
         	}
         	//平台盈亏账户
         	if(d.accountNumber=="SYS_ACOUNT_BTC"){
-        		$("#amount-CNY").text(moneyFormatBTC(d.amountString));
+        		$("#amount-CNY").text(moneyFormat(d.amountString,'','BTC'));
         		accountNumberCNY = d.accountNumber;
         	}
         })

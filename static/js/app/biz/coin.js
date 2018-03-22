@@ -181,11 +181,6 @@ $(function() {
             return;
         }
         
-        if (selRecords[0].status != '1') {
-            toastr.info("不是可修改的状态");
-            return;
-        }
-        
     	window.location.href = "./coin_addedit.html?symbol=" + selRecords[0].symbol;
     })
     

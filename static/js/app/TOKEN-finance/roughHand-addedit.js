@@ -45,7 +45,7 @@ $(function() {
         field: 'payFeeString',
         title: '实际支付矿工费',
         formatter: function(v, data) {
-            return moneyFormat(data.withdraw.payFeeString,'',data.withdraw.currency);
+            return moneyFormat(data.withdraw.payFeeString,'','ETH');
         },
         readonly: true
     }, {

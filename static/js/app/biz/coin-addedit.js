@@ -6,6 +6,7 @@ $(function() {
     var fields = [{
         title: "符号",
         field: "symbol",
+        readonly: !!symbol,
         required: true,
     }, {
         title: "英文名称",
@@ -141,6 +142,9 @@ $(function() {
         	delete data.updateDatetime;
         	delete data.status;
         	delete data.type;
+        	if(symbol){
+        		data.symbol = symbol
+        	}
         	return data;
         },
         submitSuccess: function(data){

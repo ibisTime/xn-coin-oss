@@ -24,7 +24,8 @@ $(function() {
         json: {
             "start": 1,
             "limit": 10,
-            "type": "P"
+            "type": "P",
+            "currency": 'SC'
         },
         sync: true
     }).then(function(data) {
@@ -33,12 +34,12 @@ $(function() {
         lists.forEach(function(d){
         	//平台ETH冷钱包
         	if(d.accountNumber=="SYS_ACOUNT_SC_COLD"){
-        		$("#amount-TG").text(moneyFormatSC(d.amountString));
+        		$("#amount-TG").text(moneyFormat(d.amountString,'','SC'));
         		accountNumberTG = d.accountNumber;
         	}
         	//平台ETH盈亏账户
         	if(d.accountNumber=="SYS_ACOUNT_SC"){
-        		$("#amount-CNY").text(moneyFormatSC(d.amountString));
+        		$("#amount-CNY").text(moneyFormat(d.amountString,'','SC'));
         		accountNumberCNY = d.accountNumber;
         	}
         })

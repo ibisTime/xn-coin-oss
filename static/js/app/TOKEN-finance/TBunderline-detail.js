@@ -13,10 +13,10 @@ $(function() {
             return moneyFormat(v,'',data.payCardInfo);
         },
     }, {
-        field: 'payCardInfo',
+        field: 'coin',
         title: '币种',
         formatter: function(v, data) {
-        	return getCoinName(v);
+        	return getCoinName(data.payCardInfo);
         },
     }, {
         field: 'feeString',
@@ -37,7 +37,7 @@ $(function() {
         field: 'payFeeString',
         title: '实际支付矿工费',
         formatter: function(v, data) {
-            return moneyFormat(v,'',data.payCardInfo);
+            return moneyFormat(v,'','ETH');
         },
     }, {
         field: 'channelType',
