@@ -39,9 +39,9 @@ $(function() {
         title: "提现地址",
         field: "payCardNo"
     }, {
-        title: "打币地址",
-        field: "payUser"
-    }, {
+//      title: "打币地址",
+//      field: "payUser"
+//  }, {
         title: "交易Hash",
         field: "channelOrder"
     }, {

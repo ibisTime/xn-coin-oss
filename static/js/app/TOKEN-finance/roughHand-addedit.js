@@ -224,11 +224,11 @@ $(function() {
             field: 'tokenTo',
             title: 'to'
         }, {
-            field: 'gas',
+            field: 'gasLimit',
             title: 'gasLimit',
         }, {
-            field: 'gasPrice',
-            title: 'gasPriceString',
+            field: 'gasPriceString',
+            title: 'gasPrice',
 	        formatter: function(v,data){
 	        	return moneyFormat(v,'','ETH')+'ETH';
         	}

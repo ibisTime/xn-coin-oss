@@ -11,10 +11,10 @@ $(function() {
         field: 'txFeeString',
         formatter: moneyFormatBTC
     }, {
-        field: 'fromAddress',
-        title: '来方归集地址',
-    }, {
-        title: "去方归集地址",
+//      field: 'fromAddress',
+//      title: '来方归集地址',
+//  }, {
+        title: "归集去方地址",
         field: "toAddress"
     }, {
         title: "交易HASH",

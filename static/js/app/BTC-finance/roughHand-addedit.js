@@ -66,13 +66,13 @@ $(function() {
         },
         readonly: true
     }, {
-        title: "打币地址",
-        field: "payUser",
-        formatter: function(v, data) {
-            return data.withdraw.payUser;
-        },
-        readonly: true
-    }, {
+//      title: "打币地址",
+//      field: "payUser",
+//      formatter: function(v, data) {
+//          return data.withdraw.payUser;
+//      },
+//      readonly: true
+//  }, {
         title: "交易Hash",
         field: "channelOrder",
         formatter: function(v, data) {

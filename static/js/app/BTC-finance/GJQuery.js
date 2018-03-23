@@ -9,7 +9,7 @@ $(function() {
         title: '交易数量',
         formatter: moneyFormatBTC
     }, {
-        title: "去方归集地址",
+        title: "归集去方地址",
         field: "toAddress"
     }, {
         title: "交易HASH",
