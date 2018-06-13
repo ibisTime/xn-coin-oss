@@ -1288,7 +1288,7 @@ function buildDetail(options) {
                 html += '<li class="clearfix" style="display:inline-block;"><label>' + item.title + ':</label>' + '<span id="province" name="province" style="display: inline-block;"></span>' + '<span id="city" name="city" style="display: inline-block;padding: 0 8px;"></span>' + '<span id="area" name="area" style="display: inline-block;"></span></li>'
             } else if (item.type == 'o2m') {
                 html += '<li class="clearfix" type="' + (item.amount ? 'amount' : '') +
-                    '" style="' + (item.width ? ('width: ' + item.width + ';display:inline-block;') : '') +
+                    '" style="float: left;' + (item.width ? ('width: ' + item.width + ';display:inline-block;') : '') +
                     (item.hidden ? 'display: none;' : '') + '"><label>' + item.title + '</label>' +
                     '<div id="' + item.field + '" name="' + item.field + '"></div></li>';
             } else if (item.type == "checkbox") {
