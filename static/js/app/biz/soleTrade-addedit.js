@@ -75,6 +75,14 @@ $(function() {
         },
         search: true
     }, {
+        field: 'payAccount',
+        title: '支付宝账号'
+    }, {
+        field: 'payAccountQr',
+        title: '支付宝二维码图片',
+        type: 'img',
+        single: true
+    }, {
         title: "状态",
         field: "status",
         type: "select",

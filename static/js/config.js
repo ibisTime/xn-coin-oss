@@ -8,7 +8,7 @@ OSS.company = 'CD-COIN000017';
 // system name
 OSS.systemName = '数字资产交易管理';
 // company name
-OSS.companyName = '倍可盈';
+OSS.companyName = 'LoveOTC';
 // menuCode
 OSS.menuRoot = 'COINSM201700000000000000';
 // picUrl

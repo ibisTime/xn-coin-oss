@@ -103,6 +103,18 @@ $(function() {
         visible: false,
         search: true
     }, {
+        title: "交易来源",
+        field: "orgin",
+        type: "select",
+        data: {
+            "0": "应用下单",
+            "1": "机器人下单",
+        }
+    }, {
+        field: 'markConfirmDatetime',
+        title: '最迟打款确认时间',
+        formatter: dateTimeFormat,
+    }, {
         field: 'updateDatetime',
         title: '更新时间',
         formatter: dateTimeFormat,
