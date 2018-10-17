@@ -74,6 +74,24 @@ $(function() {
             }
         },
     } ,{
+        title: "交易金额",
+        field: "tradeAmount",
+        formatter: function (v, data) {
+            return data.tradeOrder.tradeAmount;
+        }
+    } ,{
+        title: "交易数量",
+        field: "countString",
+        formatter: function (v, data) {
+            return moneyFormat(data.tradeOrder.countString, '', data.tradeOrder.tradeCoin);
+        }
+    } ,{
+        title: "交易价格",
+        field: "tradePrice",
+        formatter: function (v, data) {
+            return data.tradeOrder.tradePrice;
+        }
+    } ,{
         title: "状态",
         field: "status",
         type: "select",
@@ -96,13 +114,6 @@ $(function() {
             "0": "不通过"
         },
         search: true
-    }, {
-        field: 'updateDatetime',
-        title: '处理时间',
-        formatter: dateTimeFormat,
-    }, {
-        title: '处理说明',
-        field: 'remark'
     }];
     buildList({
         columns: columns,

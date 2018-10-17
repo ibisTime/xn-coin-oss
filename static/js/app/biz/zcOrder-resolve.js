@@ -31,6 +31,32 @@ $(function() {
         field: "tradeOrderCode",
         readonly: true
     }, {
+        title: "币种",
+        field: "tradeCoin",
+        formatter: function(v, data) {
+            if (data.tradeOrder) {
+                return getCoinName(data.tradeOrder.tradeCoin)
+            }
+        },
+    }, {
+        title: "交易金额",
+        field: "tradeAmount",
+        formatter: function (v, data) {
+            return data.tradeOrder.tradeAmount;
+        }
+    } ,{
+        title: "交易数量",
+        field: "countString",
+        formatter: function (v, data) {
+            return moneyFormat(data.tradeOrder.countString, '', data.tradeOrder.tradeCoin);
+        }
+    } ,{
+        title: "交易价格",
+        field: "tradePrice",
+        formatter: function (v, data) {
+            return data.tradeOrder.tradePrice;
+        }
+    } ,{
         title: "申请原因",
         field: "reason",
         readonly: true
