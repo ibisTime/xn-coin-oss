@@ -87,6 +87,8 @@ function moneyFormat(money, format, coin) {
     var unit = coin&&getCoinList()[coin]?getCoinUnit(coin):"1e18";
     if (isNaN(money)) {
         return '-';
+    } else {
+        money = Number(money).toString();
     }
     if (format == '' || format == null || format == undefined || typeof format == 'object') {
         format = 8;

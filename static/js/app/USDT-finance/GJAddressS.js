@@ -19,23 +19,34 @@ $(function() {
         field: "createDatetime",
         formatter: dateTimeFormat
     }, {
-        title: "余额",
+        title: "BTC余额",
         field: "btcBalance",
         formatter: function (v, data) {
             return moneyFormat(v, '', 'BTC') + 'BTC'
         }
+    }, {
+        title: "USDT余额",
+        field: "usdtBalance",
+        formatter: function (v, data) {
+            return moneyFormat(v, '', 'USDT') + 'USDT'
+        }
     }];
     buildList({
         columns: columns,
-        pageCode: '802205',
+        pageCode: '802385',
         searchParams: {
-            type: 'M',
+            type: 'S',
             companyCode: OSS.company
         }
     });
     $('#addBtn').off('click').click(function () {
         confirm('确认生成地址？').then(function () {
-            reqApi({ code: '802201', sync: true }).then(function () {
+            reqApi({
+                code: '802380',
+                json: {
+                    updater: getUserId()
+                },
+                sync: true }, true).then(function () {
                 sucList();
             })
 
@@ -53,7 +64,7 @@ $(function() {
         }
         confirm("确认弃用？").then(function() {
             reqApi({
-                code: '802202',
+                code: '802381',
                 json: { "code": selRecords[0].code }
             }).then(function() {
             	sucList();

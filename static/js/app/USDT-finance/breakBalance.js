@@ -49,7 +49,7 @@ $(function() {
     }, hideLoading);
     
     reqApi({
-        code: '802904',
+        code: '802906',
         sync: true
     }).then(function(data) {
     	hideLoading()

@@ -35,11 +35,18 @@ $(function() {
             "2": "弃用"
         },
         search: true
-//  }, {
-//      field: 'balanceString',
-//      title: '当前余额',
-//      amount: true,
-//      formatter: moneyFormatBTC
+    }, {
+        title: "BTC余额",
+        field: "btcBalance",
+        formatter: function (v, data) {
+            return moneyFormat(v, '', 'BTC') + 'BTC'
+        }
+    }, {
+        title: "USDT余额",
+        field: "usdtBalance",
+        formatter: function (v, data) {
+            return moneyFormat(v, '', 'USDT') + 'USDT'
+        }
     }];
     buildList({
         columns: columns,

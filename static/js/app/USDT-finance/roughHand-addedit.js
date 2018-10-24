@@ -205,7 +205,7 @@ $(function() {
             title: '生成说明'
         }, ]
     }, {
-        field: 'btcTransList',
+        field: 'usdtTransactionList',
         title: '区块链流水',
         readonly: true,
         type: 'o2m',

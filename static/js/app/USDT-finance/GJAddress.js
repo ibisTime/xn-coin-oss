@@ -36,7 +36,7 @@ $(function() {
         columns: columns,
         pageCode: '802365',
         searchParams: {
-            type: 'W',
+            type: 'UW',
             companyCode: OSS.company
         },
 //      getImportData: function(list) {

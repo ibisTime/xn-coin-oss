@@ -202,7 +202,7 @@ $(function() {
                 formatter: dateTimeFormat
             }]
         }, {
-            field: 'btcTransList',
+            field: 'usdtTransactionList',
             title: '区块链流水',
             readonly: true,
             type: 'o2m',

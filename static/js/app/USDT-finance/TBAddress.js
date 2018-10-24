@@ -20,16 +20,16 @@ $(function() {
         formatter: dateTimeFormat
     }, {
         title: "余额",
-        field: "balanceString",
+        field: "usdtBalance",
         formatter: function (v, data) {
-            return moneyFormat(data.balanceString, '', 'USDT') + 'USDT'
+            return moneyFormat(v, '', 'USDT') + 'USDT'
         }
     }];
     buildList({
         columns: columns,
         pageCode: '802355',
         searchParams: {
-            type: 'M',
+            type: 'UM',
             companyCode: OSS.company
         }
     });

@@ -14,16 +14,18 @@ $(function() {
         title: "归集去方地址",
         field: "toAddress"
     }, {
-        title: "交易HASH",
-        field: 'txHash'
+        title: '来方归集地址',
+        field: 'fromAddress',
     }, {
         field: 'status',
         title: '状态',
         type: 'select',
         data: {
-            "0": "广播中",
-            "1": "广播成功",
-            "2": "广播失败"
+            "0": "等待归集",
+            "1": "获取矿工费广播中",
+            "2": "归集广播中",
+            "3": "归集成功",
+            "4": "归集失败"
         },
         search: true
     }, {
@@ -33,9 +35,9 @@ $(function() {
     }];
     buildList({
         columns: columns,
-        pageCode: '802370',
+        pageCode: '802115',
         searchParams: {
-        	currency:'BTC',
+        	currency:'USDT',
             companyCode: OSS.company
         }
     });
